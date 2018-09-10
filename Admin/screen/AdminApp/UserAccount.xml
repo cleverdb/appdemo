@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen   include-child-content="true"  require-authentication="false"  default-menu-index="1">      
+    <subscreens default-item="UserAccountList"/>
+    <widgets>
+        <subscreens-active/>
+    </widgets>
+</screen>
