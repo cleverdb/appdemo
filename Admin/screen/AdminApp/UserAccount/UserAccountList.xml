@@ -19,10 +19,19 @@ along with this software (see the LICENSE.md file). If not, see
     <transition name="editUserAccount"><default-response url="../EditUserAccount"/></transition>
     <transition name="updatePassword"><default-response url="../EditPassword"/></transition>
     <transition name="createUserAccount"><service-call name="com.liou.impl.UserServices.create#UserAccount"/>
-        <default-response url="."/></transition>
+        <default-response save-current-screen="true" /></transition>
     <transition name="enableUserAccount"><service-call name="com.liou.impl.UserServices.enable#UserAccount"/>
         <default-response url="."/></transition>
     <transition name="disableUserAccount"><service-call name="com.liou.impl.UserServices.disable#UserAccount"/>
+        <default-response url="."/></transition>
+    <transition name="createUserPreference"><service-call name="create#moqui.security.UserPreference"/>
+        <default-response url="."/></transition>
+    <transition name="updateUserPreference"><service-call name="update#moqui.security.UserPreference"/>
+        <default-response url="."/></transition>
+    <transition name="userGroupDetail"><default-response url="../../UserGroup/UserGroupDetail"/></transition>
+    <transition name="createUserGroupMember"><service-call name="create#moqui.security.UserGroupMember"/>
+        <default-response url="."/></transition>
+    <transition name="updateUserGroupMember"><service-call name="update#moqui.security.UserGroupMember"/>
         <default-response url="."/></transition>
     <transition name="getSexTypeEnumList">
         <actions>
@@ -41,28 +50,88 @@ along with this software (see the LICENSE.md file). If not, see
         </entity-find>
     </actions>
     <widgets>
-        <container-dialog id="CreateUserAccountDialog" button-text="新增" >
-            <form-single name="CreateUserAccount" transition="createUserAccount" >
-                <field name="partyId"><default-field><hidden/></default-field></field>
-                <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
-                <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
-                <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
-                <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
-                <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
-                <field name="sex">
-                    <default-field title="性别" tooltip="请选择性别">
-                        <drop-down allow-empty="false">
-                         <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
-                         </dynamic-options>
-                        </drop-down>
-                    </default-field>
-                </field>
-                <field name="newPassword"><default-field title="密码"><password size="15"/></default-field></field>
-                <field name="newPasswordVerify"><default-field title="再次输入密码"><password size="15"/></default-field></field>
-                <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
-            </form-single>
-        </container-dialog>
-        <form-list name="UserAccountList" list="userAccountList" skip-form="true">
+    	<container-box><box-header><label text="人员管理" type="h5"/></box-header><box-toolbar>
+	        <container-dialog id="CreateUserAccountDialog" button-text="新增" >
+	        	<container-box>
+	        	<box-header><label text="基本资料" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+                	 <form-single name="CreateUserAccount" transition="createUserAccount" >
+		                <field name="partyId"><default-field><hidden/></default-field></field>
+		                <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
+		                <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
+		                <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
+		                <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
+		                <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
+		                <field name="sex">
+		                    <default-field title="性别" tooltip="请选择性别">
+		                        <drop-down allow-empty="false">
+		                         <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+		                         </dynamic-options>
+		                        </drop-down>
+		                    </default-field>
+		                </field>
+		                <field name="newPassword"><default-field title="密码"><password size="15"/></default-field></field>
+		                <field name="newPasswordVerify"><default-field title="再次输入密码"><password size="15"/></default-field></field>
+		                <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+	            </form-single>
+                </box-body>
+                <box-body-nopad>
+                </box-body-nopad>
+             </container-box>
+             <container-box>
+	        	<box-header><label text="照片资料" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+                </box-body>
+                <box-body-nopad>
+                </box-body-nopad>
+             </container-box>
+	        <container-box>
+	        	<box-header>
+	        		<label text="部门信息" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+                	<form-single name="CreateUserGroupMember" transition="createUserGroupMember">
+                            <field name="userId"><default-field><hidden/></default-field></field>
+                            <field name="userGroupId"><default-field title="Group">
+                                <drop-down>
+                                    <entity-options key="${userGroupId}" text="UserGroupNameTemplate">
+                                        <entity-find entity-name="moqui.security.UserGroup">
+                                            <order-by field-name="description"/></entity-find>
+                                    </entity-options>
+                                </drop-down>
+                            </default-field></field>
+                            <field name="fromDate" from="ec.user.nowTimestamp"><default-field><date-time/></default-field></field>
+                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                        </form-single>
+                </box-body>
+                <box-body-nopad>
+                    <form-list name="UserGroupList" list="ugmList" transition="updateUserGroupMember">
+                        <field name="userId"><default-field><hidden/></default-field></field>
+                        <field name="userGroupId"><default-field title="Group">
+                            <display-entity entity-name="moqui.security.UserGroup"/>
+                            <link url="userGroupDetail" text="${userGroupId}" link-type="anchor"/>
+                        </default-field></field>
+                        <field name="fromDate">
+                            <header-field show-order-by="true"/>
+                            <default-field><display/></default-field>
+                        </field>
+                        <field name="thruDate">
+                            <header-field show-order-by="true"/>
+                            <default-field><date-time/></default-field>
+                        </field>
+                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                    </form-list>
+                </box-body-nopad>
+             </container-box>
+	        </container-dialog>
+	    </box-toolbar><box-body>
+        <form-list name="UserAccountList" list="userAccountList" skip-form="true" header-dialog="true" select-columns="true"
+                       show-csv-button="true" show-text-button="true" show-pdf-button="true">
             <field name="userId" hide="true" >
                 <header-field title="ID" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link text="${userId}" url="editUserAccount" link-type="anchor"/></default-field>
@@ -100,6 +169,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <header-field title="状态" show-order-by="true"><drop-down allow-empty="true"><option key="Y" text="冻结"/><option key="N" text="正常"/></drop-down></header-field>
                 <default-field ><display  text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}"/></default-field>
             </field>
+            <field name="find"><header-field title="Find"><submit/></header-field>
+                <default-field><display text=" "/></default-field></field>
             <field name="editUserButton" align="right">
             	<header-field title=" "></header-field>
                 <default-field>
@@ -117,11 +188,10 @@ along with this software (see the LICENSE.md file). If not, see
              <field name="statusButton" align="left">
              	<header-field title=" "></header-field>
              	<default-field>
-	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]" />
+	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]"  />
              	</default-field>
              </field>
-            <field name="find"><header-field title="Find"><submit/></header-field>
-                <default-field><display text=" "/></default-field></field>
         </form-list>
+      </box-body></container-box>
     </widgets>
 </screen>
