@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+          
+          
+	<extend-entity entity-name="UserGroup" package="moqui.security">
+        <field name="userGroupName" type="text-short"/>
+    </extend-entity>
+</entities>

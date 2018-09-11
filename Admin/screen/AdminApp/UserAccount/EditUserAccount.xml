@@ -13,43 +13,59 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" require-authentication="anonymous-view">
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-menu-title="用户基本信息" default-menu-index="1" >
 
-    <parameter name="userId" required="true" from="userId ?: userId_0"/>
-
+    <parameter name="userId" required="true"/>
+	<transition name="getSexTypeEnumList">
+        <actions>
+            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
+	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
+	                <econdition field-name="enumTypeId" value="EmployeeSex"/>
+	                <order-by field-name="description"/>
+	         </entity-find>
+            <script>ec.web.sendJsonResponse(sexEnumList)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
     <transition name="updateUserAccount"><service-call name="update#moqui.security.UserAccount"/>
-        <default-response url="."/></transition>
-
-    <actions>
+        <default-response url="../UserAccountList"/></transition>
+	 <actions>
         <entity-find-one entity-name="moqui.security.UserAccount" value-field="userAccount"/>
-
-        <set field="localeStringList" from="[]"/>
-        <iterate list="Locale.getAvailableLocales()" entry="lcl"><script>localeStringList.add([locale:lcl.toString(), name:lcl.getDisplayName(ec.user.locale)])</script></iterate>
-        <order-map-list list="localeStringList"><order-by field-name="name"/></order-map-list>
-
     </actions>
     <widgets>
-		<form-single name="UserAccountForm" map="userAccount" transition="updateUserAccount">
-			<field name="userId"><default-field><display/></default-field></field>
-			<field name="username"><default-field><text-line size="20"/></default-field></field>
-			<field name="emailAddress"><default-field title="Email"><text-line size="50"/></default-field></field>
-			<field name="userFullName"><default-field title="Full Name"><text-line size="40"/></default-field></field>
-
-			<field name="passwordSetDate"><default-field><display/></default-field></field>
-			<field name="requirePasswordChange"><default-field>
-				<drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></default-field></field>
-			<field name="successiveFailedLogins"><default-field title="Failed Logins"><display/></default-field></field>
-			<field name="disabled"><default-field><display text="${disabled ?: 'N'}"/></default-field></field>
-			<field name="disabledDateTime"><default-field title="Disabled Date"><display/></default-field></field>
-
-			<field name="locale"><default-field>
-				<drop-down allow-empty="true"><list-options list="localeStringList" key="${locale}" text="${locale} - ${name}"/></drop-down>
-			</default-field></field>
-			<field name="timeZone"><default-field>
-				<drop-down allow-empty="true"><list-options list="new TreeSet(TimeZone.getAvailableIDs().collect())"/></drop-down>
-			</default-field></field>
-
-			<field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-        </form-single>   
+			<form-single  name="UserAccountForm" map="userAccount" transition="updateUserAccount">
+				<field name="userId"><default-field><hidden/></default-field></field>
+	            <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
+	            <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
+	            <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
+	            <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
+	            <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
+	            <field name="sex">
+	                <default-field title="性别" tooltip="请选择性别">
+	                    <drop-down allow-empty="false">
+	                     <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+	                     </dynamic-options>
+	                    </drop-down>
+	                </default-field>
+	            </field>
+				<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+	        </form-single>
+	        <form-single name="UserpasswordForm" map="userAccount" transition="updateUserAccount">
+				<field name="userId"><default-field><hidden/></default-field></field>
+	            <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
+	            <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
+	            <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
+	            <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
+	            <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
+	            <field name="sex">
+	                <default-field title="性别" tooltip="请选择性别">
+	                    <drop-down allow-empty="false">
+	                     <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+	                     </dynamic-options>
+	                    </drop-down>
+	                </default-field>
+	            </field>
+				<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+	        </form-single>
     </widgets>
 </screen>

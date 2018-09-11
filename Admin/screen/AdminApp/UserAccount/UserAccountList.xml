@@ -14,72 +14,112 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" require-authentication="anonymous-view">
+        default-menu-include="false" require-authentication="true">
 
-    <transition name="userAccountDetail"><default-response url="../UserAccountDetail"/></transition>
-    <transition name="createUserAccount"><service-call name="org.moqui.impl.UserServices.create#UserAccount"/>
+    <transition name="editUserAccount"><default-response url="../EditUserAccount"/></transition>
+    <transition name="updatePassword"><default-response url="../EditPassword"/></transition>
+    <transition name="createUserAccount"><service-call name="com.liou.impl.UserServices.create#UserAccount"/>
         <default-response url="."/></transition>
-
+    <transition name="enableUserAccount"><service-call name="com.liou.impl.UserServices.enable#UserAccount"/>
+        <default-response url="."/></transition>
+    <transition name="disableUserAccount"><service-call name="com.liou.impl.UserServices.disable#UserAccount"/>
+        <default-response url="."/></transition>
+    <transition name="getSexTypeEnumList">
+        <actions>
+            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
+	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
+	                <econdition field-name="enumTypeId" value="EmployeeSex"/>
+	                <order-by field-name="description"/>
+	         </entity-find>
+            <script>ec.web.sendJsonResponse(sexEnumList)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
     <actions>
         <entity-find entity-name="moqui.security.UserAccount" list="userAccountList">
             <search-form-inputs default-order-by="username"/>
         </entity-find>
     </actions>
     <widgets>
-        <container-dialog id="CreateUserAccountDialog" button-text="Create User Account">
-            <form-single name="CreateUserAccount" transition="createUserAccount">
+        <container-dialog id="CreateUserAccountDialog" button-text="新增" >
+            <form-single name="CreateUserAccount" transition="createUserAccount" >
                 <field name="partyId"><default-field><hidden/></default-field></field>
-                <field name="username"><default-field><text-line size="20"/></default-field></field>
-                <field name="emailAddress"><default-field title="Email"><text-line size="60"/></default-field></field>
-                <field name="userFullName"><default-field title="Full Name"><text-line size="40"/></default-field></field>
-                <field name="newPassword"><default-field title="Password"><password size="15"/></default-field></field>
-                <field name="newPasswordVerify"><default-field title="Password Verify"><password size="15"/></default-field></field>
-                <field name="requirePasswordChange"><default-field>
-                    <drop-down><option key="Y"/><option key="N"/></drop-down></default-field></field>
-                <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
+                <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
+                <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
+                <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
+                <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
+                <field name="sex">
+                    <default-field title="性别" tooltip="请选择性别">
+                        <drop-down allow-empty="false">
+                         <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+                         </dynamic-options>
+                        </drop-down>
+                    </default-field>
+                </field>
+                <field name="newPassword"><default-field title="密码"><password size="15"/></default-field></field>
+                <field name="newPasswordVerify"><default-field title="再次输入密码"><password size="15"/></default-field></field>
+                <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
             </form-single>
         </container-dialog>
-        <form-list name="UserAccountList" list="userAccountList" skip-form="false">
-            <field name="userId">
+        <form-list name="UserAccountList" list="userAccountList" skip-form="true">
+            <field name="userId" hide="true" >
                 <header-field title="ID" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
-                <default-field><link text="${userId}" url="userAccountDetail" link-type="anchor"/></default-field>
+                <default-field><link text="${userId}" url="editUserAccount" link-type="anchor"/></default-field>
             </field>
             <field name="username">
-                <header-field show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
-                <default-field><link text="${username}" url="userAccountDetail" link-type="anchor"/></default-field>
-            </field>
-            <field name="emailAddress">
-                <header-field show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <header-field title="员工工号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
             <field name="userFullName">
-                <header-field show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <header-field title="中文名" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
-            <!--<field name="passwordSetDate">
-                <header-field show-order-by="true"><date-period allow-empty="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>-->
-            <field name="requirePasswordChange">
-                <header-field title="Req PW Change" show-order-by="true"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
+			<field name="sex" >
+	            <header-field title="性别" show-order-by="true">
+	            	<drop-down allow-empty="false">
+                            <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+                            </dynamic-options>
+                   	</drop-down>
+				</header-field>
+	            <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+             </field>
+            <field name="cellphone">
+                <header-field title="手机号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
-            <field name="successiveFailedLogins">
-                <header-field title="Failed Logins" show-order-by="true"/>
+            <field name="idCard">
+                <header-field title="证件号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="emailAddress">
+                <header-field title="邮箱" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
             <field name="disabled">
-                <header-field show-order-by="true"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
-                <default-field><display text="${disabled ?: 'N'} ${disabledDateTime ?: ''}"/></default-field>
+                <header-field title="状态" show-order-by="true"><drop-down allow-empty="true"><option key="Y" text="冻结"/><option key="N" text="正常"/></drop-down></header-field>
+                <default-field ><display  text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}"/></default-field>
             </field>
-            <field name="locale">
-                <header-field show-order-by="true"><text-find size="6" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="timeZone">
-                <header-field show-order-by="true"><text-find size="8" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
+            <field name="editUserButton" align="right">
+            	<header-field title=" "></header-field>
+                <default-field>
+	                <dynamic-dialog button-text="修改"  parameter-map="[userId:userId]" transition="editUserAccount" id ="EditUser"  type="primary">
+	                </dynamic-dialog>
+             	</default-field>
+             </field>
+            <field name="editPasswordButton" align="center">
+            	<header-field title=" "></header-field>
+                <default-field>
+	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="primary">
+	                </dynamic-dialog>
+             	</default-field>
+             </field>
+             <field name="statusButton" align="left">
+             	<header-field title=" "></header-field>
+             	<default-field>
+	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]" />
+             	</default-field>
+             </field>
             <field name="find"><header-field title="Find"><submit/></header-field>
                 <default-field><display text=" "/></default-field></field>
         </form-list>

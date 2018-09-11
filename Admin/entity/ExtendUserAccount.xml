@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+          
+          
+	<extend-entity entity-name="UserAccount" package="moqui.security">
+        <field name="cellphone" type="number-integer"/>
+        <field name="idCard" type="text-short" />
+        <field name="sex" type="text-short"/>
+        <relationship type="one" title="EmployeeSex" related="moqui.basic.Enumeration" short-alias="es">
+			<key-map field-name="sex"/>
+		</relationship>
+		<seed-data>
+			 <!-- employee sex -->
+            <moqui.basic.EnumerationType description="Employee Sex" enumTypeId="EmployeeSex"/>
+            <moqui.basic.Enumeration description="男" enumId="sexMan" enumTypeId="EmployeeSex"/>
+            <moqui.basic.Enumeration description="女" enumId="sexWomen" enumTypeId="EmployeeSex"/>
+		</seed-data>
+		 <master>
+            <detail relationship="es"/>
+        </master>
+    </extend-entity>
+</entities>

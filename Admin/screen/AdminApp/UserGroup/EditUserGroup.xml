@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" standalone="true">
+
+    <parameter name="userGroupId" required="true"/>
+
+    <transition name="updateUserGroup"><service-call name="update#moqui.security.UserGroup"/>
+        <default-response url="../UserGroupList"/></transition>
+
+    <actions>
+        <entity-find-one entity-name="moqui.security.UserGroup" value-field="userGroup"/>
+    </actions>
+    <widgets>
+        <form-single name="UserGroupForm" map="userGroup" transition="updateUserGroup">
+            <field name="userGroupId"><default-field ><hidden/></default-field></field>
+            <field name="userGroupName"><default-field title="名称" ><text-line size="20"/></default-field></field>
+            <field name="description"><default-field title="描述"><text-line size="40"/></default-field></field>
+            <field name="groupTypeEnumId"><default-field title="Group Type">
+                <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                    <set field="enumTypeId" value="UserGroupType"/><set field="allowEmpty" value="true"/></widget-template-include>
+            </default-field></field>
+
+            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+        </form-single>
+    </widgets>
+</screen>
