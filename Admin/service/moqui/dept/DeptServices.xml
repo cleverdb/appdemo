@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+	<service verb="delete" noun="Dept" allow-remote="true" >
+		<in-parameters>
+			<parameter name="id"  required="true"></parameter>
+		</in-parameters>
+		<out-parameters>
+			<auto-parameters entity-name="dongbo.Dept" include="pk"></auto-parameters>
+		</out-parameters>
+		<actions>
+			<entity-find-count  entity-name="dongbo.Emp" count-field="empCount"  >
+				<econdition field-name="deptId" from="id"/>
+			</entity-find-count>
+			<log level="info" message="------------------------------------------empList =${empList}"/>
+			<if condition="empCount &gt; 0 ">
+				<message error="true"> 部门下存在员工不能删除！</message>
+			</if>
+			<check-errors></check-errors>
+			<service-call name="delete#dongbo.Dept" in-map="['id':id]" >
+			</service-call>
+		</actions>
+	</service>
+
+</services>

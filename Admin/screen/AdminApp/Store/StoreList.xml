@@ -44,8 +44,8 @@ along with this software (see the LICENSE.md file). If not, see
         <default-response type="none"/>
     </transition>
     <actions>
-        <entity-find entity-name="moqui.security.UserAccount" list="userAccountList">
-            <search-form-inputs default-order-by="username"/>
+        <entity-find entity-name="moqui.security.Store" list="storeList">
+            <search-form-inputs default-order-by="storeName"/>
         </entity-find>
 <!--         <entity-find entity-name="moqui.security.UserGroupMember" list="ugmList"> -->
 <!--             <econdition field-name="userId"/><order-by field-name="userGroupId"/></entity-find> -->
@@ -55,44 +55,19 @@ along with this software (see the LICENSE.md file). If not, see
     	<box-toolbar>
 	       <link url="addUserAccount" text="新增"></link> 
 	    </box-toolbar><box-body>
-        <form-list name="UserAccountList" list="userAccountList" skip-form="true" header-dialog="true" select-columns="true"
+        <form-list name="StoreList" list="stroeList" skip-form="true" header-dialog="true" select-columns="true"
                        show-csv-button="true" show-text-button="true" show-pdf-button="true">
-            <field name="userId" hide="true" >
+            <field name="storeId" hide="true" >
                 <header-field title="ID" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link text="${userId}" url="editUserAccount" link-type="anchor"/></default-field>
             </field>
-            <field name="username">
-                <header-field title="员工工号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
+            <field name="storeName">
+                <header-field title="门店名称" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
-            <field name="userFullName">
-                <header-field title="中文名" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+            <field name="storePhone">
+                <header-field title="门店名称" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
-            </field>
-			<field name="sex" >
-	            <header-field title="性别" show-order-by="true">
-	            	<drop-down allow-empty="false">
-                            <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
-                            </dynamic-options>
-                   	</drop-down>
-				</header-field>
-	            <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-             </field>
-            <field name="cellphone">
-                <header-field title="手机号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="idCard">
-                <header-field title="证件号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="emailAddress">
-                <header-field title="邮箱" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="disabled">
-                <header-field title="状态" show-order-by="true"><drop-down allow-empty="true"><option key="Y" text="冻结"/><option key="N" text="正常"/></drop-down></header-field>
-                <default-field ><display  text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}"/></default-field>
             </field>
             <field name="find"><header-field title="Find"><submit/></header-field>
                 <default-field><display text=" "/></default-field></field>

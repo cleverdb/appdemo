@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+    <entity entity-name="Emp" package="dongbo">
+        <field name="id" type="id" is-pk="true"/>
+        <field name="empName" type="text-medium"/>
+		<field name="age" type="number-integer"/>
+		<field name="salary" type="number-decimal"/>
+		<field name="sex" type="text-medium"/>
+		<field name="deptId" type="id"/>
+		<field name="icon" type="text-medium"></field>
+<!-- 		<relationship type="one" title="EmpSex" related="moqui.basic.Enumeration" short-alias="se"> -->
+<!-- 			<key-map field-name="sex"/> -->
+<!-- 		</relationship> -->
+		<relationship type="one" related="dongbo.Dept" short-alias="sdept">
+			<key-map field-name="deptId"/>
+		</relationship>
+		
+		<seed-data>
+			 <!-- emp sex -->
+            <moqui.basic.EnumerationType description="Emp Sex" enumTypeId="EmpSex"/>
+            <moqui.basic.Enumeration description="男" enumId="sex_man" enumTypeId="EmpSex"/>
+            <moqui.basic.Enumeration description="女" enumId="sex_women" enumTypeId="EmpSex"/>
+             <moqui.basic.Enumeration description="男女" enumId="sex_man_women" enumTypeId="EmpSex"/>
+		</seed-data>
+		 <master>
+<!--             <detail relationship="se"/> -->
+            <detail relationship="sdept"/>
+        </master>
+    </entity>
+</entities>

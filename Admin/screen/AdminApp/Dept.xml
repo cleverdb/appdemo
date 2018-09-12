@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen include-child-content="true"  require-authentication="false">
+	<subscreens default-item="FindDept"/>
+	<widgets>
+		<subscreens-active></subscreens-active>
+	</widgets>
+	
+</screen>
+
+<!-- <screen require-authentication="false">
+    <widgets>
+        <label type="h1" text="Hello world!"/>
+        <render-mode>
+            <text type="xml" location="component://dongbo/screen/home/FindDept.xml"/>
+        </render-mode>
+    </widgets>
+</screen> -->

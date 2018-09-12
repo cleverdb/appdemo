@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen  require-authentication="anonymous-all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" >
+	<parameter name="id" required="true"/>
+	<transition name="updateDept"><service-call name="update#dongbo.Dept"/>
+        <default-response url="../FindDept"/></transition>
+     <actions>
+        <entity-find-one entity-name="dongbo.Dept" value-field="dept"/>
+        <log message="EditExample exampleId [${exampleId}] example [${example}]"/>
+    </actions>
+ 	<widgets>
+        <form-single name="UpdateDeptForm" transition="updateDept" map="dept">
+       		 <auto-fields-service service-name="update#dongbo.Dept"/>
+            <auto-fields-entity entity-name="dongbo.Dept" field-type="edit"/>
+            <field name="submitButton"><default-field title="update"><submit/></default-field></field>
+        </form-single>
+	</widgets>
+</screen>

@@ -7,9 +7,9 @@
 	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-	default-menu-title="修改用户信息" default-menu-index="2">
+	default-menu-title="新增用户信息" >
 
-	<parameter name="userId" required="true" />
+	<parameter name="userId" required="false" from = "userId" />
 	<transition name="getSexTypeEnumList">
 		<actions>
 			<log level="warn" message="In getSexTypeEnumList transition sex=${sex}" />
@@ -21,12 +21,12 @@
 		</actions>
 		<default-response type="none" />
 	</transition>
-	<transition name="updateUserAccount">
-		<service-call name="update#moqui.security.UserAccount" />
-		<default-response url="." />
-	</transition>
+	<transition name="createUserAccount">
+    	<service-call name="com.liou.impl.UserServices.create#UserAccount"/>
+        <default-response url = "."></default-response>
+    </transition>
 	<transition name="userGroupDetail">
-		<default-response url="." />
+		<default-response url="../UserAccountList" />
 	</transition>
 
 	<transition name="createUserGroupMember">
@@ -49,15 +49,15 @@
 	<widgets>
 		<container-row>
 			<row-col lg='6'>
-				<container-box>
-					<box-header>
+				<container-box >
+					<box-header >
 						<label text="基本资料" type="h5" />
 					</box-header>
 					<box-toolbar>
 					</box-toolbar>
 					<box-body>
 						<form-single name="UserAccountForm" map="userAccount"
-							transition="updateUserAccount">
+							transition="createUserAccount">
 							<field name="userId">
 								<default-field>
 									<hidden />
@@ -83,7 +83,7 @@
 									<text-line size="18" maxlength="18" />
 								</default-field>
 							</field>
-							<field name="emailAddress">
+							<field name="emailAddress" >
 								<default-field title="邮箱">
 									<text-line size="25" />
 								</default-field>
@@ -97,7 +97,10 @@
 									</drop-down>
 								</default-field>
 							</field>
-							<field name="submitButton">
+							
+							<field name="newPassword" hide="userId != null"><default-field title="密码"><password size="15"/></default-field></field>
+		                	<field name="newPasswordVerify" hide="userId != null"><default-field title="再次输入密码"><password size="15"/></default-field></field>
+							<field name="submitButton" hide="userId != null">
 								<default-field title="保存">
 									<submit />
 								</default-field>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen require-authentication="anonymous-all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" >
+	<parameter name="id" required="true"/>
+	<transition name="updateEmp"><service-call name="update#dongbo.Emp"/>
+        <default-response url="../FindEmp"/></transition>
+        <transition name="getSexTypeEnumList">
+        <actions>
+            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
+	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
+	                <econdition field-name="enumTypeId" value="EmpSex"/>
+	                <order-by field-name="description"/>
+	         </entity-find>
+            <script>ec.web.sendJsonResponse(sexEnumList)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+     <actions>
+        <entity-find-one entity-name="dongbo.Emp" value-field="emp"/>
+        <log message="EditExample exampleId [${exampleId}] example [${example}]"/>
+    </actions>
+ 	<widgets>
+        <form-single name="UpdateEmpForm" transition="updateEmp" map="emp">
+       		<field name="sex">
+                        <default-field title="性别" tooltip="请选择性别">
+                            <drop-down allow-empty="false" allow-multiple="true" >
+	                            <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+	                            </dynamic-options>
+                            </drop-down>
+                        </default-field>
+             </field>
+             <field name="empName" >
+                        <default-field title="是否" >
+                        <check  ><option key="Y"/></check>
+                        </default-field>
+                    </field>
+            <field name="submitButton"><default-field title="update"><submit/></default-field></field>
+        </form-single>
+	</widgets>
+</screen>

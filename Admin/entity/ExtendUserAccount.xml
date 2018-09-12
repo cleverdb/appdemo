@@ -4,7 +4,7 @@
           
           
 	<extend-entity entity-name="UserAccount" package="moqui.security">
-        <field name="cellphone" type="number-integer"/>
+        <field name="cellphone" type="text-short"/>
         <field name="idCard" type="text-short" />
         <field name="sex" type="text-short"/>
         <relationship type="one" title="EmployeeSex" related="moqui.basic.Enumeration" short-alias="es">

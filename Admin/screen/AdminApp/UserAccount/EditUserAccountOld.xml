@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" standalone="true" default-menu-title="用户基本信息" default-menu-index="1" >
+
+    <parameter name="userId" required="true"/>
+	<transition name="getSexTypeEnumList">
+        <actions>
+            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
+	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
+	                <econdition field-name="enumTypeId" value="EmployeeSex"/>
+	                <order-by field-name="description"/>
+	         </entity-find>
+            <script>ec.web.sendJsonResponse(sexEnumList)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+    <transition name="updateUserAccount"><service-call name="update#moqui.security.UserAccount"/>
+        <default-response url="../UserAccountList"/></transition>
+    <transition name="userGroupDetail"><default-response url="../UserAccountList"/></transition>
+    
+    <transition name="createUserGroupMember"><service-call name="create#moqui.security.UserGroupMember"/>
+        <default-response url="."/></transition>
+    <transition name="updateUserGroupMember"><service-call name="update#moqui.security.UserGroupMember"/>
+        <default-response url="."/></transition>
+	 <actions>
+        <entity-find-one entity-name="moqui.security.UserAccount" value-field="userAccount"/>
+        <entity-find entity-name="moqui.security.UserGroupMember" list="ugmList">
+            <econdition field-name="userId"/><order-by field-name="userGroupId"/></entity-find>
+    </actions>
+    <widgets>
+    		<container-box>
+	        	<box-header><label text="基本资料" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+	                <form-single  name="UserAccountForm" map="userAccount" transition="updateUserAccount">
+					<field name="userId"><default-field><hidden/></default-field></field>
+		            <field name="username"><default-field title="员工工号"><text-line size="20"/></default-field></field>
+		            <field name="userFullName"><default-field title="中文名"><text-line size="20"/></default-field></field>
+		            <field name="cellphone"><default-field title="手机号" ><text-line size="11" maxlength="11"/></default-field></field>
+		            <field name="idCard"><default-field title="证件号"><text-line size="18" maxlength="18"/></default-field></field>
+		            <field name="emailAddress"><default-field title="邮箱"><text-line size="25"/></default-field></field>
+		            <field name="sex">
+		                <default-field title="性别" tooltip="请选择性别">
+		                    <drop-down allow-empty="false">
+		                     <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
+		                     </dynamic-options>
+		                    </drop-down>
+		                </default-field>
+		            </field>
+					<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+		        </form-single>
+                </box-body>
+                <box-body-nopad>
+                </box-body-nopad>
+             </container-box>
+	       	<container-box>
+	        	<box-header><label text="照片资料" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+                </box-body>
+                <box-body-nopad>
+                </box-body-nopad>
+             </container-box>
+	        <container-box>
+	        	<box-header>
+	        		<label text="部门信息" type="h5"/></box-header>
+	        	<box-toolbar>
+                </box-toolbar>
+                <box-body>
+                	<form-single name="CreateUserGroupMember" transition="createUserGroupMember">
+                            <field name="userId"><default-field><hidden/></default-field></field>
+                            <field name="userGroupId"><default-field title="Group">
+                                <drop-down>
+                                    <entity-options key="${userGroupId}" text="UserGroupNameTemplate">
+                                        <entity-find entity-name="moqui.security.UserGroup">
+                                            <order-by field-name="description"/></entity-find>
+                                    </entity-options>
+                                </drop-down>
+                            </default-field></field>
+                            <field name="fromDate" from="ec.user.nowTimestamp"><default-field><date-time/></default-field></field>
+                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                        </form-single>
+                </box-body>
+                <box-body-nopad>
+                    <form-list name="UserGroupList" list="ugmList" transition="updateUserGroupMember">
+                        <field name="userId"><default-field><hidden/></default-field></field>
+                        <field name="userGroupId"><default-field title="Group">
+                            <display-entity entity-name="moqui.security.UserGroup"/>
+                            <link url="userGroupDetail" text="${userGroupId}" link-type="anchor"/>
+                        </default-field></field>
+                        <field name="fromDate">
+                            <header-field show-order-by="true"/>
+                            <default-field><display/></default-field>
+                        </field>
+                        <field name="thruDate">
+                            <header-field show-order-by="true"/>
+                            <default-field><date-time/></default-field>
+                        </field>
+                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                    </form-list>
+                </box-body-nopad>
+             </container-box>
+    </widgets>
+</screen>

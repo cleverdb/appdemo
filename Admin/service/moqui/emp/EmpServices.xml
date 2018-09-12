@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+	<service verb="create" noun="Emp" allow-remote="true" type="script" location="component://example/script/org/moqui/example/EmpGroServices.groovy">
+		<in-parameters>
+			<auto-parameters entity-name="dongbo.Emp" include="nonpk" >
+			</auto-parameters>
+			<parameter name="uploadFile" type="org.apache.commons.fileupload.FileItem" required="true"></parameter>
+		</in-parameters>
+		<out-parameters>
+			<auto-parameters entity-name="dongbo.Emp" include="pk"></auto-parameters>
+		</out-parameters>
+		<actions>
+			<set field="filename" from="uploadFile.getName()"/>
+            <set field="contentRoot" value="dbresource://runtime"/>
+            <set field="contentLocation" value="${contentRoot}/product/${filename}"/>
+
+            <set field="docRr" from="ec.resource.getLocationReference(contentLocation)"/>
+            <log level="info" message="docRr-----------------,,,,,,,--------------------------=${docRr.getUrl()}"/>
+		</actions>
+	</service>
+
+</services>

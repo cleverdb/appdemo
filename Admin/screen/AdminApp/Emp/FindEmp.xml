@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen require-authentication="anonymous-all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-menu-include="false">
+<!-- 	<transition name="createEmp"> -->
+<!-- 		<service-call name="moqui.emp.EmpServices.create#Emp"/> -->
+<!-- 		<default-response url="."/> -->
+<!-- 	</transition> -->
+<transition name="createEmp"><service-call name="create#dongbo.Emp"/>
+        <default-response url="."/></transition>
+
+	 <transition name="editEmp"><default-response url="../EditEmp"/></transition>
+	
+    <transition name="findEmp"><default-response url="."/></transition>
+     <transition name="getSexTypeEnumList">
+        <actions>
+            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
+	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
+	                <econdition field-name="enumTypeId" value="EmpSex"/>
+	                <order-by field-name="description"/>
+	         </entity-find>
+            <script>ec.web.sendJsonResponse(sexEnumList)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+    
+    <transition name="downloadContent">
+        <actions>
+            <script>ec.web.sendResourceResponse(icon)</script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+     <pre-actions>
+        <set field="html_title" value="Find XXX"/>
+        <set field="html_description" value="A page for finding Examples"/>
+        <set field="html_keywords" value="moqui,find,example,status,edit,new"/>
+    </pre-actions>
+    <actions>
+	<service-call name="" out-map="XXX">
+	</service-call>
+	<script>ec.web.sendJsonResponse(XXX)</script>
+        <entity-find entity-name="dongbo.EmpViews" list="empList">
+            <search-form-inputs/>
+		</entity-find>
+        <entity-find entity-name="dongbo.Dept" list="DeptList"/>
+    </actions>
+    <widgets>
+    
+    <label text="${empList}" type="h5"/>
+<!--      <label text="${ec.resource.getLocationReference('dbresource://runtime/product/constantPool.png')}" type="h5"/> -->
+<link url=""></link>
+     <container-box><box-header><label text="Find Emp" type="h5"/></box-header><box-toolbar>
+		<container-dialog id="CreateEmpDialog" button-text="Create Emp">
+			<form-single name="CreateEmptForm" transition="createEmp">
+ 				 <auto-fields-entity entity-name="dongbo.Emp" field-type="edit"/> 
+					<field name="sex">
+                        <default-field title="性别" tooltip="请选择性别">
+                            <drop-down allow-empty="false" allow-multiple="true" >
+	                            <dynamic-options  transition="getSexTypeEnumList" delay="300" value-field="enumId" label-field="description">
+	                            </dynamic-options>
+                            </drop-down>
+                        </default-field>
+                    </field>
+                    <field name="deptId" >
+                        <default-field title="部门" tooltip="请选择部门">
+                        <drop-down>
+                        	<list-options list="DeptList" key="${id}" text="${sdeptame}"/>
+                        </drop-down>
+                        </default-field>
+                    </field>
+                    <field name="empName" >
+                        <default-field title="是否" >
+                        <check  ><option key="Y"/></check>
+                        </default-field>
+                    </field>
+                    <field name="uploadFile">
+                    	<default-field title="图标">
+                    		<file/>
+                    	</default-field>
+                    </field>
+				 	<field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+			</form-single>
+		</container-dialog>	
+	</box-toolbar><box-body>
+        <form-list name="ListEmp" list="empList"  skip-form="true" header-dialog="true" select-columns="true"
+                       show-csv-button="true" show-text-button="true" show-pdf-button="true">
+<!-- 			<auto-fields-entity entity-name="dongbo.Emp" field-type="find-display"/> -->
+<!-- 			<auto-fields-entity entity-name="dongbo.Dept" field-type="find-display"/> -->
+			 <field name="empName" print-width="50" >
+             		<header-field  title="部门名称" show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><display/></default-field>
+             </field>
+              <field name="age" print-width="20"  >
+             		<header-field show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><display/></default-field>
+             </field>
+			 <field name="salary" print-width="30"  >
+             		<header-field show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><display/></default-field>
+             </field>
+				<field name="sex" print-width="30" >
+		           <header-field title="性别" show-order-by="true">
+	            	<drop-down allow-empty="false" allow-multiple="true" >
+                            <dynamic-options transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description" >
+                            </dynamic-options>
+                   	</drop-down>
+				</header-field>
+	            <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+             </field>
+			 <field name="sdeptame" print-width="20" >
+			 		<header-field show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><display/></default-field>
+             </field>
+              <field name="deptDesc" print-width="0" >
+              		<header-field show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><display/></default-field>
+              </field>
+<!--               <field name="icon"> -->
+<!--               			<default-field> -->
+<!--                				 <link url="downloadContent" text="Download"/> -->
+<!--                 		</default-field> -->
+<!--                </field> -->
+              <field name="icon" print-width="0" >
+              		<header-field ></header-field>
+                    <default-field>
+                    <image url="/images/icon/constantPool.png" url-type="screen"  height="50" width="50"></image>
+                    </default-field>
+              </field>
+              <field name="editButton">
+				<header-field title="编辑"  > <display also-hidden="false"></display></header-field>
+                <default-field>
+                   <dynamic-dialog button-text="edit" transition="editEmp" id="edit" type="primary">
+                       		<parameter name="id"  value="${id}"/>
+                   </dynamic-dialog>
+             	</default-field>
+             </field>
+			 <field name="find"><header-field title=""><submit text="查找"/></header-field>
+                    <default-field><ignored /></default-field></field>
+        </form-list>
+        </box-body>
+        </container-box>
+    </widgets>
+</screen>

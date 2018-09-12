@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+  	<entity entity-name="Store" package="moqui.security" use="transactional" short-alias="store">
+        <field name="storeId" type="id" is-pk="true"/>
+        <field name="storeName" type="text-medium" enable-audit-log="true" />
+        <field name="storePhone" type="text-medium"/>
+        <field name="storeFax" type="text-medium"/>
+        <field name="totalArea" type="number-decimal"/>
+        <field name="workArea" type="number-decimal"/>
+       	<field name="address" type="text-medium"></field>
+       	<field name="status" type="text-indicator"/>
+        <field name="appPower" type="text-indicator"/>
+        <field name="appPool" type="text-indicator"/>
+        <field name="appAir" type="text-indicator"/>
+        <field name="appPingpong" type="text-indicator"/>
+        <field name="appBadminton" type="text-indicator"/>
+        <field name="serverWifi" type="text-indicator"/>
+        <field name="serverPark" type="text-indicator"/>
+        <field name="serverTowel" type="text-indicator"/>
+        <field name="serverShower" type="text-indicator"/>
+        <field name="serverWater" type="text-indicator"/>
+        <field name="serverAirclean" type="text-indicator"/>
+        <field name="serverLocker" type="text-indicator"/>
+        <field name="description" type="text-long"/>
+        <index name="USERACCT_STORENAME" unique="true"><index-field name="storeName"/></index>
+        <index name="USERACCT_STOREID" unique="true"><index-field name="storeId"/></index>
+    </entity>
+</entities>

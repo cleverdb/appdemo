@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+    <entity entity-name="Dept" package="dongbo">
+        <field name="id" type="id" is-pk="true"/>
+        <field name="sdeptame" type="text-medium"/>
+		<field name="deptDesc" type="text-long"/>
+    </entity>
+</entities>

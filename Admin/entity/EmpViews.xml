@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+
+    <view-entity entity-name="EmpViews" package="dongbo">
+        <member-entity entity-alias="_emp" entity-name="dongbo.Emp"/>
+        <member-entity entity-alias="_dept" entity-name="dongbo.Dept" join-from-alias="_emp">
+            <key-map field-name="deptId" related="id"/></member-entity>
+            <alias-all entity-alias="_emp"></alias-all>
+        	<alias-all entity-alias="_dept"></alias-all>
+        	<alias entity-alias="_emp" name="emplastUpdatedStamp" field="lastUpdatedStamp"></alias>
+        	<alias entity-alias="_dept" name="deptlastUpdatedStamp" field="lastUpdatedStamp"></alias>
+        	<alias entity-alias="_dept" name="sdeptid" field="id"></alias>
+<!--         <entity-condition> -->
+<!--             <econdition field-name="changedEntityName" operator="equals" value="Example"/> -->
+<!--             <econdition field-name="changedFieldName" operator="equals" value="statusId"/> -->
+<!--         </entity-condition> -->
+    </view-entity>
+ </entities>
