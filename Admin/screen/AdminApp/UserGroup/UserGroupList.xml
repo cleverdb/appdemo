@@ -17,6 +17,7 @@ along with this software (see the LICENSE.md file). If not, see
         default-menu-include="false">
 
     <transition name="editUserGroup"><default-response url="../EditUserGroup"/></transition>
+    <transition name="bindArtifactGroup"><default-response url="../BindArtifactGroup"/></transition>
     <transition name="createUserGroup"><service-call name="create#moqui.security.UserGroup"/>
         <default-response url="."/></transition>
 
@@ -46,6 +47,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <header-field title="描述" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
+            <field name="find"><header-field title="Find"><submit/></header-field>
+                <default-field><display text=" "/></default-field></field>
              <field name="editUserGroupButton" align="right">
             	<header-field title=" "></header-field>
                 <default-field>
@@ -53,8 +56,13 @@ along with this software (see the LICENSE.md file). If not, see
 	                </dynamic-dialog>
              	</default-field>
              </field>
-            <field name="find"><header-field title="Find"><submit/></header-field>
-                <default-field><display text=" "/></default-field></field>
+              <field name="bindArtifactGroupButton" >
+            	<header-field title=" "></header-field>
+                <default-field>
+	                <dynamic-dialog button-text="绑定权限组"  parameter-map="[userGroupId:userGroupId]" transition="bindArtifactGroup" id ="BindArtifactGroup"  type="primary">
+	                </dynamic-dialog>
+             	</default-field>
+             </field>
         </form-list>
     </widgets>
 </screen>

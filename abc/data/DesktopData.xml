@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="seed">
+    <dongbo.Desktop id="TestOne" sdeptame="Test one description." deptDesc="这是第一条数据"/>
+    <dongbo.Desktop id="TestTwo" sdeptame="Test two description." deptDesc="这是第二条数据"/>
+</entity-facade-xml>

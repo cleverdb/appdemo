@@ -14,9 +14,9 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="门店" default-menu-index="1">
-    <subscreens default-item="UserGroupList"/>
+        include-child-content="true" require-authentication="false" menu-image="glyphicon glyphicon-flash" menu-image-type="icon">
+   <subscreens default-item="Desktop"/>
     <widgets>
-        <subscreens-panel id="UserGroupPanel" type="tab"/>
+        <subscreens-panel id="abc-app" type="popup"/>
     </widgets>
 </screen>

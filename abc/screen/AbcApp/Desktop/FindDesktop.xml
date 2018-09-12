@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen require-authentication="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd">
+	<transition name="createDesktop">
+		<service-call name="create#dongbo.Desktop"/>
+		<default-response url="."/>
+	</transition>
+	 <transition name="editDesktop"><default-response url="../EditDesktop"/></transition>
+	 
+	<transition name="deleteDesktop">
+		<service-call name="moqui.dept.DeptServices.delete#Desktop"></service-call>
+		<default-response url="." />
+	</transition>
+	
+    <transition name="findDesktop"><default-response url="."/></transition>
+    
+    <actions>
+        <entity-find entity-name="dongbo.Desktop" list="deptList">
+            <search-form-inputs />
+		</entity-find>
+    </actions>
+     <pre-actions>
+        <set field="html_title" value="Find Dept"/>
+        <set field="html_description" value="A page for finding Examples"/>
+        <set field="html_keywords" value="moqui,find,example,status,edit,new"/>
+    </pre-actions>
+    <widgets>
+    <container-box><box-header><label text="Find Dept" type="h5"/></box-header><box-toolbar>
+		<container-dialog id="CreateDesktopDialog" button-text="Create Desktop">
+			<form-single name="CreateDesktopForm" transition="createDesktop">
+				 <auto-fields-entity entity-name="dongbo.Desktop" field-type="edit"/>
+				 <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+			</form-single>
+		</container-dialog>
+		</box-toolbar><box-body>
+        <form-list name="ListDept" list="deptList"  skip-form="true" header-dialog="true" select-columns="true"
+                       show-csv-button="true" show-text-button="true" show-pdf-button="true"  >
+			<field name="id" >
+                    <header-field title="ID"></header-field>
+                    <default-field>
+                    	<hidden/>
+                    </default-field>
+            </field>
+			<field name="sdeptame" print-width="40">
+                    <header-field title="部门名称" show-order-by="case-insensitive"><text-find/></header-field>
+                    <default-field><link url="editDept" text="${sdeptame}" link-type="anchor"/></default-field>
+                </field>
+<!-- 			<field name="deptDesc"  print-width="0"> -->
+<!-- 				<header-field  title="部门简介"  show-order-by="true"><text-find hide-options="true"/></header-field> -->
+<!-- 				<default-field><display/></default-field> -->
+<!-- 			</field> -->
+			<field name="deptDesc"  print-width="30">
+				<header-field title="部门简介" show-order-by="case-insensitive" >
+					<text-find/>
+				</header-field>
+				<default-field><display/></default-field>
+			</field> 
+			 <field name="submitButton">
+             	<header-field title="Find"><submit text="Find"/></header-field>
+             </field>
+			<field name="editButton">
+				<header-field title=" "  > <display also-hidden="false"></display></header-field>
+                <default-field>
+<!--                 <link url="editDesktop" text="删除"></link> -->
+                   <dynamic-dialog button-text="修改" transition="editDesktop" id="edit" type="primary">
+                       		<parameter name="id"  value="${id}"/>
+                   </dynamic-dialog>
+             	</default-field>
+             </field>
+             <field name="deleteButton">
+				<header-field title="删除"  ></header-field>
+                <default-field>
+                   <link url="deleteDesktop" text="删除"></link>
+             	</default-field>
+             </field>
+        </form-list>
+        </box-body></container-box>
+    </widgets>
+</screen>

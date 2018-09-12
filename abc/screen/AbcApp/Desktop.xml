@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<screen include-child-content="true"  require-authentication="true">
+	<subscreens default-item="FindDesktop"/>
+	<widgets>
+		<subscreens-active></subscreens-active>
+	</widgets>
+	
+</screen>

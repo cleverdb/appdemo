@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-index="1" standalone="true">
+
+    <parameter name="artifactGroupId" required="true"/>
+
+    <transition name="updateArtifactGroup"><service-call name="update#moqui.security.ArtifactGroup"/>
+        <default-response url="."/></transition>
+
+    <actions>
+        <entity-find-one entity-name="moqui.security.ArtifactGroup" value-field="artifactGroup"/>
+
+        <entity-find entity-name="moqui.security.ArtifactGroupMember" list="memberList">
+            <econdition field-name="artifactGroupId"/><order-by field-name="preferenceKey"/></entity-find>
+        <entity-find entity-name="moqui.security.ArtifactAuthz" list="authzList">
+            <econdition field-name="artifactGroupId"/><order-by field-name="userGroupId,authzTypeEnumId"/></entity-find>
+        <entity-find entity-name="moqui.security.ArtifactTarpit" list="tarpitList">
+            <econdition field-name="artifactGroupId"/><order-by field-name="userGroupId"/></entity-find>
+    </actions>
+    <widgets>
+        <form-single name="ArtifactGroupForm" map="artifactGroup" transition="updateArtifactGroup">
+            <field name="artifactGroupId"><default-field><hidden/></default-field></field>
+            <field name="artifactGroupName"><default-field><text-line size="40"/></default-field></field>
+			 <field name="description"><default-field><text-area /></default-field></field>
+            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+        </form-single>
+    </widgets>
+</screen>
