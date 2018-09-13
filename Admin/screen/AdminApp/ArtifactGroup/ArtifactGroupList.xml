@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false">
+        default-menu-include="false" default-menu-index="1">
 
     <transition name="editArtifactGroup"><default-response url="../EditArtifactGroup"/></transition>
     <transition name="editArtifactGroupMember"><default-response url="../EditArtifactGroupMember"/></transition>
@@ -31,7 +31,7 @@ along with this software (see the LICENSE.md file). If not, see
     	<container-box><box-header><label text="权限组" type="h5"/></box-header><box-toolbar>
         <container-dialog id="CreateArtifactGroupDialog" button-text="新增">
             <form-single name="CreateArtifactGroup" transition="createArtifactGroup">
-                <field name="artifactGroupId"><default-field><text-line size="20"/></default-field></field>
+                <field name="artifactGroupName"><default-field><text-line size="20"/></default-field></field>
                 <field name="description"><default-field><text-area /></default-field></field>
                 <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
             </form-single>

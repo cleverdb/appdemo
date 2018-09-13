@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" require-authentication="true">
+        default-menu-include="false" require-authentication="true" default-menu-title="用户">
 
     <transition name="editUserAccount"><default-response url="../EditUserAccount"/></transition>
     <transition name="addUserAccount"><default-response url="../AddUserAccount"/></transition>
@@ -51,7 +51,7 @@ along with this software (see the LICENSE.md file). If not, see
 <!--             <econdition field-name="userId"/><order-by field-name="userGroupId"/></entity-find> -->
     </actions>
     <widgets>
-    	<container-box><box-header><label text="人员管理" type="h5"/></box-header>
+    	<container-box><box-header><label text="用户信息" type="h5"/></box-header>
     	<box-toolbar>
 	       <link url="addUserAccount" text="新增"></link> 
 	    </box-toolbar><box-body>
@@ -62,7 +62,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><link text="${userId}" url="editUserAccount" link-type="anchor"/></default-field>
             </field>
             <field name="username">
-                <header-field title="员工工号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
+                <header-field title="用户工号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><display/></default-field>
             </field>
             <field name="userFullName">
@@ -94,29 +94,29 @@ along with this software (see the LICENSE.md file). If not, see
                 <header-field title="状态" show-order-by="true"><drop-down allow-empty="true"><option key="Y" text="冻结"/><option key="N" text="正常"/></drop-down></header-field>
                 <default-field ><display  text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}"/></default-field>
             </field>
-            <field name="find"><header-field title="Find"><submit/></header-field>
+            <field name="find" ><header-field title="Find"><submit/></header-field>
                 <default-field><display text=" "/></default-field></field>
-            <field name="editUserButton" align="right">
+            <field name="editUserButton" align="center">
             	<header-field title=" "></header-field>
             	<default-field>
-            		<link url="editUserAccount" parameter-map="[userId:userId]" text="修改" ></link>
+            		<link url="editUserAccount" parameter-map="[userId:userId]" text="编辑" ></link>
             	</default-field>
 <!--                 <default-field> -->
 <!-- 	                <dynamic-dialog button-text="修改"  parameter-map="[userId:userId]" transition="editUserAccount" id ="EditUser"  type="primary"> -->
 <!-- 	                </dynamic-dialog> -->
 <!--              	</default-field> -->
              </field>
-            <field name="editPasswordButton" align="center">
-            	<header-field title=" "></header-field>
-                <default-field>
-	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning">
-	                </dynamic-dialog>
-             	</default-field>
-             </field>
+<!--             <field name="editPasswordButton" align="center"> -->
+<!--             	<header-field title=" "></header-field> -->
+<!--                 <default-field> -->
+<!-- 	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning"> -->
+<!-- 	                </dynamic-dialog> -->
+<!--              	</default-field> -->
+<!--              </field> -->
              <field name="statusButton" align="left">
              	<header-field title=" "></header-field>
              	<default-field>
-	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]"  />
+	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]" link-type="auto" />
              	</default-field>
              </field>
         </form-list>

@@ -7,7 +7,7 @@
 	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-	default-menu-title="修改用户信息" default-menu-index="2">
+	default-menu-title="用户信息" default-menu-index="2">
 
 	<parameter name="userId" required="true" />
 	<transition name="getSexTypeEnumList">
@@ -64,7 +64,7 @@
 								</default-field>
 							</field>
 							<field name="username">
-								<default-field title="员工工号">
+								<default-field title="用户工号">
 									<text-line size="20" />
 								</default-field>
 							</field>
@@ -111,7 +111,7 @@
 			<row-col lg='6'>
 				<container-box>
 					<box-header>
-						<label text="部门信息" type="h5" />
+						<label text="用户组" type="h5" />
 					</box-header>
 					<box-toolbar>
 					</box-toolbar>

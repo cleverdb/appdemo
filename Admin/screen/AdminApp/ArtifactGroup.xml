@@ -14,11 +14,11 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="权限组">
+        default-menu-title="权限组" require-authentication="true">
     <subscreens default-item="ArtifactGroupList"/>
     <widgets>
         <!-- no tabs for now <subscreens-panel id="ArtifactGroupPanel" type="tab"/> -->
 <!--         <subscreens-active/> -->
-		<subscreens-panel id="ArtifactGroupPanel" type="tab"/>
+		<subscreens-panel id="ArtifactGroupPanel" type="tab" />
     </widgets>
 </screen>

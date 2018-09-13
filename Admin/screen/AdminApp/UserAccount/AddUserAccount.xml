@@ -64,7 +64,7 @@
 								</default-field>
 							</field>
 							<field name="username">
-								<default-field title="员工工号">
+								<default-field title="用户工号" tooltip="用户登陆名">
 									<text-line size="20" />
 								</default-field>
 							</field>
@@ -98,8 +98,8 @@
 								</default-field>
 							</field>
 							
-							<field name="newPassword" hide="userId != null"><default-field title="密码"><password size="15"/></default-field></field>
-		                	<field name="newPasswordVerify" hide="userId != null"><default-field title="再次输入密码"><password size="15"/></default-field></field>
+							<field name="newPassword" hide="userId != null"><default-field title="密码"><password size="15"/><label text="* 至少8位，必须包含字母、数字、特殊字符"/></default-field></field>
+		                	<field name="newPasswordVerify" hide="userId != null"><default-field title="确认密码"><password size="15"/></default-field></field>
 							<field name="submitButton" hide="userId != null">
 								<default-field title="保存">
 									<submit />
@@ -114,7 +114,7 @@
 			<row-col lg='6'>
 				<container-box>
 					<box-header>
-						<label text="部门信息" type="h5" />
+						<label text="用户组" type="h5" />
 					</box-header>
 					<box-toolbar>
 					</box-toolbar>
@@ -126,7 +126,7 @@
 								</default-field>
 							</field>
 							<field name="userGroupId">
-								<default-field title="部门">
+								<default-field title="名称">
 									<drop-down>
 										<entity-options key="${userGroupId}" text="UserGroupNameTemplate">
 											<entity-find entity-name="moqui.security.UserGroup">
