@@ -35,8 +35,6 @@ xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-
         <set field="html_keywords" value="moqui,find,example,status,edit,new"/>
     </pre-actions>
     <actions>
-	<service-call name="" out-map="XXX">
-	</service-call>
 	<script>ec.web.sendJsonResponse(XXX)</script>
         <entity-find entity-name="dongbo.EmpViews" list="empList">
             <search-form-inputs/>

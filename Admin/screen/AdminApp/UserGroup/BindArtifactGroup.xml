@@ -34,11 +34,10 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
             <container-box><box-header><label text="权限组" type="h5"/></box-header><box-toolbar>
-            <container-dialog id="AddAuthzDialog" button-text="Add Authorization">
-                <form-single name="CreateArtifactAuthz" transition="createArtifactAuthz"
-                        extends="component://tools/screen/System/Security/ArtifactGroup/ArtifactGroupDetail.xml#CreateArtifactAuthz">
+            <container-dialog id="AddAuthzDialog" button-text="新增">
+                <form-single name="CreateArtifactAuthz" transition="createArtifactAuthz">
                     <field name="userGroupId"><default-field><hidden/></default-field></field>
-                    <field name="artifactGroupId"><default-field title="Artifact Group">
+                    <field name="artifactGroupId"><default-field title="权限组">
                         <drop-down>
                             <entity-options key="${artifactGroupId}" text="${description} [${artifactGroupId}]">
                                 <entity-find entity-name="moqui.security.ArtifactGroup">
@@ -46,6 +45,26 @@ along with this software (see the LICENSE.md file). If not, see
                             </entity-options>
                         </drop-down>
                     </default-field></field>
+                        <field name="authzTypeEnumId"><default-field title="类型">
+                            <drop-down>
+                                <entity-options key="${enumId}" text="${description}">
+                                    <entity-find entity-name="moqui.basic.Enumeration">
+                                        <econdition field-name="enumTypeId" value="AuthzType"/>
+                                        <order-by field-name="description"/></entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field></field>
+                        <field name="authzActionEnumId"><default-field title="操作">
+                            <drop-down>
+                                <entity-options key="${enumId}" text="${description}">
+                                    <entity-find entity-name="moqui.basic.Enumeration">
+                                        <econdition field-name="enumTypeId" value="AuthzAction"/>
+                                        <order-by field-name="description"/></entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field></field>
+                        <field name="authzServiceName" ><default-field title="服务名称"><text-line size="60"/></default-field></field>
+                        <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
                 </form-single>
             </container-dialog>
         </box-toolbar><box-body>
@@ -54,16 +73,16 @@ along with this software (see the LICENSE.md file). If not, see
                         <entity-find entity-name="moqui.security.ArtifactAuthzFilterAndSet" list="entityFilterSetList">
                             <econdition field-name="artifactAuthzId"/></entity-find>
                     </row-actions>
-                     <field name="userGroupId"><default-field><hidden/></default-field></field>
+                     <field name="userGroupId"><default-field title="用户组">
+                        <display-entity entity-name="moqui.security.UserGroup" text="${description ?: ''}"/>
+<!--                         <link url="userGroupDetail" text="${userGroupId}" link-type="anchor"/> -->
+                    </default-field></field>
 	                <field name="artifactGroupId"><default-field title="权限组">
 	                    <display-entity entity-name="moqui.security.ArtifactGroup" text="${description ?: ''}"/>
 <!-- 	                    <link url="artifactGroupDetail" text="${artifactGroupId}" link-type="anchor"/> -->
 	                </default-field></field>
                     <field name="artifactAuthzId"><default-field title="ID"><hidden/></default-field></field>
-                    <field name="userGroupId"><default-field title="用户组">
-                        <display-entity entity-name="moqui.security.UserGroup" text="${description ?: ''}"/>
-<!--                         <link url="userGroupDetail" text="${userGroupId}" link-type="anchor"/> -->
-                    </default-field></field>
+                   
                     <field name="authzTypeEnumId"><default-field title="权限类型">
                         <drop-down>
                             <entity-options key="${enumId}" text="${description}">

@@ -123,7 +123,7 @@
 								</default-field>
 							</field>
 							<field name="userGroupId">
-								<default-field title="部门">
+								<default-field title="名称">
 									<drop-down>
 										<entity-options key="${userGroupId}" text="UserGroupNameTemplate">
 											<entity-find entity-name="moqui.security.UserGroup">
@@ -154,10 +154,10 @@
 								</default-field>
 							</field>
 							<field name="userGroupId">
-								<default-field title="部门">
+								<default-field title="名称">
 									<display-entity entity-name="moqui.security.UserGroup" />
-									<link url="userGroupDetail" text="${userGroupId}"
-										link-type="anchor" />
+<!-- 									<link url="userGroupDetail" text="${userGroupId}" -->
+<!-- 										link-type="anchor" /> -->
 								</default-field>
 							</field>
 							<field name="fromDate">
@@ -173,7 +173,7 @@
 								</default-field>
 							</field>
 							<field name="submitButton">
-								<default-field title="修改">
+								<default-field title="编辑">
 									<submit />
 								</default-field>
 							</field>

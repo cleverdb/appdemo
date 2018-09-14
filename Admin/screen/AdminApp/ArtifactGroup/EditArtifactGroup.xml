@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-index="1" standalone="true" default-menu-title="权限组">
+        default-menu-index="1" standalone="true" default-menu-title="权限组信息">
 
     <parameter name="artifactGroupId" required="true"/>
 
@@ -33,10 +33,10 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <form-single name="ArtifactGroupForm" map="artifactGroup" transition="updateArtifactGroup">
-            <field name="artifactGroupId"><default-field><hidden/></default-field></field>
-            <field name="artifactGroupName"><default-field><text-line size="40"/></default-field></field>
+            <field name="artifactGroupId"><default-field title="名称"><hidden/></default-field></field>
+            <field name="artifactGroupName"><default-field title="描述"><text-area/></default-field></field>
 			 <field name="description"><default-field><text-area /></default-field></field>
-            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+            <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
         </form-single>
     </widgets>
 </screen>
