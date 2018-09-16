@@ -14,6 +14,9 @@
 		<relationship type="one" related="dongbo.Dept" short-alias="sdept">
 			<key-map field-name="deptId"/>
 		</relationship>
+		<relationship type="many" related="dongbo.EmpToDept" short-alias="to">
+			<key-map field-name="id" related="empid"/>
+		</relationship>
 		
 		<seed-data>
 			 <!-- emp sex -->
@@ -25,6 +28,7 @@
 		 <master>
 <!--             <detail relationship="se"/> -->
             <detail relationship="sdept"/>
+            <detail relationship="to"/>
         </master>
     </entity>
 </entities>

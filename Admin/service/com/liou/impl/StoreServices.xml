@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+    
+    
+    <service verb="create" noun="Store" authenticate="true" allow-remote="false">
+        <in-parameters>
+            <parameter name="storeName" required="true"/>
+            <parameter name="storePhone" />
+            <parameter name="storeFax" />
+            <parameter name="totalArea" />
+            <parameter name="workArea"></parameter>
+            <parameter name="address"></parameter>
+            <parameter name="status" required="true"></parameter>
+            <parameter name="appPower" default-value="N"></parameter>
+            <parameter name="appPool" default-value="N"></parameter>
+            <parameter name="appAir" default-value="N"></parameter>
+            <parameter name="appPingpong" default-value="N"></parameter>
+            <parameter name="appBadminton" default-value="N"></parameter>
+            <parameter name="serverWifi" default-value="N"></parameter>
+            <parameter name="serverPark" default-value="N"></parameter>
+            <parameter name="serverTowel" default-value="N"></parameter>
+            <parameter name="serverShower" default-value="N"></parameter>
+            <parameter name="serverWater" default-value="N"></parameter>
+            <parameter name="serverAirclean" default-value="N"></parameter>
+            <parameter name="serverLocker" default-value="N"></parameter>
+            <parameter name="description"/>
+        </in-parameters>
+        <out-parameters><parameter name="storeId" required="true"/></out-parameters>
+        <actions>
+            <service-call name="create#moqui.security.Store" out-map="context" in-map="context"/>
+        </actions>
+    </service>
+	<service verb="update" noun="Store" authenticate="true" allow-remote="false">
+        <in-parameters>
+        	<parameter name="storeId" required="true"/>
+            <parameter name="storeName" required="true"/>
+            <parameter name="storePhone" />
+            <parameter name="storeFax" />
+            <parameter name="totalArea" />
+            <parameter name="workArea"></parameter>
+            <parameter name="address"></parameter>
+            <parameter name="status" required="true"></parameter>
+            <parameter name="appPower" default-value="N"></parameter>
+            <parameter name="appPool" default-value="N"></parameter>
+            <parameter name="appAir" default-value="N"></parameter>
+            <parameter name="appPingpong" default-value="N"></parameter>
+            <parameter name="appBadminton" default-value="N"></parameter>
+            <parameter name="serverWifi" default-value="N"></parameter>
+            <parameter name="serverPark" default-value="N"></parameter>
+            <parameter name="serverTowel" default-value="N"></parameter>
+            <parameter name="serverShower" default-value="N"></parameter>
+            <parameter name="serverWater" default-value="N"></parameter>
+            <parameter name="serverAirclean" default-value="N"></parameter>
+            <parameter name="serverLocker" default-value="N"></parameter>
+            <parameter name="description"/>
+        </in-parameters>
+        <out-parameters><parameter name="storeId" required="true"/></out-parameters>
+        <actions>
+            <service-call name="update#moqui.security.Store" out-map="context" in-map="context"/>
+        </actions>
+    </service>
+</services>

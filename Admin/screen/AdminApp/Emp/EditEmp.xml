@@ -20,6 +20,9 @@
     </actions>
  	<widgets>
         <form-single name="UpdateEmpForm" transition="updateEmp" map="emp">
+        <field name="id" hide="ture">
+        	<default-field><display></display></default-field>
+         </field>
        		<field name="sex">
                         <default-field title="性别" tooltip="请选择性别">
                             <drop-down allow-empty="false" allow-multiple="true" >

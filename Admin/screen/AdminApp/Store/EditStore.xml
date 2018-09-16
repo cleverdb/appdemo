@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" require-authentication="true">
+	<parameter name="storeId" required="true"/>
+    <transition name="updateStore" >
+    	<service-call name="com.liou.impl.StoreServices.update#Store">
+    	</service-call>
+    	<default-response url="."/>
+    </transition>
+    <actions>
+        <entity-find-one  entity-name="moqui.security.Store"   value-field="stores">
+        </entity-find-one>
+    </actions>
+    <widgets>
+    	<container-box><box-header><label text="门店管理" type="h5"/></box-header>
+    	<box-toolbar>
+	    </box-toolbar>
+	    <box-body>
+      		<form-single name="UpdateStoreForm" transition="updateStore" map="stores">
+			<field name="storeId">
+                <default-field><hidden/> </default-field>
+            </field>
+            <field name="storeName">
+                <default-field title="名称"><text-line size="30"/> </default-field>
+            </field>
+            <field name="storePhone">
+                <default-field  title="电话"><text-line size="30"/></default-field>
+            </field>
+          
+            <field name="storeFax">
+                <default-field title="传真"><text-line size="30"/></default-field>
+            </field>
+            <field name="totalArea">
+                <default-field title="总面积"><text-line size="30"/></default-field>
+            </field>
+            <field name="workArea">
+                <default-field title="私教区面积"><text-line size="30"/></default-field>
+            </field>
+            <field name="address">
+                <default-field title="地址"><text-line size="30"/></default-field>
+            </field>
+            <field name="description">
+                <default-field title="简介"><text-area/> </default-field>
+            </field>
+            <field name="status">
+                <default-field title="状态"><text-line size="30"/> </default-field>
+            </field>
+             <field name="appPower">
+                <default-field title="" ><check url="/ssstatic/images/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></check> </default-field>
+            </field>
+            <field name="appPool">
+                <default-field  title=""><check url="/ssstatic/images/pool.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="游泳池"/></check></default-field>
+            </field>
+            <field name="appAir">
+                <default-field title="" > <check url="/ssstatic/images/airSport.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y"  text="有氧设备"/></check> </default-field>
+            </field>
+            <field name="appPingpong">
+                <default-field  title="">
+                <check url="/ssstatic/images/pingpong.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="乒乓球台"/></check>              
+                </default-field>
+            </field>
+            <field name="appBadminton">
+                <default-field title=""><check  url="/ssstatic/images/badminton.png"  url-type="screen" style="invertible" width="80" height="60" > <option key="Y" text="羽毛球场"/></check></default-field>
+            </field>
+            <field name="serverWifi">
+                <default-field title=""><check  url="/ssstatic/images/wifi.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="WIFI"/></check></default-field>
+            </field>
+            <field name="serverPark">
+                <default-field title=""> <check  url="/ssstatic/images/park.png"  url-type="screen" style="invertible" width="80" height="60" ><option text="停车" key="Y"  /></check></default-field>
+            </field>
+            <field name="serverTowel">
+                <default-field title=""> <check  url="/ssstatic/images/towel.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="毛巾"/></check> </default-field>
+            </field>
+            <field name="serverShower" >
+                <default-field title="" > <check url="/ssstatic/images/shower.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="淋浴" /></check> </default-field>
+            </field>
+            <field name="serverWater">
+                <default-field title=""><check  url="/ssstatic/images/water.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="饮用水"/></check> </default-field>
+            </field>
+            <field name="serverAirclean">
+                <default-field title=""> <check  url="/ssstatic/images/airclean.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="空气净化" /></check></default-field>
+            </field>
+            <field name="serverLocker">
+                <default-field title=""><check  url="/ssstatic/images/locker.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="储物柜"/></check></default-field>
+            </field>
+			<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+			<field-layout>
+                <field-row><field-ref name="storeName"/><field-ref name="status"/></field-row>
+                <field-row><field-ref name="storePhone"/><field-ref name="storeFax"/></field-row>
+                <field-row ><field-ref name="totalArea"/><field-ref name="workArea"/></field-row>
+                <field-ref name="address"/>
+                <field-ref name="description"/>
+                <field-group title="分店器械" >
+	                <field-row-big >
+	                	<field-ref name="appPower"/>
+						<field-ref name="appPool"/>
+						<field-ref name="appAir"/>
+						<field-ref name="appPingpong"/>
+						<field-ref name="appBadminton"/>
+	                </field-row-big>
+                </field-group>
+                 <field-group title="便利服务">
+	                <field-row-big >
+	                	<field-ref name="serverWifi"/>
+						<field-ref name="serverPark"/>
+						<field-ref name="serverTowel"/>
+						<field-ref name="serverShower"/>
+						<field-ref name="serverWater"/>
+						<field-ref name="serverAirclean"/>
+						<field-ref name="serverLocker"/>
+	                </field-row-big>
+                </field-group>
+                  <field-group title=" ">
+                </field-group>
+                <field-ref name="submitButton"/>
+            </field-layout>
+			</form-single>
+      	</box-body></container-box>
+    </widgets>
+</screen>

@@ -81,10 +81,15 @@ xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-
 	</box-toolbar><box-body>
         <form-list name="ListEmp" list="empList"  skip-form="true" header-dialog="true" select-columns="true"
                        show-csv-button="true" show-text-button="true" show-pdf-button="true">
+                       <row-actions>
+                       		<entity-find entity-name="dongbo.EmpToDept" list="emptoDeptList">
+                       			<econdition field-name="empid" value="${id}"/>
+                       		</entity-find>
+                       </row-actions>
 <!-- 			<auto-fields-entity entity-name="dongbo.Emp" field-type="find-display"/> -->
 <!-- 			<auto-fields-entity entity-name="dongbo.Dept" field-type="find-display"/> -->
 			 <field name="empName" print-width="50" >
-             		<header-field  title="部门名称" show-order-by="case-insensitive"><text-find/></header-field>
+             		<header-field  title="部门名称" show-order-by="case-insensitive"><text-find default-operator="contains"/></header-field>
                     <default-field><display/></default-field>
              </field>
               <field name="age" print-width="20"  >
@@ -96,17 +101,36 @@ xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-
                     <default-field><display/></default-field>
              </field>
 				<field name="sex" print-width="30" >
-		           <header-field title="性别" show-order-by="true">
-	            	<drop-down allow-empty="false" allow-multiple="true" >
-                            <dynamic-options transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description" >
-                            </dynamic-options>
-                   	</drop-down>
-				</header-field>
-	            <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+			        <header-field title="性别" show-order-by="true" >
+<!-- 			        	<drop-down allow-empty="false" allow-multiple="true"  > -->
+<!-- 	                         <dynamic-options  transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description" > -->
+<!-- 	               			</dynamic-options> -->
+<!--                    		</drop-down> -->
+                   		<text-find  />
+					</header-field>
+					<default-field><display></display></default-field>
+<!-- 	            <default-field> -->
+<!-- 	          	 <drop-down allow-empty="false" allow-multiple="true"  > -->
+<!--                          <dynamic-options  transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description" > -->
+<!--                		</dynamic-options> -->
+<!--                    	</drop-down> -->
+<!--           		<auto-widget-entity entity-name="moqui.basic.Enumeration" field-name="description" field-/> --> 
+<!-- 				</default-field> -->
              </field>
 			 <field name="sdeptame" print-width="20" >
 			 		<header-field show-order-by="case-insensitive"><text-find/></header-field>
-                    <default-field><display/></default-field>
+                    <default-field>
+                    	<section-iterate name="tst" entry="depts" list="emptoDeptList" condition="emptoDeptList.size() &gt; 0">
+                    		<actions>
+<!--                     		<entity-find entity-name="dongbo.Dept" list="depeList"> -->
+<!--             					<econdition field-name="id" value="${depts.deptid}"/></entity-find> -->
+                    			<entity-find-one  value-field="ded" entity-name="dongbo.Dept"  >
+                    				<field-map field-name="id" value="${depts.deptid}" />
+                    			</entity-find-one>
+                    		</actions>
+                    		<widgets ><label text="${ded.sdeptame}"/> </widgets>
+                    	</section-iterate>
+                    </default-field>
              </field>
               <field name="deptDesc" print-width="0" >
               		<header-field show-order-by="case-insensitive"><text-find/></header-field>

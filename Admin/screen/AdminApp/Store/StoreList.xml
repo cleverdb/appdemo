@@ -16,9 +16,10 @@ along with this software (see the LICENSE.md file). If not, see
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-include="false" require-authentication="true">
 
-<!--     <transition name="editUserAccount"><default-response url="../EditUserAccount"/></transition> -->
+    <transition name="editStore"><default-response url="../EditStore"/></transition>
     <transition name="addStore" >
-    	<service-call name="create#moqui.security.Store"></service-call>
+    	<service-call name="com.liou.impl.StoreServices.create#Store">
+    	</service-call>
     	<default-response url="."/>
     </transition>
     <actions>
@@ -57,51 +58,48 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field title="状态"><text-line size="30"/> </default-field>
             </field>
              <field name="appPower">
-                <default-field title=" " ><check ><option key="Y" text="力量设备"/></check> </default-field>
+                <default-field title="" ><check url="/ssstatic/images/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></check> </default-field>
             </field>
             <field name="appPool">
-                <default-field  title=" "><check ><option key="Y" text="游泳池"/></check></default-field>
+                <default-field  title=""><check url="/ssstatic/images/pool.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="游泳池"/></check></default-field>
             </field>
             <field name="appAir">
-                <default-field title=" " ><check ><option key="Y"  text="有氧设备"/></check> </default-field>
+                <default-field title="" > <check url="/ssstatic/images/airSport.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y"  text="有氧设备"/></check> </default-field>
             </field>
             <field name="appPingpong">
-                <default-field  title=" ">
-                <check ><option key="Y" text="乒乓球台"/></check>
-<!--                 <check ><option key="Y" text="乒乓球台"/></check>  -->
-<!--                         </link> <image url="/ssstatic/images/Receiving.png"  url-type="screen" style="invertible" width="40"/></link> -->
+                <default-field  title="">
+                <check url="/ssstatic/images/pingpong.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="乒乓球台"/></check>              
                 </default-field>
             </field>
             <field name="appBadminton">
-                <default-field title=" "><check ><option key="Y" text="羽毛球场"/></check></default-field>
+                <default-field title=""><check  url="/ssstatic/images/badminton.png"  url-type="screen" style="invertible" width="80" height="60" > <option key="Y" text="羽毛球场"/></check></default-field>
             </field>
             <field name="serverWifi">
-                <default-field title=" "><check ><option key="Y" text="WIFI"/></check></default-field>
+                <default-field title=""><check  url="/ssstatic/images/wifi.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="WIFI"/></check></default-field>
             </field>
             <field name="serverPark">
-                <default-field title=" "><check ><option text="停车" key="Y"  /></check></default-field>
+                <default-field title=""> <check  url="/ssstatic/images/park.png"  url-type="screen" style="invertible" width="80" height="60" ><option text="停车" key="Y"  /></check></default-field>
             </field>
             <field name="serverTowel">
-                <default-field title=" "><check ><option key="Y" text="毛巾"/></check> </default-field>
+                <default-field title=""> <check  url="/ssstatic/images/towel.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="毛巾"/></check> </default-field>
             </field>
             <field name="serverShower" >
-                <default-field title=" " ><check ><option key="Y" text="淋浴" /></check> </default-field>
+                <default-field title="" > <check url="/ssstatic/images/shower.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="淋浴" /></check> </default-field>
             </field>
             <field name="serverWater">
-                <default-field title=" "><check ><option key="Y" text="饮用水"/></check> </default-field>
+                <default-field title=""><check  url="/ssstatic/images/water.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="饮用水"/></check> </default-field>
             </field>
             <field name="serverAirclean">
-                <default-field title=" "><check><option key="Y" text="空气净化" /></check></default-field>
+                <default-field title=""> <check  url="/ssstatic/images/airclean.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="空气净化" /></check></default-field>
             </field>
 <!--             https://blog.csdn.net/weixin_42220533/article/details/82348855 
 https://blog.csdn.net/checkmate_room/article/details/79230167
 https://blog.csdn.net/Kevin_like/article/details/52124766-->
             <field name="serverLocker">
-                <default-field title=" "><check ><option key="Y" text="储物柜"/></check><image url="/static/images/Asset.png" url-type="screen" hover="true" parameter-map="[serverLocker:'Y']" condition="serverLocker != 'Y'"></image></default-field>
+                <default-field title=""><check  url="/ssstatic/images/locker.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="储物柜"/></check></default-field>
             </field>
 			<field name="submitButton"><default-field title="Create"><submit/></default-field></field>
 			<field-layout>
-                <fields-not-referenced/>
                 <field-row><field-ref name="storeName"/><field-ref name="status"/></field-row>
                 <field-row><field-ref name="storePhone"/><field-ref name="storeFax"/></field-row>
                 <field-row ><field-ref name="totalArea"/><field-ref name="workArea"/></field-row>
@@ -111,7 +109,6 @@ https://blog.csdn.net/Kevin_like/article/details/52124766-->
 	                <field-row-big >
 	                	<field-ref name="appPower"/>
 						<field-ref name="appPool"/>
-						<field-ref name="appAir"/>
 						<field-ref name="appAir"/>
 						<field-ref name="appPingpong"/>
 						<field-ref name="appBadminton"/>
@@ -218,23 +215,19 @@ https://blog.csdn.net/Kevin_like/article/details/52124766-->
             </field>
             <field name="find"><header-field title="Find"><submit/></header-field>
                 <default-field><display text=" "/></default-field></field>
-            <field name="editUserButton" align="right">
+            <field name="editStoreButton" align="right">
             	<header-field title=" "></header-field>
             	<default-field>
-            		<link url="editUserAccount" parameter-map="[userId:userId]" text="修改"  ></link>
+            		<link url="editStore" parameter-map="[userId:userId]" text="编辑"  ></link>
             	</default-field>
+             </field>
+<!--             <field name="editPasswordButton" align="center"> -->
+<!--             	<header-field title=" "></header-field> -->
 <!--                 <default-field> -->
-<!-- 	                <dynamic-dialog button-text="修改"  parameter-map="[userId:userId]" transition="editUserAccount" id ="EditUser"  type="primary"> -->
+<!-- 	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning"> -->
 <!-- 	                </dynamic-dialog> -->
 <!--              	</default-field> -->
-             </field>
-            <field name="editPasswordButton" align="center">
-            	<header-field title=" "></header-field>
-                <default-field>
-	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning">
-	                </dynamic-dialog>
-             	</default-field>
-             </field>
+<!--              </field> -->
         </form-list>
       </box-body></container-box>
     </widgets>
