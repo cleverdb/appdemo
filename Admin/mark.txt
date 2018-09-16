@@ -1,0 +1,52 @@
+笔记：
+
+/MoquiDemo-2.1.0/runtime/component/mantle-usl/service/mantle/shipment/ShipmentServices.xml
+
+
+<parameter name="shipmentId"/>
+            <parameter name="shipment" type="Map"/>
+            <parameter name="statusItem" type="Map"/>
+            <parameter name="shipmentTypeEnum" type="Map"/>
+            <parameter name="isIncoming" type="Boolean"/>
+            <parameter name="allowUpdate" type="Boolean"/>
+            <parameter name="statusHistoryList" type="List"><parameter name="auditLog" type="Map"/></parameter>
+			
+			
+/MoquiDemo-2.1.0/runtime/component/SimpleScreens/screen/SimpleScreens/Shipment/ShipmentDetail.xml
+
+<transition name="downloadContent"><parameter name="shipmentContentId"/>
+        <actions><entity-find-one entity-name="mantle.shipment.ShipmentContent" value-field="shipmentContent"/>
+            <script>ec.web.sendResourceResponse(shipmentContent.contentLocation)</script></actions>
+        <default-response type="none"/>
+    </transition>
+	
+	
+<transition name="getShippingOptions"><actions>
+        <service-call name="mantle.shipment.ShipmentServices.get#ShipmentShippingOptions" out-map="shipOptsOut"
+                in-map="[shipmentId:shipmentId, getRates:true]"/>
+        <script>
+            outList = []
+            for (sop in shipOptsOut.shippingOptions) outList.add([value:"${sop.carrierPartyId}:${sop.shipmentMethodEnumId}".toString(),
+                label:"${sop.description ? sop.description : (sop.carrierPartyId != '_NA_' ? (sop.carrierName + ' - ') : '') + sop.shipmentMethodDescription}${sop.shippingTotal != null ? ' ' + ec.l10n.format(sop.shippingTotal, '#,##0.00') : ''}".toString()])
+            ec.web.sendJsonResponse(outList)
+        </script>
+    </actions><default-response type="none"/></transition>
+	
+ <actions>
+        <!-- trim duplicates and replaced/valid from shippingPostalAddressList -->
+        <script><![CDATA[
+            Set replacedPostalIdSet = new HashSet()
+            for (int i=0; i < shippingPostalAddressList.size(); i++) {
+                String replAddressId = shippingPostalAddressList.get(i).postalContactMech?.replacesContactMechId
+                if (replAddressId) replacedPostalIdSet.add(replAddressId)
+            }
+            Set shippingPostalIdSet = new HashSet()
+            for (int i=0; i < shippingPostalAddressList.size(); ) {
+                String curAddressId = shippingPostalAddressList.get(i).postalContactMechId
+                if (shippingPostalIdSet.contains(curAddressId) || replacedPostalIdSet.contains(curAddressId)) { shippingPostalAddressList.remove(i) }
+                else { shippingPostalIdSet.add(curAddressId); i++ }
+            }
+        ]]></script>     
+    </actions>
+			
+			
