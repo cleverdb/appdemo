@@ -1,0 +1,11 @@
+function submitOrder(question_option_id){var options={url:"/index.php?r=choose-room/submit-order",data:{token:_setToken.token,chooseRoomId:chooseRoomId,activityVersion:activityVersion,randomCode:randomCode,question_option_id:question_option_id},
+success:function(result){var status=result.data.status.toString();switch(status){case"2":case"4":case"5":case"6":case"7":openMiaoErrTip(status);break;case"3":(0,_jquery2.default)("#roomOtherSelectedTip_content").html(_jquery2.default.render.temp3({token:_setToken.token,activityId:_setToken.activityId,data:result.data})),_jquery2.default.mask.show({mask_id:"mask_roomOtherSelectedTip"}),(0,_jquery2.default)("#roomOtherSelectedTip").show();break;default:window.location.href
+
+
+获取randomCode
+
+/index.php?r=choose-room/get-random-code",type:"get",data:{token:_setToken.token,chooseRoomId:chooseRoomId,activityVersion:activityVersion}
+randomCode=result.data.randomCode
+
+
+function initData(){var options={url:"/index.php?r=choose-room/room",type:"get",data:{token:_setToken.token,chooseRoomId:chooseRoomId},success:function(result){var data=result.data;activityVersion=data.activityVersion;var regularStartDate=data.activityInfo.regularStartDate
