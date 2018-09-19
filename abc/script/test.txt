@@ -9,3 +9,10 @@ randomCode=result.data.randomCode
 
 
 function initData(){var options={url:"/index.php?r=choose-room/room",type:"get",data:{token:_setToken.token,chooseRoomId:chooseRoomId},success:function(result){var data=result.data;activityVersion=data.activityVersion;var regularStartDate=data.activityInfo.regularStartDate
+
+
+room/room&token=azrkvw1493281329&chooseRoomId=2301763  502
+/page/room.html?token=azrkvw1493281329&activityId=4350&chooseRoomId=2301762 501
+/page/room.html?token=azrkvw1493281329&activityId=4350&chooseRoomId=2301765 504
+/page/room.html?token=azrkvw1493281329&activityId=4350&chooseRoomId=2301770 603
+/page/room.html?token=azrkvw1493281329&activityId=4350&chooseRoomId=2301766 505
