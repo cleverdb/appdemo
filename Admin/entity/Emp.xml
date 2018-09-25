@@ -8,9 +8,9 @@
 		<field name="sex" type="text-medium"/>
 		<field name="deptId" type="id"/>
 		<field name="icon" type="text-medium"></field>
-<!-- 		<relationship type="one" title="EmpSex" related="moqui.basic.Enumeration" short-alias="se"> -->
-<!-- 			<key-map field-name="sex"/> -->
-<!-- 		</relationship> -->
+		<relationship type="one" title="EmpSex" related="moqui.basic.Enumeration" short-alias="se">
+			<key-map field-name="sex"/>
+		</relationship>
 		<relationship type="one" related="dongbo.Dept" short-alias="sdept">
 			<key-map field-name="deptId"/>
 		</relationship>

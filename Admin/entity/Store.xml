@@ -23,7 +23,15 @@
         <field name="serverAirclean" type="text-indicator"/>
         <field name="serverLocker" type="text-indicator"/>
         <field name="description" type="text-long"/>
+        <relationship type="one" title="StoreStatus" related="moqui.basic.Enumeration" short-alias="storeStatus">
+			<key-map field-name="status"/>
+		</relationship>
         <index name="USERACCT_STORENAME" unique="true"><index-field name="storeName"/></index>
         <index name="USERACCT_STOREID" unique="true"><index-field name="storeId"/></index>
+        <seed-data>
+        	<moqui.basic.EnumerationType description="store status" enumTypeId="StoreStatus"/>
+            <moqui.basic.Enumeration description="正常" enumId="store_open" enumTypeId="StoreStatus"/>
+            <moqui.basic.Enumeration description="关闭" enumId="store_close" enumTypeId="StoreStatus"/>
+        </seed-data>
     </entity>
 </entities>
