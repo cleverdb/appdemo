@@ -22,6 +22,71 @@ along with this software (see the LICENSE.md file). If not, see
         <actions><script>ec.user.setPreference(preferenceKey, preferenceValue)</script></actions>
     </service>
     
+     <service verb="create" noun="Account" authenticate="false">
+        <description>
+            Create a basic user account including:
+            - Party/Person/PartyRole
+            - UserAccount
+        </description>
+        <in-parameters>
+            <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
+   			<parameter name="username" required="true"/>
+            <parameter name="newPassword" required="true"/>
+            <parameter name="newPasswordVerify" required="true"/>
+            <parameter name="requirePasswordChange" default-value="N"/>
+            <parameter name="disabled" default-value="N"></parameter>
+            <parameter name="userFullName"/>
+            <parameter name="emailAddress"><text-email/></parameter>
+            <parameter name="emplyeeType"/>
+            <parameter name="loginAfterCreate" type="Boolean" default="false"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="userId"/>
+            <parameter name="partyId" required="true"/>
+        </out-parameters>
+        <actions>
+            <!-- do this first to get a password validation ASAP -->
+            <if condition="username">
+                <!-- see if username already in use -->
+                <entity-find entity-name="moqui.security.UserAccount" list="existingUaList">
+                    <econdition field-name="username"/></entity-find>
+                <if condition="existingUaList"><return error="true" message="用户名已存在."/></if>
+
+<!--                 <set field="userFullName" value="${ec.resource.expand('PartyFullNameTemplate','')}"/> -->
+                <if condition="newPassword"><then>
+                    <service-call name="org.liou.impl.UserServices.create#UserAccount" in-map="context" out-map="newUaOut"/>
+                </then><else>
+                    <service-call name="create#moqui.security.UserAccount" in-map="context" out-map="newUaOut"/>
+                </else></if>
+                <set field="userId" from="newUaOut.userId"/>
+            </if>
+
+            <service-call name="create#mantle.party.Party" in-map="[partyTypeEnumId:'PtyPerson', disabled:disabled]" out-map="newPartyOut"/>
+            <set field="partyId" from="newPartyOut.partyId"/>
+            <service-call name="create#mantle.party.Person" in-map="context"/>
+            <if condition="roleTypeId">
+                <service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/></if>
+
+            <if condition="username">
+                <!-- add the partyId to the UserAccount -->
+                <service-call name="update#moqui.security.UserAccount" in-map="[userId:newUaOut.userId, partyId:newPartyOut.partyId]"/>
+                <if condition="userGroupId">
+                    <service-call name="create#moqui.security.UserGroupMember"
+                            in-map="[userGroupId:userGroupId, userId:userId, fromDate:ec.user.nowTimestamp]"/>
+                </if>
+                <!-- login the user -->
+                <if condition="loginAfterCreate &amp;&amp; newPassword">
+                    <script>ec.user.loginUser(username, newPassword)</script></if>
+            </if>
+        </actions>
+    </service>
+    
+    
+    
+    
+    
+    
+    
     <service verb="create" noun="UserAccount" authenticate="anonymous-all" allow-remote="false">
         <in-parameters>
             <parameter name="username" required="true"/>

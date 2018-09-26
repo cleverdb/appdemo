@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+                    
+	<extend-entity  entity-name="Person" package="mantle.party">
+        <field name="cellphone" type="text-medium"/>
+        <field name="wechat" type="text-medium"/>
+        <field name="iconUrl" type="text-medium"/>
+        <field name="photoUrl" type="text-medium"/>
+        <field name="salary" type="number-decimal"/>
+        <field name="hiredate" type="date"/>
+        <field name="idCardType" type="id" />
+        <field name="idCard" type="text-short" />
+        <field name="department" type="id" />
+        <field name="post" type="id" />
+        <relationship type="one" title="EmployeeGenderEnum" related="moqui.basic.Enumeration" short-alias="ege">
+			<key-map field-name="gender"/>
+		</relationship>
+		 <relationship type="one" title="DepartmentEnum" related="moqui.basic.Enumeration" short-alias="de">
+			<key-map field-name="department"/>
+		</relationship>
+		 <relationship type="one" title="PostEnum" related="moqui.basic.Enumeration" short-alias="pe">
+			<key-map field-name="post"/>
+		</relationship>
+		 <relationship type="one" title="IDCardTypeEnum" related="moqui.basic.Enumeration" short-alias="icte">
+			<key-map field-name="idCardType"/>
+		</relationship>
+		<seed-data>
+			 <!-- employee sex -->
+            <moqui.basic.EnumerationType description="Employee Gender" enumTypeId="EmployeeGenderEnum"/>
+            <moqui.basic.Enumeration description="男" enumId="Man" enumTypeId="EmployeeGenderEnum"/>
+            <moqui.basic.Enumeration description="女" enumId="Women" enumTypeId="EmployeeGenderEnum"/>
+            
+             <!-- department -->
+            <moqui.basic.EnumerationType description="Department Enum" enumTypeId="DepartmentEnum"/>
+            <moqui.basic.Enumeration description="会员服务部" enumId="MemberServices" enumTypeId="DepartmentEnum"/>
+            <moqui.basic.Enumeration description="会籍部" enumId="Membership" enumTypeId="DepartmentEnum"/>
+            <moqui.basic.Enumeration description="私教部" enumId="Personaltainer" enumTypeId="DepartmentEnum"/>
+            <moqui.basic.Enumeration description="团操部" enumId="GroupClass" enumTypeId="DepartmentEnum"/>
+            
+            <!-- post -->
+            <moqui.basic.EnumerationType description="Post Enum" enumTypeId="PostEnum"/>
+            <moqui.basic.Enumeration description="员工" enumId="Employee" enumTypeId="PostEnum"/>
+            <moqui.basic.Enumeration description="经理" enumId="Manager" enumTypeId="PostEnum"/>
+            <moqui.basic.Enumeration description="主管" enumId="WarehouseManager" enumTypeId="PostEnum"/>
+            <moqui.basic.Enumeration description="店长" enumId="StoreManager" enumTypeId="PostEnum"/>
+            <moqui.basic.Enumeration description="总经理" enumId="GeneralManager" enumTypeId="PostEnum"/>
+            
+             <!-- idCard -->
+            <moqui.basic.EnumerationType description="ID Card Type Enum" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="身份证" enumId="IDCard" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="护照" enumId="Passport" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="驾驶证" enumId="DrivingLicence" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="军官证" enumId="CertificateOfOfficers" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="士官证" enumId="SergeantCard" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="其他" enumId="Others" enumTypeId="IDCardTypeEnum"/>
+            
+             <!-- Employee Type -->
+            <moqui.basic.EnumerationType description="Employe Type Enum" enumTypeId="EmployeeTypeEnum"/>
+            <moqui.basic.Enumeration description="会员服务" enumId="MembershipService" enumTypeId="EmployeeTypeEnum"/>
+            <moqui.basic.Enumeration description="职员" enumId="Staff" enumTypeId="EmployeeTypeEnum"/>
+            <moqui.basic.Enumeration description="会籍顾问" enumId="MembershipConsultant" enumTypeId="EmployeeTypeEnum"/>
+            <moqui.basic.Enumeration description="教练" enumId="Coach" enumTypeId="EmployeeTypeEnum"/>
+		</seed-data>
+		 <master>
+            <detail relationship="ege"/>
+            <detail relationship="de"/>
+            <detail relationship="pe"/>
+            <detail relationship="icte"/>
+        </master>
+    </extend-entity>
+</entities>

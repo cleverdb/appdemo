@@ -63,6 +63,35 @@
 									<hidden />
 								</default-field>
 							</field>
+							<field name="department">
+								<default-field title="部门" >
+									<drop-down allow-empty="true"  size="20">
+				                        <entity-options text="${description}">
+				                            <entity-find entity-name="moqui.basic.Enumeration">
+				                                <econdition field-name="enumTypeId" value="DepartmentEnum"/>
+				                                <order-by field-name="description"/>
+				                            </entity-find>
+				                        </entity-options>
+				                    </drop-down>
+								</default-field>
+							</field>
+							<field name="post">
+								<default-field title="职位" >
+									<drop-down allow-empty="true"  size="20">
+				                        <entity-options text="${description}">
+				                            <entity-find entity-name="moqui.basic.Enumeration">
+				                                <econdition field-name="enumTypeId" value="PostEnum"/>
+				                                <order-by field-name="description"/>
+				                            </entity-find>
+				                        </entity-options>
+				                    </drop-down>
+								</default-field>
+							</field>
+							<field name="emplyeeType">
+								<default-field title="员工类型" >
+									<text-line size="20" />
+								</default-field>
+							</field>
 							<field name="username">
 								<default-field title="用户工号" tooltip="用户登陆名">
 									<text-line size="20" />
@@ -73,38 +102,90 @@
 									<text-line size="20" />
 								</default-field>
 							</field>
+							<field name="englishName">
+								<default-field title="英文名">
+									<text-line size="20" />
+								</default-field>
+							</field>
 							<field name="cellphone">
 								<default-field title="手机号">
-									<text-line size="11" maxlength="11" />
+									<text-line size="20" maxlength="11" />
+								</default-field>
+							</field>
+							<field name="wechat">
+								<default-field title="微信号">
+									<text-line size="20"  />
+								</default-field>
+							</field>
+							<field name="idCardType">
+								<default-field title="证件类型">
+									<drop-down allow-empty="true">
+				                        <entity-options text="${description}">
+				                            <entity-find entity-name="moqui.basic.Enumeration">
+				                                <econdition field-name="enumTypeId" value="IDCardTypeEnum"/>
+				                                <order-by field-name="description"/>
+				                            </entity-find>
+				                        </entity-options>
+				                    </drop-down>
 								</default-field>
 							</field>
 							<field name="idCard">
 								<default-field title="证件号">
-									<text-line size="18" maxlength="18" />
+									<text-line size="20"/>
+								</default-field>
+							</field>
+							<field name="salary">
+								<default-field title="基薪">
+									<text-line size="20" />
+								</default-field>
+							</field>
+							<field name="birthDate" >
+								<default-field title="生日">
+									<date-time type="date" size="15"/>
 								</default-field>
 							</field>
 							<field name="emailAddress" >
 								<default-field title="邮箱">
-									<text-line size="25" />
+									<text-line size="20" />
 								</default-field>
 							</field>
-							<field name="sex">
+							<field name="hiredate" >
+								<default-field title="入职日期">
+									<date-time type="date" size="15"/>
+								</default-field>
+							</field>
+							<field name="gender">
 								<default-field title="性别" tooltip="请选择性别">
-									<drop-down allow-empty="false">
-										<dynamic-options transition="getSexTypeEnumList"
-											value-field="enumId" label-field="description">
-										</dynamic-options>
-									</drop-down>
+									<drop-down allow-empty="true"  size="20">
+				                        <entity-options text="${description}">
+				                            <entity-find entity-name="moqui.basic.Enumeration">
+				                                <econdition field-name="enumTypeId" value="EmployeeGenderEnum"/>
+				                                <order-by field-name="description"/>
+				                            </entity-find>
+				                        </entity-options>
+				                    </drop-down>
 								</default-field>
 							</field>
 							
-							<field name="newPassword" hide="userId != null"><default-field title="密码"><password size="15"/><label text="* 至少8位，必须包含字母、数字、特殊字符"/></default-field></field>
-		                	<field name="newPasswordVerify" hide="userId != null"><default-field title="确认密码"><password size="15"/></default-field></field>
+							<field name="newPassword" hide="userId != null"><default-field title="密码" tooltip="* 至少8位，必须包含字母、数字、特殊字符"><password size="20"/></default-field></field>
+		                	<field name="newPasswordVerify" hide="userId != null"><default-field title="确认密码" tooltip="* 至少8位，必须包含字母、数字、特殊字符"><password size="20"/></default-field></field>
 							<field name="submitButton" hide="userId != null">
 								<default-field title="保存">
 									<submit />
 								</default-field>
 							</field>
+							<field-layout>
+				                <field-row><field-ref name="username"/><field-ref name="department"/></field-row>
+				                <field-row><field-ref name="post"/><field-ref name="emplyeeType"/></field-row>
+				                <field-row ><field-ref name="userFullName"/><field-ref name="englishName"/></field-row>
+				                <field-row ><field-ref name="cellphone"/><field-ref name="wechat"/></field-row>
+				                <field-row ><field-ref name="gender"/><field-ref name="salary"/></field-row>
+				                <field-row ><field-ref name="idCardType"/><field-ref name="idCard"/></field-row>
+				                <field-row ><field-ref name="emailAddress"/><field-ref name="birthDate"/></field-row>
+				                <field-ref name="hiredate"/>
+				                <field-row ><field-ref name="newPassword"/><field-ref name="newPassword"/></field-row>	        
+				                <field-ref name="submitButton"/>
+				            </field-layout>
 						</form-single>
 					</box-body>
 					<box-body-nopad>
