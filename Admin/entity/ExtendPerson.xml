@@ -7,6 +7,7 @@
         <field name="wechat" type="text-medium"/>
         <field name="iconUrl" type="text-medium"/>
         <field name="photoUrl" type="text-medium"/>
+        <field name="emplyeeType" type="text-medium"/>
         <field name="salary" type="number-decimal"/>
         <field name="hiredate" type="date"/>
         <field name="idCardType" type="id" />
@@ -28,8 +29,8 @@
 		<seed-data>
 			 <!-- employee sex -->
             <moqui.basic.EnumerationType description="Employee Gender" enumTypeId="EmployeeGenderEnum"/>
-            <moqui.basic.Enumeration description="男" enumId="Man" enumTypeId="EmployeeGenderEnum"/>
-            <moqui.basic.Enumeration description="女" enumId="Women" enumTypeId="EmployeeGenderEnum"/>
+            <moqui.basic.Enumeration description="男" enumId="M" enumTypeId="EmployeeGenderEnum"/>
+            <moqui.basic.Enumeration description="女" enumId="W" enumTypeId="EmployeeGenderEnum"/>
             
              <!-- department -->
             <moqui.basic.EnumerationType description="Department Enum" enumTypeId="DepartmentEnum"/>

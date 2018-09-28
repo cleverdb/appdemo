@@ -101,12 +101,11 @@ xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-
                     <default-field><display/></default-field>
              </field>
 				<field name="sex" print-width="30" >
-			        <header-field title="性别" show-order-by="true" >
-<!-- 			        	<drop-down allow-empty="false" allow-multiple="true"  > -->
-<!-- 	                         <dynamic-options  transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description" > -->
-<!-- 	               			</dynamic-options> -->
-<!--                    		</drop-down> -->
-                   		<text-find  />
+			        <header-field title="性别" show-order-by="true"  >
+						<drop-down allow-empty="false" allow-multiple="true"   >
+		                         <dynamic-options  transition="getSexTypeEnumList" delay="300"  value-field="enumId" label-field="description"  >
+		               			</dynamic-options>
+	                   		</drop-down>			        	
 					</header-field>
 					<default-field><display></display></default-field>
 <!-- 	            <default-field> -->

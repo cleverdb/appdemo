@@ -2,15 +2,15 @@
 
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
 
-    <view-entity entity-name="EmpViews" package="dongbo">
-        <member-entity entity-alias="e" entity-name="dongbo.Emp"/>
-<!--         <member-entity entity-alias="e2d" entity-name="dongbo.EmpToDept" join-from-alias="e"> -->
-<!--         	<key-map field-name="id" related="empid"/> -->
-<!--         </member-entity> -->
-	<member-relationship entity-alias="e2d"  join-from-alias="e" relationship="to" ></member-relationship>
+    <view-entity entity-name="EmpViews" package="dongbo" >
+        <member-entity entity-alias="e" entity-name="dongbo.Emp" sub-select="true"/>
+        <member-entity entity-alias="e2d" entity-name="dongbo.EmpToDept" join-from-alias="e">
+        	<key-map field-name="id" related="empid"/>
+        </member-entity>
+<!-- 	<member-relationship entity-alias="e2d"  join-from-alias="e" relationship="to" ></member-relationship> -->
 
-<!--         <member-entity entity-alias="d" entity-name="dongbo.Dept" join-from-alias="e2d"> -->
-<!--             <key-map field-name="deptid" related="id"/></member-entity> -->
+        <member-entity entity-alias="d" entity-name="dongbo.Dept" join-from-alias="e2d">
+            <key-map field-name="deptid" related="id"/></member-entity>
             <alias-all entity-alias="e"></alias-all>
             <alias-all entity-alias="e2d"></alias-all>
 <!--         	<alias-all entity-alias="d"></alias-all> -->

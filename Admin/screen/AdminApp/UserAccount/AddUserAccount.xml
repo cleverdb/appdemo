@@ -12,17 +12,17 @@
 	<parameter name="userId" required="false" from = "userId" />
 	<transition name="getSexTypeEnumList">
 		<actions>
-			<log level="warn" message="In getSexTypeEnumList transition sex=${sex}" />
-			<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
-				<econdition field-name="enumTypeId" value="EmployeeSex" />
+			<log level="warn" message="In getSexTypeEnumList transition gender=${gender}" />
+			<entity-find entity-name="moqui.basic.Enumeration" list="genderEnumList">
+				<econdition field-name="enumTypeId" value="EmployeeGenderEnum" />
 				<order-by field-name="description" />
 			</entity-find>
-			<script>ec.web.sendJsonResponse(sexEnumList)</script>
+			<script>ec.web.sendJsonResponse(genderEnumList)</script>
 		</actions>
 		<default-response type="none" />
 	</transition>
 	<transition name="createUserAccount">
-    	<service-call name="com.liou.impl.UserServices.create#UserAccount"/>
+    	<service-call name="com.liou.impl.UserServices.create#Account"/>
         <default-response url = "."></default-response>
     </transition>
 	<transition name="userGroupDetail">
@@ -38,7 +38,7 @@
 		<default-response url="." />
 	</transition>
 	<actions>
-		<entity-find-one entity-name="moqui.security.UserAccount"
+		<entity-find-one entity-name="com.liou.UserAccountAndPerson"
 			value-field="userAccount" />
 		<entity-find entity-name="moqui.security.UserGroupMember"
 			list="ugmList">
@@ -47,6 +47,7 @@
 		</entity-find>
 	</actions>
 	<widgets>
+	<label text="${userAccount}"/>
 		<container-row>
 			<row-col lg='6'>
 				<container-box >
@@ -63,9 +64,9 @@
 									<hidden />
 								</default-field>
 							</field>
-							<field name="department">
+							<field name="department"  >
 								<default-field title="部门" >
-									<drop-down allow-empty="true"  size="20">
+									<drop-down allow-empty="true"  size="20" >
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
 				                                <econdition field-name="enumTypeId" value="DepartmentEnum"/>
@@ -87,9 +88,16 @@
 				                    </drop-down>
 								</default-field>
 							</field>
-							<field name="emplyeeType">
-								<default-field title="员工类型" >
-									<text-line size="20" />
+							<field name="emplyeeType" >
+								<default-field title="员工类型">
+									<drop-down allow-empty="true"  size="15" allow-multiple="true" >
+				                        <entity-options text="${description}" >
+				                            <entity-find entity-name="mantle.party.RoleType">
+				                                <econdition field-name="parentTypeId" value="1000"/>
+				                                <order-by field-name="description"/>
+				                            </entity-find>
+				                        </entity-options>
+				                    </drop-down>
 								</default-field>
 							</field>
 							<field name="username">
@@ -176,14 +184,15 @@
 							</field>
 							<field-layout>
 				                <field-row><field-ref name="username"/><field-ref name="department"/></field-row>
-				                <field-row><field-ref name="post"/><field-ref name="emplyeeType"/></field-row>
+				                <field-row><field-ref name="post"/><field-ref name="emailAddress"/></field-row>
 				                <field-row ><field-ref name="userFullName"/><field-ref name="englishName"/></field-row>
 				                <field-row ><field-ref name="cellphone"/><field-ref name="wechat"/></field-row>
 				                <field-row ><field-ref name="gender"/><field-ref name="salary"/></field-row>
 				                <field-row ><field-ref name="idCardType"/><field-ref name="idCard"/></field-row>
-				                <field-row ><field-ref name="emailAddress"/><field-ref name="birthDate"/></field-row>
-				                <field-ref name="hiredate"/>
-				                <field-row ><field-ref name="newPassword"/><field-ref name="newPassword"/></field-row>	        
+				                <field-row ><field-ref name="birthDate"/><field-ref name="hiredate"/></field-row>
+				                <field-row ><field-ref name="emplyeeType"/></field-row>
+				                
+				                <field-row ><field-ref name="newPassword"/><field-ref name="newPasswordVerify"/></field-row>	        
 				                <field-ref name="submitButton"/>
 				            </field-layout>
 						</form-single>

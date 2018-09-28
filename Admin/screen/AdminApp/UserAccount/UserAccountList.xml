@@ -1,125 +1,237 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-This software is in the public domain under CC0 1.0 Universal plus a 
-Grant of Patent License.
-
-To the extent possible under law, the author(s) have dedicated all
-copyright and related and neighboring rights to this software to the
-public domain worldwide. This software is distributed without any
-warranty.
-
-You should have received a copy of the CC0 Public Domain Dedication
-along with this software (see the LICENSE.md file). If not, see
-<http://creativecommons.org/publicdomain/zero/1.0/>.
--->
+<!-- This software is in the public domain under CC0 1.0 Universal plus a 
+	Grant of Patent License. To the extent possible under law, the author(s) 
+	have dedicated all copyright and related and neighboring rights to this software 
+	to the public domain worldwide. This software is distributed without any 
+	warranty. You should have received a copy of the CC0 Public Domain Dedication 
+	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" require-authentication="true" default-menu-title="用户"  default-menu-index="5">
+	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+	default-menu-include="false" require-authentication="true"
+	default-menu-title="用户" default-menu-index="5">
 
-    <transition name="editUserAccount"><default-response url="../EditUserAccount"/></transition>
-    <transition name="addUserAccount"><default-response url="../AddUserAccount"/></transition>
-    <transition name="updatePassword"><default-response url="../EditPassword"/></transition>
-    <transition name="createUserAccount">
-    	<service-call name="com.liou.impl.UserServices.create#UserAccount"/>
-        <default-response url = "."></default-response>
-    </transition>
-    <transition name="enableUserAccount"><service-call name="com.liou.impl.UserServices.enable#UserAccount"/>
-        <default-response url="."/></transition>
-    <transition name="disableUserAccount"><service-call name="com.liou.impl.UserServices.disable#UserAccount"/>
-        <default-response url="."/></transition>
-    <transition name="userGroupDetail"><default-response url="../../UserGroup/UserGroupDetail"/></transition>
-    <transition name="createUserGroupMember"><service-call name="create#moqui.security.UserGroupMember"/>
-        <default-response url="."/></transition>
-    <transition name="updateUserGroupMember"><service-call name="update#moqui.security.UserGroupMember"/>
-        <default-response url="."/></transition>
-    <transition name="getSexTypeEnumList">
-        <actions>
-            <log level="warn" message="In getSexTypeEnumList transition sex=${sex}"/>
-	 		<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
-	                <econdition field-name="enumTypeId" value="EmployeeSex"/>
-	                <order-by field-name="description"/>
-	         </entity-find>
-            <script>ec.web.sendJsonResponse(sexEnumList)</script>
-        </actions>
-        <default-response type="none"/>
-    </transition>
-    <actions>
-        <entity-find entity-name="moqui.security.UserAccount" list="userAccountList">
-            <search-form-inputs default-order-by="username"/>
-        </entity-find>
-<!--         <entity-find entity-name="moqui.security.UserGroupMember" list="ugmList"> -->
-<!--             <econdition field-name="userId"/><order-by field-name="userGroupId"/></entity-find> -->
-    </actions>
-    <widgets>
-    	<container-box><box-header><label text="用户信息" type="h5"/></box-header>
-    	<box-toolbar>
-	       <link url="addUserAccount" text="新增"></link> 
-	    </box-toolbar><box-body>
-        <form-list name="UserAccountList" list="userAccountList" skip-form="true" header-dialog="true" select-columns="true"
-                       show-csv-button="true" show-text-button="true" show-pdf-button="true">
-            <field name="userId" hide="true" >
-                <header-field title="ID" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
-                <default-field><link text="${userId}" url="editUserAccount" link-type="anchor"/></default-field>
-            </field>
-            <field name="username">
-                <header-field title="用户工号" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="userFullName">
-                <header-field title="中文名" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-			<field name="sex" >
-	            <header-field title="性别" show-order-by="true">
-	            	<drop-down allow-empty="false">
-                            <dynamic-options transition="getSexTypeEnumList" value-field="enumId" label-field="description">
-                            </dynamic-options>
-                   	</drop-down>
-				</header-field>
-	            <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-             </field>
-            <field name="cellphone">
-                <header-field title="手机号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="idCard">
-                <header-field title="证件号" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="emailAddress">
-                <header-field title="邮箱" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><display/></default-field>
-            </field>
-            <field name="disabled">
-                <header-field title="状态" show-order-by="true"><drop-down allow-empty="true"><option key="Y" text="冻结"/><option key="N" text="正常"/></drop-down></header-field>
-                <default-field ><display  text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}"/></default-field>
-            </field>
-            <field name="find" ><header-field title="Find"><submit/></header-field>
-                <default-field><display text=" "/></default-field></field>
-            <field name="editUserButton" align="center">
-            	<header-field title=" "></header-field>
-            	<default-field>
-            		<link url="editUserAccount" parameter-map="[userId:userId]" text="编辑" ></link>
-            	</default-field>
-<!--                 <default-field> -->
-<!-- 	                <dynamic-dialog button-text="修改"  parameter-map="[userId:userId]" transition="editUserAccount" id ="EditUser"  type="primary"> -->
-<!-- 	                </dynamic-dialog> -->
-<!--              	</default-field> -->
-             </field>
-<!--             <field name="editPasswordButton" align="center"> -->
-<!--             	<header-field title=" "></header-field> -->
-<!--                 <default-field> -->
-<!-- 	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning"> -->
-<!-- 	                </dynamic-dialog> -->
-<!--              	</default-field> -->
-<!--              </field> -->
-             <field name="statusButton" align="left">
-             	<header-field title=" "></header-field>
-             	<default-field>
-	             	<link url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}" text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]" link-type="auto" />
-             	</default-field>
-             </field>
-        </form-list>
-      </box-body></container-box>
-    </widgets>
+	<transition name="editUserAccount">
+		<default-response url="../EditUserAccount" />
+	</transition>
+	<transition name="addUserAccount">
+		<default-response url="../AddUserAccount" />
+	</transition>
+	<transition name="updatePassword">
+		<default-response url="../EditPassword" />
+	</transition>
+	<transition name="createUserAccount">
+		<service-call name="com.liou.impl.UserServices.create#UserAccount" />
+		<default-response url="."></default-response>
+	</transition>
+	<transition name="enableUserAccount">
+		<service-call name="com.liou.impl.UserServices.enable#UserAccount" />
+		<default-response url="." />
+	</transition>
+	<transition name="disableUserAccount">
+		<service-call name="com.liou.impl.UserServices.disable#UserAccount" />
+		<default-response url="." />
+	</transition>
+	<transition name="userGroupDetail">
+		<default-response url="../../UserGroup/UserGroupDetail" />
+	</transition>
+	<transition name="createUserGroupMember">
+		<service-call name="create#moqui.security.UserGroupMember" />
+		<default-response url="." />
+	</transition>
+	<transition name="updateUserGroupMember">
+		<service-call name="update#moqui.security.UserGroupMember" />
+		<default-response url="." />
+	</transition>
+	<transition name="getGenderTypeEnumList">
+		<actions>
+			<entity-find entity-name="moqui.basic.Enumeration" list="GenderEnumList">
+				<econdition field-name="enumTypeId" value="EmployeeGender" />
+				<order-by field-name="description" />
+			</entity-find>
+			<script>ec.web.sendJsonResponse(GenderEnumList)</script>
+		</actions>
+		<default-response type="none" />
+	</transition>
+	<transition name="getDepartmentList">
+		<actions>
+			<entity-find entity-name="moqui.basic.Enumeration" list="DepartmentEnumList">
+				<econdition field-name="enumTypeId" value="DepartmentEnum" />
+				<order-by field-name="description" />
+			</entity-find>
+			<script>ec.web.sendJsonResponse(DepartmentEnumList)</script>
+		</actions>
+		<default-response type="none" />
+	</transition>
+	<transition name="getPostList">
+		<actions>
+			<entity-find entity-name="moqui.basic.Enumeration" list="PostEnumList">
+				<econdition field-name="enumTypeId" value="PostEnum" />
+				<order-by field-name="description" />
+			</entity-find>
+			<script>ec.web.sendJsonResponse(PostEnumList)</script>
+		</actions>
+		<default-response type="none" />
+	</transition>
+	<transition name="getRoleTypeList">
+		<actions>
+			<entity-find entity-name="mantle.party.RoleType" list="RoleTypeList">
+				<econdition field-name="parentTypeId" value="1000" />
+				<order-by field-name="description" />
+			</entity-find>
+			<script>ec.web.sendJsonResponse(RoleTypeList)</script>
+		</actions>
+		<default-response type="none" />
+	</transition>
+	<actions>
+		<service-call name="com.liou.impl.UserServices.find#UserAccountAndPerson"
+			out-map="context">
+			<field-map field-name="username" />
+			<field-map field-name="department" />
+			<field-map field-name="userFullName" />
+			<field-map field-name="emplyeeType" />
+			<field-map field-name="post" />
+			<field-map field-name="orderByField" />
+			<field-map field-name="pageIndex" />
+		</service-call>
+	</actions>
+	<widgets>
+	<label text="${userAccountList}"/>
+		<container-box>
+			<box-header>
+				<label text="用户信息" type="h5" />
+			</box-header>
+			<box-toolbar>
+				<link url="addUserAccount" text="新增"></link>
+			</box-toolbar>
+			<box-body>
+				<form-list name="UserAccountList" list="userAccountList"
+					skip-form="true" header-dialog="true" select-columns="true"
+					show-csv-button="true" show-text-button="true" show-pdf-button="true">
+						<row-actions>
+                       		<entity-find entity-name="com.liou.PartyRoleTypes" list="roleTypeList">
+                       			<econdition field-name="partyId" value="${partyId}"/>
+                       		</entity-find>
+                       </row-actions>
+					<field name="userId" hide="true">
+						<header-field title="ID" show-order-by="true"></header-field>
+						<default-field>
+							<link text="${userId}" url="editUserAccount" link-type="anchor" />
+						</default-field>
+					</field>
+					<field name="username">
+						<header-field title="用户工号" show-order-by="true">
+							<text-find size="10" hide-options="true" />
+						</header-field>
+						<default-field>
+							<display/>
+						</default-field>
+					</field>
+					<field name="userFullName">
+						<header-field title="中文名" show-order-by="true">
+							<text-find size="15" hide-options="true" />
+						</header-field>
+						<default-field>
+							<display />
+						</default-field>
+					</field>
+					<field name="idCard">
+						<header-field title="证件号" show-order-by="true"></header-field>
+						<default-field>
+							<display/>
+						</default-field>
+					</field>
+					<field name="gender">
+						<header-field title="性別" >
+						</header-field>
+						<default-field>
+							<display-entity entity-name="moqui.basic.Enumeration"/>
+						</default-field>
+					</field>
+					<field name="cellphone">
+						<header-field title="手机号" show-order-by="true"></header-field>
+						<default-field>
+							<display />
+						</default-field>
+					</field>
+					<field name="department">
+						<header-field title="部門" >
+							<drop-down allow-empty="true">
+								<dynamic-options  transition="getDepartmentList" delay="300" value-field="enumId" label-field="description">
+		                        </dynamic-options>
+							</drop-down>
+						</header-field>
+						<default-field >
+							<display-entity entity-name="moqui.basic.Enumeration"/>
+						</default-field>
+					</field>
+					<field name="post">
+						<header-field title="职位">
+							<drop-down allow-empty="true">
+								<dynamic-options  transition="getPostList" delay="300" value-field="enumId" label-field="description">
+		                        </dynamic-options>
+							</drop-down>
+						</header-field>
+						<default-field>
+							<display-entity entity-name="moqui.basic.Enumeration"/>
+						</default-field>
+					</field>
+					<field name="emplyeeType">
+						<header-field title="员工类型">
+							<drop-down allow-multiple="true" allow-empty="true">
+								<dynamic-options  transition="getRoleTypeList"  value-field="roleTypeId" label-field="description">
+		                        </dynamic-options>
+							</drop-down>
+						</header-field>
+						<default-field >
+	                    	<section-iterate name="xxx" entry="roleType" list="roleTypeList" condition="roleTypeList.size() &gt; 0">
+	                    		<widgets ><label text="${roleType.description}"/> </widgets>
+	                    	</section-iterate>
+	                    </default-field>	
+					</field>
+					<field name="emailAddress">
+						<header-field title="邮箱" show-order-by="true"></header-field>
+						<default-field>
+							<display />
+						</default-field>
+					</field>
+					<field name="disabled">
+						<header-field title="状态" show-order-by="true">
+<!-- 							<drop-down allow-empty="true"> -->
+<!-- 								<option key="Y" text="冻结" /> -->
+<!-- 								<option key="N" text="正常" /> -->
+<!-- 							</drop-down> -->
+						</header-field>
+						<default-field>
+							<display
+								text="${disabled == 'Y' ?'冻结':'正常'} ${disabledDateTime ?: ''}" />
+						</default-field>
+					</field>
+					<field name="find">
+						<header-field title="Find">
+							<submit />
+						</header-field>
+						<default-field>
+							<display text=" " />
+						</default-field>
+					</field>
+					<field name="editUserButton" align="center">
+						<header-field title=" "></header-field>
+						<default-field>
+							<link url="editUserAccount" parameter-map="[userId:userId]"
+								text="编辑"></link>
+						</default-field>
+					</field>
+					<field name="statusButton" align="left">
+						<header-field title=" "></header-field>
+						<default-field>
+							<link
+								url="${disabled == 'Y' ? 'enableUserAccount':'disableUserAccount'}"
+								text="${disabled == 'Y' ? '激活':'冻结'}" parameter-map="[userId:userId]"
+								link-type="auto" />
+						</default-field>
+					</field>
+				</form-list>
+			</box-body>
+		</container-box>
+	</widgets>
 </screen>
