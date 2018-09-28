@@ -62,8 +62,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="requirePasswordChange" default-value="N"/>
             <parameter name="disabled" default-value="N"></parameter>
             <parameter name="userFullName"/>
+            <parameter name="englishName"/>
             <parameter name="emailAddress"><text-email/></parameter>
-            <parameter name="emplyeeType" type="List"/>
+            <parameter name="roleTypeIds" type="List"/>
             <parameter name="loginAfterCreate" type="Boolean" default="false"/>
         </in-parameters>
         <out-parameters>
@@ -90,9 +91,9 @@ along with this software (see the LICENSE.md file). If not, see
             <service-call name="create#mantle.party.Party" in-map="[partyTypeEnumId:'PtyPerson', disabled:disabled]" out-map="newPartyOut"/>
             <set field="partyId" from="newPartyOut.partyId"/>
             <service-call name="create#mantle.party.Person" in-map="context"/>
-            <if condition="emplyeeType">
-            	<iterate entry="emplyeeTypeId" list="emplyeeType" >
-                	<service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:emplyeeTypeId]"/>
+            <if condition="roleTypeIds">
+            	<iterate entry="roleTypeId" list="roleTypeIds" >
+                	<service-call name="create#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/>
                 </iterate>
             </if>
             <if condition="username">
@@ -109,6 +110,47 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
     
+      <service verb="update" noun="Account" authenticate="false">
+        <description>
+            update a basic user account including:
+            - Party/Person/PartyRole
+            - UserAccount
+        </description>
+        <in-parameters>
+            <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
+   			<parameter name="username" required="true"/>
+   			<parameter name="userId" required="true"/>
+   			<parameter name="partyId" required="true"/>
+            <parameter name="userFullName"/>
+            <parameter name="emailAddress"><text-email/></parameter>
+            <parameter name="englishName"/>
+            <parameter name="roleTypeIds" type="List"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="userId"/>
+            <parameter name="partyId" required="true"/>
+        </out-parameters>
+        <actions>
+            <if condition="roleTypeIds">
+            	<iterate entry="roleTypeId" list="roleTypeIds" >
+                	<service-call name="store#mantle.party.PartyRole" in-map="[partyId:partyId, roleTypeId:roleTypeId]"/>
+                </iterate>               
+            </if>
+            <service-call name="update#moqui.security.UserAccount" in-map="context"/>
+            <service-call name="update#mantle.party.Person" in-map="context"/>
+             <if condition="emplyeeType">
+	            	<script>
+		                import org.moqui.context.ExecutionContext
+		                import org.moqui.entity.EntityCondition
+		                ExecutionContext ec = context.ec
+		               	ec.entity.find("mantle.party.PartyRole")
+		               	.condition(ec.entity.conditionFactory.makeCondition("roleTypeId", EntityCondition.NOT_IN, roleTypeIds))
+		               	.condition("partyId":partyId).deleteAll()
+	                </script>
+              </if>
+        </actions>
+    </service>
+      
     <service verb="create" noun="UserAccount" authenticate="anonymous-all" allow-remote="false">
         <in-parameters>
             <parameter name="username" required="true"/>

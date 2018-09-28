@@ -7,7 +7,7 @@
         <field name="wechat" type="text-medium"/>
         <field name="iconUrl" type="text-medium"/>
         <field name="photoUrl" type="text-medium"/>
-        <field name="emplyeeType" type="text-medium"/>
+        <field name="roleTypeIds" type="text-medium"/>
         <field name="salary" type="number-decimal"/>
         <field name="hiredate" type="date"/>
         <field name="idCardType" type="id" />

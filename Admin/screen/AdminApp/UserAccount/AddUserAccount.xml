@@ -7,7 +7,7 @@
 	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-	default-menu-title="新增用户信息" require-authentication="true" default-menu-include="false">
+	default-menu-title="新增用户信息" require-authentication="true" >
 
 	<parameter name="userId" required="false" from = "userId" />
 	<transition name="getSexTypeEnumList">
@@ -88,7 +88,7 @@
 				                    </drop-down>
 								</default-field>
 							</field>
-							<field name="emplyeeType" >
+							<field name="roleTypeIds" >
 								<default-field title="员工类型">
 									<drop-down allow-empty="true"  size="15" allow-multiple="true" >
 				                        <entity-options text="${description}" >
@@ -190,7 +190,7 @@
 				                <field-row ><field-ref name="gender"/><field-ref name="salary"/></field-row>
 				                <field-row ><field-ref name="idCardType"/><field-ref name="idCard"/></field-row>
 				                <field-row ><field-ref name="birthDate"/><field-ref name="hiredate"/></field-row>
-				                <field-row ><field-ref name="emplyeeType"/></field-row>
+				                <field-row ><field-ref name="roleTypeIds"/></field-row>
 				                
 				                <field-row ><field-ref name="newPassword"/><field-ref name="newPasswordVerify"/></field-row>	        
 				                <field-ref name="submitButton"/>

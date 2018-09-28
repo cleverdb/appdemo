@@ -175,7 +175,7 @@
 							<display-entity entity-name="moqui.basic.Enumeration"/>
 						</default-field>
 					</field>
-					<field name="emplyeeType">
+					<field name="roleTypeIds">
 						<header-field title="员工类型">
 							<drop-down allow-multiple="true" allow-empty="true">
 								<dynamic-options  transition="getRoleTypeList"  value-field="roleTypeId" label-field="description">
