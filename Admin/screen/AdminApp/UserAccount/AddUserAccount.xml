@@ -9,7 +9,7 @@
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
 	default-menu-title="新增用户信息" require-authentication="true" default-menu-include="false">
 
-	<parameter name="userId" required="false" from = "userId" />
+	<parameter name="_userId" required="false" from = "userId" />
 	<transition name="getSexTypeEnumList">
 		<actions>
 			<log level="warn" message="In getSexTypeEnumList transition gender=${gender}" />
@@ -39,7 +39,9 @@
 	</transition>
 	<actions>
 		<entity-find-one entity-name="com.liou.UserAccountAndPerson"
-			value-field="userAccount" />
+			value-field="userAccount" >
+			<field-map field-name="userId" from="_userId" />
+			</entity-find-one>
 		<entity-find entity-name="moqui.security.UserGroupMember"
 			list="ugmList">
 			<econdition field-name="userId" />
@@ -47,7 +49,6 @@
 		</entity-find>
 	</actions>
 	<widgets>
-	<label text="${userAccount}"/>
 		<container-row>
 			<row-col lg='6'>
 				<container-box >
@@ -66,7 +67,7 @@
 							</field>
 							<field name="department"  >
 								<default-field title="部门" >
-									<drop-down allow-empty="true"  size="20" >
+									<drop-down allow-empty="true"  size="20"  disabled="_userId != null">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
 				                                <econdition field-name="enumTypeId" value="DepartmentEnum"/>
@@ -78,7 +79,7 @@
 							</field>
 							<field name="post">
 								<default-field title="职位" >
-									<drop-down allow-empty="true"  size="20">
+									<drop-down allow-empty="true"  size="20" disabled="_userId != null">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
 				                                <econdition field-name="enumTypeId" value="PostEnum"/>
@@ -90,7 +91,7 @@
 							</field>
 							<field name="roleTypeIds" >
 								<default-field title="员工类型">
-									<drop-down allow-empty="true"  size="15" allow-multiple="true" >
+									<drop-down allow-empty="true"  size="15" allow-multiple="true" disabled="_userId != null">
 				                        <entity-options text="${description}" >
 				                            <entity-find entity-name="mantle.party.RoleType">
 				                                <econdition field-name="parentTypeId" value="1000"/>
@@ -102,32 +103,32 @@
 							</field>
 							<field name="username">
 								<default-field title="用户工号" tooltip="用户登陆名">
-									<text-line size="20" />
+									<text-line size="20"  disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="userFullName">
 								<default-field title="中文名">
-									<text-line size="20" />
+									<text-line size="20" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="englishName">
 								<default-field title="英文名">
-									<text-line size="20" />
+									<text-line size="20" disabled="_userId != null" />
 								</default-field>
 							</field>
 							<field name="cellphone">
 								<default-field title="手机号">
-									<text-line size="20" maxlength="11" />
+									<text-line size="20" maxlength="11"  disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="wechat">
 								<default-field title="微信号">
-									<text-line size="20"  />
+									<text-line size="20" disabled="_userId != null" />
 								</default-field>
 							</field>
 							<field name="idCardType">
 								<default-field title="证件类型">
-									<drop-down allow-empty="true">
+									<drop-down allow-empty="true" disabled="_userId != null">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
 				                                <econdition field-name="enumTypeId" value="IDCardTypeEnum"/>
@@ -139,32 +140,32 @@
 							</field>
 							<field name="idCard">
 								<default-field title="证件号">
-									<text-line size="20"/>
+									<text-line size="20" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="salary">
 								<default-field title="基薪">
-									<text-line size="20" />
+									<text-line size="20" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="birthDate" >
 								<default-field title="生日">
-									<date-time type="date" size="15"/>
+									<date-time type="date" size="15" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="emailAddress" >
-								<default-field title="邮箱">
-									<text-line size="20" />
+								<default-field title="邮箱" >
+									<text-line size="20" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="hiredate" >
-								<default-field title="入职日期">
-									<date-time type="date" size="15"/>
+								<default-field title="入职日期" >
+									<date-time type="date" size="15" disabled="_userId != null"/>
 								</default-field>
 							</field>
 							<field name="gender">
-								<default-field title="性别" tooltip="请选择性别">
-									<drop-down allow-empty="true"  size="20">
+								<default-field title="性别" tooltip="请选择性别" >
+									<drop-down allow-empty="true"  size="20" disabled="_userId != null">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
 				                                <econdition field-name="enumTypeId" value="EmployeeGenderEnum"/>

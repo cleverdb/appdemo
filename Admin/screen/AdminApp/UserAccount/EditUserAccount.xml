@@ -104,9 +104,9 @@
 				                    </drop-down>
 								</default-field>
 							</field>
-							<field name="username">
+							<field name="username" >
 								<default-field title="用户工号" tooltip="用户登陆名">
-									<text-line size="20" />
+									<text-line size="20" disabled="true" />
 								</default-field>
 							</field>
 							<field name="userFullName">

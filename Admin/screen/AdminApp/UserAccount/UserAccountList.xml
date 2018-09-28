@@ -95,7 +95,6 @@
 		</service-call>
 	</actions>
 	<widgets>
-	<label text="${userAccountList}"/>
 		<container-box>
 			<box-header>
 				<label text="用户信息" type="h5" />

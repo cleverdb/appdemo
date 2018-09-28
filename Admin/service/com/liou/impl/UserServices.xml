@@ -118,7 +118,7 @@ along with this software (see the LICENSE.md file). If not, see
         </description>
         <in-parameters>
             <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
-   			<parameter name="username" required="true"/>
+   			<parameter name="username"/>
    			<parameter name="userId" required="true"/>
    			<parameter name="partyId" required="true"/>
             <parameter name="userFullName"/>
@@ -156,6 +156,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="newPasswordVerify" required="true"/>
             <parameter name="requirePasswordChange" default-value="N"/>
             <parameter name="cellphone"></parameter>
+            <parameter name="englishName"/>
             <parameter name="idCard"></parameter>
             <parameter name="sex"></parameter>
             <parameter name="disabled" default-value="N"></parameter>
