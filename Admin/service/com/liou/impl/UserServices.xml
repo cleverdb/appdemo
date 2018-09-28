@@ -138,7 +138,6 @@ along with this software (see the LICENSE.md file). If not, see
             </if>
             <service-call name="update#moqui.security.UserAccount" in-map="context"/>
             <service-call name="update#mantle.party.Person" in-map="context"/>
-             <if condition="emplyeeType">
 	            	<script>
 		                import org.moqui.context.ExecutionContext
 		                import org.moqui.entity.EntityCondition
@@ -147,7 +146,6 @@ along with this software (see the LICENSE.md file). If not, see
 		               	.condition(ec.entity.conditionFactory.makeCondition("roleTypeId", EntityCondition.NOT_IN, roleTypeIds))
 		               	.condition("partyId":partyId).deleteAll()
 	                </script>
-              </if>
         </actions>
     </service>
       
