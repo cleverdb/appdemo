@@ -34,10 +34,10 @@ if (department) { ef.condition("department", department) }
 if (username) { ef.condition(ec.entity.conditionFactory.makeCondition("username", EntityCondition.LIKE,  (leadingWildcard ? "%" : "") + username + "%").ignoreCase()) }
 if (userFullName) { ef.condition(ec.entity.conditionFactory.makeCondition("userFullName", EntityCondition.LIKE,  (leadingWildcard ? "%" : "") + userFullName + "%").ignoreCase()) }
 
-if (emplyeeType) {ef.condition(ec.entity.conditionFactory.makeCondition("partyId", EntityCondition.IN, getPartyIdsSet(emplyeeType))) } 
-	 Set<String> getPartyIdsSet(List emplyeeType) {
+if (roleTypeIds) {ef.condition(ec.entity.conditionFactory.makeCondition("partyId", EntityCondition.IN, getPartyIdsSet(roleTypeIds))) } 
+	 Set<String> getPartyIdsSet(List roleTypeIds) {
 		 Set<String> partyIds = new HashSet()
-			 EntityList partyRolesList = ec.entity.find("mantle.party.PartyRole").condition(ec.entity.conditionFactory.makeCondition("roleTypeId", EntityCondition.IN, emplyeeType))
+			 EntityList partyRolesList = ec.entity.find("mantle.party.PartyRole").condition(ec.entity.conditionFactory.makeCondition("roleTypeId", EntityCondition.IN, roleTypeIds))
 					 .useCache(false).list()
 			 for (EntityValue partyRole in partyRolesList) partyIds.add((String)partyRole.partyId)
 		 return partyIds

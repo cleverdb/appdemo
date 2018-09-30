@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+    <entity entity-name="Coach" package="com.liou" use="transactional">
+        <field name="coachId" type="id" is-pk="true"/>
+        <field name="specialityEnumId" type="id"/>
+		<field name="honor" type="text-medium"/>
+		<field name="description" type="text-medium"/>
+		<field name="remark" type="text-medium"/>
+		<field name="createTime" type="date-time"/>
+		<field name="createUser" type="text-medium"/>
+		<field name="partyId" type="id"/>
+		<relationship type="one" related="mantle.party.Person" short-alias="person">
+			<key-map field-name="partyId" related="partyId"/>
+		</relationship>
+		 <relationship type="one" title="CoachSpeciality" related="moqui.basic.Enumeration" short-alias="speciality">
+            <key-map field-name="specialityEnumId"/></relationship>
+		<seed-data>
+			 <!-- specialityEnumId -->
+            <moqui.basic.EnumerationType description="coach speciality" enumTypeId="CoachSpeciality"/>
+            <moqui.basic.Enumeration description="团操教练" enumId="Public" enumTypeId="CoachSpeciality"/>
+            <moqui.basic.Enumeration description="私教教练" enumId="Private" enumTypeId="CoachSpeciality"/>
+		
+		
+		</seed-data>
+		 <master>
+            <detail relationship="person"/>
+            <detail relationship="speciality"/>
+        </master>
+        
+    </entity>
+</entities>

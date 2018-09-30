@@ -88,7 +88,7 @@
 			<field-map field-name="username" />
 			<field-map field-name="department" />
 			<field-map field-name="userFullName" />
-			<field-map field-name="emplyeeType" />
+			<field-map field-name="roleTypeIds" />
 			<field-map field-name="post" />
 			<field-map field-name="orderByField" />
 			<field-map field-name="pageIndex" />

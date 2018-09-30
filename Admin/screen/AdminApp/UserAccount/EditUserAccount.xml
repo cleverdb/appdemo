@@ -247,7 +247,7 @@
 							</field>
 							<field name="userGroupId">
 								<default-field title="名称">
-									<display-entity entity-name="moqui.security.UserGroup" />
+									<display-entity entity-name="moqui.security.UserGroup" text="${description}"/>
 <!-- 									<link url="userGroupDetail" text="${userGroupId}" -->
 <!-- 										link-type="anchor" /> -->
 								</default-field>

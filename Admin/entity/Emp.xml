@@ -11,9 +11,6 @@
 		<relationship type="one" title="EmpSex" related="moqui.basic.Enumeration" short-alias="se">
 			<key-map field-name="sex"/>
 		</relationship>
-		<relationship type="one" related="dongbo.Dept" short-alias="sdept">
-			<key-map field-name="deptId"/>
-		</relationship>
 		<relationship type="many" related="dongbo.EmpToDept" short-alias="to">
 			<key-map field-name="id" related="empid"/>
 		</relationship>
@@ -25,10 +22,9 @@
             <moqui.basic.Enumeration description="女" enumId="sex_women" enumTypeId="EmpSex"/>
              <moqui.basic.Enumeration description="男女" enumId="sex_man_women" enumTypeId="EmpSex"/>
 		</seed-data>
-		 <master>
-<!--             <detail relationship="se"/> -->
-            <detail relationship="sdept"/>
-            <detail relationship="to"/>
-        </master>
+		 <master >
+			<detail relationship="to"><detail relationship="sdept"/></detail>
+			
+        </master >
     </entity>
 </entities>

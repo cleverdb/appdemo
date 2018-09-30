@@ -25,7 +25,7 @@ along with this software (see the LICENSE.md file). If not, see
      <service verb="find" noun="UserAccountAndPerson" type="script"
             location="component://Admin/service/com/liou/impl/findUser.groovy"  >
         <in-parameters>
-            <parameter name="emplyeeType" type="List"/>
+            <parameter name="roleTypeIds" type="List"/>
             <parameter name="username" />
           	<parameter name="userFullName"/>
             <parameter name="post"/>

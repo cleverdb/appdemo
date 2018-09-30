@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-index="1">
+        default-menu-include="false" require-authentication="true"  default-menu-index="1">
 
     <transition name="editArtifactGroup"><default-response url="../EditArtifactGroup"/></transition>
     <transition name="editArtifactGroupMember"><default-response url="../EditArtifactGroupMember"/></transition>

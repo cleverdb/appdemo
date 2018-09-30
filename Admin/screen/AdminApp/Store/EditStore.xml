@@ -22,7 +22,7 @@ along with this software (see the LICENSE.md file). If not, see
     	<default-response url="../StoreList"/>
     </transition>
     <actions>
-        <entity-find-one  entity-name="moqui.security.Store"   value-field="stores">
+        <entity-find-one  entity-name="com.liou.Store"   value-field="stores">
         </entity-find-one>
     </actions>
     <widgets>

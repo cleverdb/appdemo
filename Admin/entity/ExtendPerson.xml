@@ -62,6 +62,12 @@
             <moqui.basic.Enumeration description="职员" enumId="Staff" enumTypeId="EmployeeTypeEnum"/>
             <moqui.basic.Enumeration description="会籍顾问" enumId="MembershipConsultant" enumTypeId="EmployeeTypeEnum"/>
             <moqui.basic.Enumeration description="教练" enumId="Coach" enumTypeId="EmployeeTypeEnum"/>
+            
+            <mantle.party.RoleType roleTypeId = "1000" parentTypeId = "" description="员工类型"/>
+            <mantle.party.RoleType roleTypeId = "10001" parentTypeId = "1000" description="职员"/>
+            <mantle.party.RoleType roleTypeId = "10002" parentTypeId = "1000" description="会员服务"/>
+            <mantle.party.RoleType roleTypeId = "10003" parentTypeId = "1000" description="会籍顾问"/>
+            <mantle.party.RoleType roleTypeId = "10004" parentTypeId = "1000" description="教练"/>
 		</seed-data>
 		 <master>
             <detail relationship="ege"/>

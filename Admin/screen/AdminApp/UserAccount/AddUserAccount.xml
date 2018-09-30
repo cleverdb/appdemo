@@ -44,7 +44,7 @@
 			</entity-find-one>
 		<entity-find entity-name="moqui.security.UserGroupMember"
 			list="ugmList">
-			<econdition field-name="userId" />
+			<econdition field-name="userId" from="_userId"/>
 			<order-by field-name="userGroupId" />
 		</entity-find>
 	</actions>
@@ -211,7 +211,7 @@
 					</box-toolbar>
 					<box-body>
 						<form-single name="CreateUserGroupMember" transition="createUserGroupMember">
-							<field name="userId">
+							<field name="userId" from="_userId">
 								<default-field>
 									<hidden />
 								</default-field>
@@ -220,7 +220,7 @@
 								<default-field title="名称">
 									<drop-down>
 										<entity-options key="${userGroupId}" text="UserGroupNameTemplate">
-											<entity-find entity-name="moqui.security.UserGroup">
+											<entity-find entity-name="moqui.security.UserGroup"  >
 												<order-by field-name="description" />
 											</entity-find>
 										</entity-options>
@@ -249,9 +249,9 @@
 							</field>
 							<field name="userGroupId">
 								<default-field title="部门">
-									<display-entity entity-name="moqui.security.UserGroup" />
-									<link url="userGroupDetail" text="${userGroupId}"
-										link-type="anchor" />
+									<display-entity entity-name="moqui.security.UserGroup" text="${description}" />
+<!-- 									<link url="userGroupDetail" text="${userGroupId}" -->
+<!-- 										link-type="anchor" /> -->
 								</default-field>
 							</field>
 							<field name="fromDate">

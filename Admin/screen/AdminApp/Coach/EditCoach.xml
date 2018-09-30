@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This software is in the public domain under CC0 1.0 Universal plus a 
+	Grant of Patent License. To the extent possible under law, the author(s) 
+	have dedicated all copyright and related and neighboring rights to this software 
+	to the public domain worldwide. This software is distributed without any 
+	warranty. You should have received a copy of the CC0 Public Domain Dedication 
+	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+	 require-authentication="true"  default-menu-index="2" default-menu-title="教练信息">
+	<parameter name="coachId" required="true" />
+	
+	<transition name="updateCoach">
+		<service-call name="update#com.liou.Coach">
+		</service-call>
+		<default-response url="." />
+	</transition>
+	<actions>
+		<entity-find-one entity-name="com.liou.CoachInfoViews" value-field="coach">
+		</entity-find-one>
+	</actions>
+	<widgets>
+		<container-row>
+			<row-col lg="5">
+				<container-box>
+					<box-header>
+						<label text="基本信息" type="h5" />
+					</box-header>
+					<box-toolbar>
+					</box-toolbar>
+					<box-body>
+						<form-single name="UpdateCoachForm" transition="updateCoach" map="coach">
+							<field name="coachId">
+								<default-field>
+									<hidden/>
+								</default-field>
+							</field>
+							<field name="partyId">
+								<default-field title="教练">
+									<drop-down size="100">
+										<entity-options key="${partyId}"
+											text="${userFullName}(工号：${username})">
+											<entity-find entity-name="com.liou.UserAccountAndCoach">
+												<econdition field-name="roleTypeId" value="10004" />
+											</entity-find>
+										</entity-options>
+									</drop-down>
+								</default-field>
+							</field>
+							<field name="specialityEnumId">
+								<default-field title="教练等级">
+									<drop-down>
+										<entity-options text="${description}">
+											<entity-find entity-name="moqui.basic.Enumeration">
+												<econdition field-name="enumTypeId" value="CoachSpeciality" />
+												<order-by field-name="description" />
+											</entity-find>
+										</entity-options>
+									</drop-down>
+								</default-field>
+							</field>
+
+							<field name="iconUrl">
+								<default-field title="头像">
+									<filePic />
+								</default-field>
+							</field>
+							<field name="photoUrl">
+								<default-field title="照片">
+									<file ></file>
+								</default-field>
+							</field>
+							<field name="honor">
+								<default-field title="教练荣誉">
+									<text-area />
+								</default-field>
+							</field>
+							<field name="description">
+								<default-field title="自我介绍">
+									<text-area />
+								</default-field>
+							</field>
+							<field name="remark">
+								<default-field title="备注">
+									<text-area />
+								</default-field>
+							</field>
+							<field name="submitButton">
+								<default-field title="保存">
+									<submit />
+								</default-field>
+							</field>
+							<field-layout>
+								<field-row>
+									<field-ref name="partyId" />
+									<field-ref name="specialityEnumId" />
+								</field-row>
+								<field-row>
+									<field-ref name="iconUrl" />
+									<field-ref name="photoUrl" />
+								</field-row>
+								<field-row>
+									<field-ref name="honor" />
+									<field-ref name="description" />
+								</field-row>
+								<field-ref name="remark" />
+								<field-ref name="submitButton" />
+							</field-layout>
+						</form-single>
+					</box-body>
+				</container-box>
+			</row-col>
+			<row-col lg="7" >
+				<container-box>
+					<box-header>
+						<label text="关联课程" type="h5" />
+					</box-header>
+					<box-toolbar>
+					</box-toolbar>
+					<box-body>
+					</box-body>
+				</container-box>
+				<container-box>
+					<box-header>
+						<label text="已关联课程管理" type="h5" />
+					</box-header>
+					<box-toolbar>
+					</box-toolbar>
+					<box-body>
+					</box-body>
+				</container-box>
+			</row-col>
+		</container-row>
+	</widgets>
+</screen>

@@ -36,10 +36,10 @@ xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd" default-
     </pre-actions>
     <actions>
 	<script>ec.web.sendJsonResponse(XXX)</script>
-        <entity-find entity-name="dongbo.EmpViews" list="empList">
+        <entity-find entity-name="dongbo.Emp" list="empList">
             <search-form-inputs/>
 		</entity-find>
-        <entity-find entity-name="dongbo.Dept" list="DeptList"/>
+<!--         <entity-find entity-name="dongbo.Dept" list="DeptList"/> -->
     </actions>
     <widgets>
     

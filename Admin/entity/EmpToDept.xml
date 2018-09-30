@@ -4,5 +4,11 @@
     
         <field name="empid" type="id" is-pk="true"/>
 		<field name="deptid" type="id" is-pk="true"/>
+    <relationship type="one" related="dongbo.Dept" short-alias="sdept">
+			<key-map field-name="deptid" related="id"/>
+	</relationship>
+	<master>
+		<detail relationship="sdept"></detail>
+	</master>
     </entity>
 </entities>
