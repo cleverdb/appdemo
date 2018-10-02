@@ -254,4 +254,26 @@ label[class^="Update"][class$="is-changed"]{
 	background-color: #cccccc;
 }
 
+.filePic{
+    width:60px;
+    height:30px;
+    display:inline-block;
+    background-color:rgb(91,183,91);
+    border:1px solid rgb(91,183,91);
+    border-radius:3px;
+    color:white;
+    font-size:14px;
+    font-family:微软雅黑;
+    cursor:pointer;
+    text-align:center;
+    vertical-align: center;
+    box-shadow:0px 0px 1px 1px rgb(91,160,91);
+    }
+
+.filePic:hover{
+    background-color:rgb(91,160,91);
+    border-color:rgb(91,160,91);
+    color:white;
+    text-decoration:none;
+    }   
 

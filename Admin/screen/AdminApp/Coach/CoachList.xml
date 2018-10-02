@@ -67,10 +67,10 @@ along with this software (see the LICENSE.md file). If not, see
             </field>
            
              <field name="iconUrl">
-                <default-field  title="头像"><image url=""></image></default-field>
+                <default-field  title="头像"><filePicture width="200px"/> </default-field>
             </field>
              <field name="photoUrl">
-                <default-field  title="照片"><image url=""></image> </default-field>
+                <default-field  title="照片"><filePicture/> </default-field>
             </field>
             <field name="honor">
                 <default-field title="教练荣誉"><text-area /></default-field>
