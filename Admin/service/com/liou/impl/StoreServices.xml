@@ -41,7 +41,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters><parameter name="storeId" required="true"/></out-parameters>
         <actions>
-            <service-call name="create#moqui.security.Store" out-map="context" in-map="context"/>
+            <service-call name="create#com.liou.Store" out-map="context" in-map="context"/>
         </actions>
     </service>
 	<service verb="update" noun="Store" authenticate="true" allow-remote="false">
@@ -70,7 +70,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters><parameter name="storeId" required="true"/></out-parameters>
         <actions>
-            <service-call name="update#moqui.security.Store" out-map="context" in-map="context"/>
+            <service-call name="update#com.liou.Store" out-map="context" in-map="context"/>
         </actions>
     </service>
 </services>
