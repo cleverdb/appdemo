@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" require-authentication="true">
+
+    <transition name="editStore"><default-response url="../EditStore"/></transition>
+    <transition name="addStore" >
+    	<service-call name="com.liou.impl.StoreServices.create#Store">
+    	</service-call>
+    	<default-response url="."/>
+    </transition>
+    <actions>
+        <entity-find entity-name="com.liou.UserAccountAndPersonCustomer" list="customerList">
+            <search-form-inputs default-order-by="lastUpdateStamp"/>
+        </entity-find>
+    </actions>
+    <widgets>
+    	<container-box><box-header><label text="门店管理" type="h5"/></box-header>
+    	<box-toolbar>
+    	<container-dialog id="CreateStoreDialog" button-text="新增">
+			<form-single name="CreateStoreForm" transition="addStore">
+            <field name="storeName">
+                <default-field title="名称"><text-line size="30"/> </default-field>
+            </field>
+            <field name="storePhone">
+                <default-field  title="电话"><text-line size="30"/></default-field>
+            </field>
+          
+            <field name="storeFax">
+                <default-field title="传真"><text-line size="30"/></default-field>
+            </field>
+            <field name="totalArea">
+                <default-field title="总面积"><text-line size="30"/></default-field>
+            </field>
+            <field name="workArea">
+                <default-field title="私教区面积"><text-line size="30"/></default-field>
+            </field>
+            <field name="address">
+                <default-field title="地址"><text-line size="30"/></default-field>
+            </field>
+            <field name="description">
+                <default-field title="简介"><text-area/> </default-field>
+            </field>
+            <field name="status">
+                <default-field title="状态"><text-line size="30"/> </default-field>
+            </field>
+             <field name="appPower">
+                <default-field title="" ><checkWithPic url="/ssstatic/images/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></checkWithPic> </default-field>
+            </field>
+            <field name="appPool">
+                <default-field  title=""><checkWithPic url="/ssstatic/images/pool.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="游泳池"/></checkWithPic></default-field>
+            </field>
+            <field name="appAir">
+                <default-field title="" > <checkWithPic url="/ssstatic/images/airSport.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y"  text="有氧设备"/></checkWithPic> </default-field>
+            </field>
+            <field name="appPingpong">
+                <default-field  title=""><checkWithPic url="/ssstatic/images/pingpong.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="乒乓球台"/></checkWithPic></default-field>
+            </field>
+            <field name="appBadminton">
+                <default-field title=""><checkWithPic  url="/ssstatic/images/badminton.png"  url-type="screen" style="invertible" width="80" height="60" > <option key="Y" text="羽毛球场"/></checkWithPic></default-field>
+            </field>
+            <field name="serverWifi">
+                <default-field title=""><checkWithPic  url="/ssstatic/images/wifi.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="WIFI"/></checkWithPic></default-field>
+            </field>
+            <field name="serverPark">
+                <default-field title=""> <checkWithPic  url="/ssstatic/images/park.png"  url-type="screen" style="invertible" width="80" height="60" ><option text="停车" key="Y"  /></checkWithPic></default-field>
+            </field>
+            <field name="serverTowel">
+                <default-field title=""> <checkWithPic  url="/ssstatic/images/towel.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="毛巾"/></checkWithPic> </default-field>
+            </field>
+            <field name="serverShower" >
+                <default-field title="" > <checkWithPic url="/ssstatic/images/shower.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="淋浴" /></checkWithPic> </default-field>
+            </field>
+            <field name="serverWater">
+                <default-field title=""><checkWithPic  url="/ssstatic/images/water.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="饮用水"/></checkWithPic> </default-field>
+            </field>
+            <field name="serverAirclean">
+                <default-field title=""> <checkWithPic  url="/ssstatic/images/airclean.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="空气净化" /></checkWithPic></default-field>
+            </field>
+<!--             https://blog.csdn.net/weixin_42220533/article/details/82348855 
+https://blog.csdn.net/checkmate_room/article/details/79230167
+https://blog.csdn.net/Kevin_like/article/details/52124766-->
+            <field name="serverLocker">
+                <default-field title=""><checkWithPic  url="/ssstatic/images/locker.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="储物柜"/></checkWithPic></default-field>
+            </field>
+			<field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+			<field-layout>
+                <field-row><field-ref name="storeName"/><field-ref name="status"/></field-row>
+                <field-row><field-ref name="storePhone"/><field-ref name="storeFax"/></field-row>
+                <field-row ><field-ref name="totalArea"/><field-ref name="workArea"/></field-row>
+                <field-ref name="address"/>
+                <field-ref name="description"/>
+                <field-group title="分店器械" >
+	                <field-row-big >
+	                	<field-ref name="appPower"/>
+						<field-ref name="appPool"/>
+						<field-ref name="appAir"/>
+						<field-ref name="appPingpong"/>
+						<field-ref name="appBadminton"/>
+	                </field-row-big>
+                </field-group>
+                 <field-group title="便利服务">
+	                <field-row-big >
+	                	<field-ref name="serverWifi"/>
+						<field-ref name="serverPark"/>
+						<field-ref name="serverTowel"/>
+						<field-ref name="serverShower"/>
+						<field-ref name="serverWater"/>
+						<field-ref name="serverAirclean"/>
+						<field-ref name="serverLocker"/>
+	                </field-row-big>
+                </field-group>
+                  <field-group title=" ">
+                </field-group>
+                <field-ref name="submitButton"/>
+            </field-layout>
+			</form-single>
+		</container-dialog>
+	    </box-toolbar><box-body>
+        <form-list name="CustomerList" list="customerList" skip-form="true" header-dialog="true" select-columns="true"
+                       show-csv-button="true" show-text-button="true" show-pdf-button="true" dynamic="true">
+            <field name="partyId" hide="true" >
+                <header-field title="ID" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
+            </field>
+            <field name="storeName">
+                <header-field title="名称" show-order-by="true"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="storePhone">
+                <header-field title="电话" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="storeFax">
+                <header-field title="传真" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="totalArea">
+                <header-field title="总面积" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="workArea">
+                <header-field title="私教区面积" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="address">
+                <header-field title="地址" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><display/></default-field>
+            </field>
+            <field name="status">
+                <header-field title="状态" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><image height="25" width="25" url="${status == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+             <field name="appPower">
+                <header-field title="力量设备" ></header-field>
+                <default-field><image height="25" width="25" url="${appPower == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="appPool">
+                <header-field title="游泳池" ></header-field>
+                <default-field><image height="25" width="25" url="${appPool == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="appAir">
+                <header-field title="有氧设备" ></header-field>
+                <default-field><image height="25" width="25" url="${appAir == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="appPingpong">
+                <header-field title="乒乓球台" ></header-field>
+                <default-field><image height="25" width="25" url="${appPingpong == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="appBadminton">
+                <header-field title="羽毛球场" ></header-field>
+                <default-field><image height="25" width="25" url="${appBadminton == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverWifi">
+                <header-field title="WIFI" ></header-field>
+                <default-field><image height="25" width="25" url="${serverWifi == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverPark">
+                <header-field title="停车" ></header-field>
+                <default-field><image height="25" width="25" url="${serverPark == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverTowel">
+                <header-field title="毛巾" ></header-field>
+                <default-field><image height="25" width="25" url="${serverTowel == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverShower" >
+                <header-field title="淋浴" ></header-field>
+                <default-field><image height="25" width="25" url="${serverShower == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverWater">
+                <header-field title="饮用水" ></header-field>
+                <default-field><image height="25" width="25" url="${serverWater == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverAirclean">
+                <header-field title="空气净化" ></header-field>
+                <default-field><image height="25" width="25" url="${serverAirclean == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="serverLocker">
+                <header-field title="储物柜" ></header-field>
+                <default-field><image height="25" width="25" url="${serverLocker == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+            </field>
+            <field name="find"><header-field title="查找"><submit/></header-field>
+                <default-field><display text=" "/></default-field></field>
+            <field name="editStoreButton" align="right">
+            	<header-field title=" "></header-field>
+            	<default-field>
+<!--             		<link url="editStore" parameter-map="[storeId:storeId]"" text="编辑"  ></link> -->
+            		<dynamic-dialog button-text="编辑"   transition="editStore" id ="EditStore"  type="primary"> 
+ 	                </dynamic-dialog> 
+            	</default-field>
+             </field>
+<!--             <field name="editPasswordButton" align="center"> -->
+<!--             	<header-field title=" "></header-field> -->
+<!--                 <default-field> -->
+<!-- 	                <dynamic-dialog button-text="修改密码"  parameter-map="[userId:userId]" transition="updatePassword" id ="EditPassword"  type="warning"> -->
+<!-- 	                </dynamic-dialog> -->
+<!--              	</default-field> -->
+<!--              </field> -->
+        </form-list>
+      </box-body></container-box>
+    </widgets>
+</screen>

@@ -3,5 +3,27 @@
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
        <extend-entity entity-name="UserAccount" package="moqui.security">
 	        <field name="englishName" type="text-medium" />
+	        <field name="cellphone" type="text-medium"/>
+	        <field name="wechat" type="text-medium"/>
+	        <field name="idCardType" type="id" />
+	        <field name="birthDate" type="date"></field>
+	        <field name="idCard" type="text-short" />
+	        <relationship type="one" title="IDCardTypeEnum" related="moqui.basic.Enumeration" short-alias="icte">
+				<key-map field-name="idCardType"/>
+			</relationship>
+			<seed-data>
+             <!-- idCard -->
+            <moqui.basic.EnumerationType description="ID Card Type Enum" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="身份证" enumId="IDCard" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="护照" enumId="Passport" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="驾驶证" enumId="DrivingLicence" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="军官证" enumId="CertificateOfOfficers" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="士官证" enumId="SergeantCard" enumTypeId="IDCardTypeEnum"/>
+            <moqui.basic.Enumeration description="其他" enumId="Others" enumTypeId="IDCardTypeEnum"/>
+            
+		</seed-data>
+		 <master>
+            <detail relationship="icte"/>
+        </master>
         </extend-entity>   
 </entities>
