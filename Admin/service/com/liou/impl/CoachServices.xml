@@ -21,8 +21,8 @@ along with this software (see the LICENSE.md file). If not, see
             <auto-parameters entity-name="com.liou.Coach" include="nonpk"/>
             <parameter name="createTime" default-value="${ec.user.nowTimestamp}"/>
             <parameter name="createUser" default-value="${ec.user.userAccount.userFullName}"/>
-            <parameter name="iconUrl" type="File"/>
-            <parameter name="photoUrl" type="File"/>
+            <parameter name="icon" type="org.apache.commons.fileupload.FileItem"/>
+            <parameter name="photo" type="org.apache.commons.fileupload.FileItem"/>
         </in-parameters>
         <out-parameters>
             <parameter name="coachId"/>
@@ -36,7 +36,97 @@ along with this software (see the LICENSE.md file). If not, see
 <!--             <if condition="iconUrl &amp;&amp; photoUrl"> -->
 <!--                  <service-call name="update#moqui.security.UserAccount" in-map="[partyId:partyId, iconUrl:iconUrl,photoUrl:photoUrl]"/> -->
 <!--             </if> -->
-
+             <if condition="icon &amp;&amp; icon.size &gt; 0">
+             	<set field="savePath" value="component://Admin/screen/static/images/icon"/>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:icon,savePath:savePath,fileNamePerfix:partyId]" out-map="out" ></service-call>
+             	<if condition="ec.message.hasError()">
+	            	<then>
+	               		<message error="true">保存图片失败</message>
+	           		</then>
+	           		<else>
+	           			<set field="iconUrl" value="/static/images/icon/${out.fileName}"/>
+	           		</else>
+            	</if>
+             </if>
+             <if condition="photo &amp;&amp; photo.size &gt; 0">
+             	<set field="savePath" value="component://Admin/screen/static/images/photo"/>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:photo,savePath:savePath,fileNamePerfix:partyId]" out-map="out"></service-call>
+             	<if condition="ec.message.hasError()">
+	            	<then>
+	               		<message error="true">保存图片失败</message>
+	           		</then>
+	           		<else>
+	           			<set field="photoUrl" value="/static/images/photo/${out.fileName}"/>
+	           		</else>
+            	</if>
+             </if>
+             <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,partyId:partyId]"></service-call>
+        </actions>
+    </service>
+    <service verb="update" noun="Coach" authenticate="true">
+        <description>
+        </description>
+        <in-parameters>
+            <auto-parameters entity-name="com.liou.Coach"/>
+            <parameter name="icon" type="org.apache.commons.fileupload.FileItem"/>
+            <parameter name="photo" type="org.apache.commons.fileupload.FileItem"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="coachId"/>
+            <parameter name="partyId"/>
+        </out-parameters>
+        <actions>
+			<service-call name="update#com.liou.Coach" in-map="context"/>
+             <if condition="icon &amp;&amp; icon.size &gt; 0">
+             	<set field="savePath" value="component://Admin/screen/static/images/icon"/>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:icon,savePath:savePath,fileNamePerfix:partyId]" out-map="out" ></service-call>
+             	<if condition="ec.message.hasError()">
+	            	<then>
+	               		<message error="true">保存图片失败</message>
+	           		</then>
+	           		<else>
+	           			<set field="iconUrl" value="/static/images/icon/${out.fileName}"/>
+	           		</else>
+            	</if>
+             </if>
+             <if condition="photo &amp;&amp; photo.size &gt; 0">
+             	<set field="savePath" value="component://Admin/screen/static/images/photo"/>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:photo,savePath:savePath,fileNamePerfix:partyId]" out-map="out"></service-call>
+             	<if condition="ec.message.hasError()">
+	            	<then>
+	               		<message error="true">保存图片失败</message>
+	           		</then>
+	           		<else>
+	           			<set field="photoUrl" value="/static/images/photo/${out.fileName}"/>
+	           		</else>
+            	</if>
+             </if>
+             <if condition = "iconUrl &amp;&amp; photoUrl ">
+             	 <then>
+             		 <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,partyId:partyId]"></service-call>
+             	 </then>	
+	             <else-if condition= "iconUrl">
+	             	 <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,partyId:partyId]"></service-call>
+	             </else-if>
+	             <else-if condition= "photoUrl">
+	             	 <service-call name="update#mantle.party.Person" in-map="[photoUrl:photoUrl,partyId:partyId]"></service-call>
+	             </else-if>
+             </if>
+             
+        </actions>
+    </service>
+    <service verb="save" noun="Picture" authenticate="true" type="script" location="component://Admin/script/org/moqui/example/SavaPicture.groovy">
+        <description>
+        </description>
+        <in-parameters>
+            <parameter name="uploadFile" type="org.apache.commons.fileupload.FileItem" required="true"/>
+            <parameter name="savePath" type="String" required="true"/>
+            <parameter name="fileNamePerfix" type="String" required="true"/>
+        </in-parameters>
+        <out-parameters>
+        	<parameter name="fileName"/>
+        </out-parameters>
+        <actions>
         </actions>
     </service>
 </services>

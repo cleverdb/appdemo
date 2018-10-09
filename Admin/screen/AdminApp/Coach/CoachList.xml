@@ -41,7 +41,7 @@ along with this software (see the LICENSE.md file). If not, see
     	<container-box><box-header><label text="教练管理" type="h5"/></box-header>
     	<box-toolbar>
     	<container-dialog id="CreateCoachDialog" button-text="新增">
-			<form-single name="CreateCoachForm" transition="addCoach">
+			<form-single name="CreateCoachForm" transition="addCoach" >
             <field name="partyId">
 				<default-field title="教练">
 					<drop-down size="100">
@@ -66,10 +66,10 @@ along with this software (see the LICENSE.md file). If not, see
                 </default-field>
             </field>
            
-             <field name="iconUrl">
+             <field name="icon">
                 <default-field  title="头像"><filePicture width="200px"/> </default-field>
             </field>
-             <field name="photoUrl">
+             <field name="photo">
                 <default-field  title="照片"><filePicture/> </default-field>
             </field>
             <field name="honor">
@@ -84,7 +84,7 @@ along with this software (see the LICENSE.md file). If not, see
 			<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
 			<field-layout>
                 <field-row><field-ref name="partyId"/><field-ref name="specialityEnumId"/></field-row>
-	            <field-row><field-ref name="iconUrl"/><field-ref name="photoUrl"/></field-row>
+	            <field-row><field-ref name="icon"/><field-ref name="photo"/></field-row>
                 <field-row ><field-ref name="honor"/><field-ref name="description"/></field-row>
                 <field-ref name="remark"/>
                 <field-ref name="submitButton"/>

@@ -58,45 +58,45 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field title="状态"><text-line size="30"/> </default-field>
             </field>
              <field name="appPower">
-                <default-field title="" ><checkWithPic url="/ssstatic/images/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></checkWithPic> </default-field>
+                <default-field title="" ><checkWithPic url="/static/images/sys/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></checkWithPic> </default-field>
             </field>
             <field name="appPool">
-                <default-field  title=""><checkWithPic url="/ssstatic/images/pool.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="游泳池"/></checkWithPic></default-field>
+                <default-field  title=""><checkWithPic url="/static/images/sys/pool.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="游泳池"/></checkWithPic></default-field>
             </field>
             <field name="appAir">
-                <default-field title="" > <checkWithPic url="/ssstatic/images/airSport.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y"  text="有氧设备"/></checkWithPic> </default-field>
+                <default-field title="" > <checkWithPic url="/static/images/sys/airSport.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y"  text="有氧设备"/></checkWithPic> </default-field>
             </field>
             <field name="appPingpong">
-                <default-field  title=""><checkWithPic url="/ssstatic/images/pingpong.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="乒乓球台"/></checkWithPic></default-field>
+                <default-field  title=""><checkWithPic url="/static/images/sys/pingpong.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="乒乓球台"/></checkWithPic></default-field>
             </field>
             <field name="appBadminton">
-                <default-field title=""><checkWithPic  url="/ssstatic/images/badminton.png"  url-type="screen" style="invertible" width="80" height="60" > <option key="Y" text="羽毛球场"/></checkWithPic></default-field>
+                <default-field title=""><checkWithPic  url="/static/images/sys/badminton.png"  url-type="screen" style="invertible" width="80" height="60" > <option key="Y" text="羽毛球场"/></checkWithPic></default-field>
             </field>
             <field name="serverWifi">
-                <default-field title=""><checkWithPic  url="/ssstatic/images/wifi.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="WIFI"/></checkWithPic></default-field>
+                <default-field title=""><checkWithPic  url="/static/images/sys/wifi.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="WIFI"/></checkWithPic></default-field>
             </field>
             <field name="serverPark">
-                <default-field title=""> <checkWithPic  url="/ssstatic/images/park.png"  url-type="screen" style="invertible" width="80" height="60" ><option text="停车" key="Y"  /></checkWithPic></default-field>
+                <default-field title=""> <checkWithPic  url="/static/images/sys/park.png"  url-type="screen" style="invertible" width="80" height="60" ><option text="停车" key="Y"  /></checkWithPic></default-field>
             </field>
             <field name="serverTowel">
-                <default-field title=""> <checkWithPic  url="/ssstatic/images/towel.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="毛巾"/></checkWithPic> </default-field>
+                <default-field title=""> <checkWithPic  url="/static/images/sys/towel.png"  url-type="screen" style="invertible" width="80" height="60"  ><option key="Y" text="毛巾"/></checkWithPic> </default-field>
             </field>
             <field name="serverShower" >
-                <default-field title="" > <checkWithPic url="/ssstatic/images/shower.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="淋浴" /></checkWithPic> </default-field>
+                <default-field title="" > <checkWithPic url="/static/images/sys/shower.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="淋浴" /></checkWithPic> </default-field>
             </field>
             <field name="serverWater">
-                <default-field title=""><checkWithPic  url="/ssstatic/images/water.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="饮用水"/></checkWithPic> </default-field>
+                <default-field title=""><checkWithPic  url="/static/images/sys/water.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="饮用水"/></checkWithPic> </default-field>
             </field>
             <field name="serverAirclean">
-                <default-field title=""> <checkWithPic  url="/ssstatic/images/airclean.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="空气净化" /></checkWithPic></default-field>
+                <default-field title=""> <checkWithPic  url="/static/images/sys/airclean.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="空气净化" /></checkWithPic></default-field>
             </field>
 <!--             https://blog.csdn.net/weixin_42220533/article/details/82348855 
 https://blog.csdn.net/checkmate_room/article/details/79230167
 https://blog.csdn.net/Kevin_like/article/details/52124766-->
             <field name="serverLocker">
-                <default-field title=""><checkWithPic  url="/ssstatic/images/locker.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="储物柜"/></checkWithPic></default-field>
+                <default-field title=""><checkWithPic  url="/static/images/sys/locker.png"  url-type="screen" style="invertible" width="80" height="60"><option key="Y" text="储物柜"/></checkWithPic></default-field>
             </field>
-			<field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+			<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
 			<field-layout>
                 <field-row><field-ref name="storeName"/><field-ref name="status"/></field-row>
                 <field-row><field-ref name="storePhone"/><field-ref name="storeFax"/></field-row>
@@ -161,55 +161,55 @@ https://blog.csdn.net/Kevin_like/article/details/52124766-->
             </field>
             <field name="status">
                 <header-field title="状态" show-order-by="true"><text-find size="15" hide-options="true"/></header-field>
-                <default-field><image height="25" width="25" url="${status == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${status == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
              <field name="appPower">
                 <header-field title="力量设备" ></header-field>
-                <default-field><image height="25" width="25" url="${appPower == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${appPower == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="appPool">
                 <header-field title="游泳池" ></header-field>
-                <default-field><image height="25" width="25" url="${appPool == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${appPool == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="appAir">
                 <header-field title="有氧设备" ></header-field>
-                <default-field><image height="25" width="25" url="${appAir == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${appAir == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="appPingpong">
                 <header-field title="乒乓球台" ></header-field>
-                <default-field><image height="25" width="25" url="${appPingpong == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${appPingpong == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="appBadminton">
                 <header-field title="羽毛球场" ></header-field>
-                <default-field><image height="25" width="25" url="${appBadminton == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${appBadminton == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverWifi">
                 <header-field title="WIFI" ></header-field>
-                <default-field><image height="25" width="25" url="${serverWifi == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverWifi == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverPark">
                 <header-field title="停车" ></header-field>
-                <default-field><image height="25" width="25" url="${serverPark == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverPark == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverTowel">
                 <header-field title="毛巾" ></header-field>
-                <default-field><image height="25" width="25" url="${serverTowel == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverTowel == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverShower" >
                 <header-field title="淋浴" ></header-field>
-                <default-field><image height="25" width="25" url="${serverShower == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverShower == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverWater">
                 <header-field title="饮用水" ></header-field>
-                <default-field><image height="25" width="25" url="${serverWater == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverWater == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverAirclean">
                 <header-field title="空气净化" ></header-field>
-                <default-field><image height="25" width="25" url="${serverAirclean == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverAirclean == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="serverLocker">
                 <header-field title="储物柜" ></header-field>
-                <default-field><image height="25" width="25" url="${serverLocker == 'Y' ?'/ssstatic/images/Y.png':'/ssstatic/images/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
+                <default-field><image height="25" width="25" url="${serverLocker == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }" url-type="screen" style="invertible" > </image> </default-field>
             </field>
             <field name="find"><header-field title="查找"><submit/></header-field>
                 <default-field><display text=" "/></default-field></field>

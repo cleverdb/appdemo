@@ -11,12 +11,12 @@
 	<parameter name="coachId" required="true" />
 	
 	<transition name="updateCoach">
-		<service-call name="update#com.liou.Coach">
+		<service-call name="com.liou.impl.CoachServices.update#Coach">
 		</service-call>
 		<default-response url="." />
 	</transition>
 	<actions>
-		<entity-find-one entity-name="com.liou.CoachInfoViews" value-field="coach">
+		<entity-find-one entity-name="com.liou.CoachInfoViews" value-field="coach" cache="false">
 		</entity-find-one>
 	</actions>
 	<widgets>
@@ -37,16 +37,21 @@
 							</field>
 							<field name="partyId">
 								<default-field title="教练">
-									<drop-down size="100">
-										<entity-options key="${partyId}"
-											text="${userFullName}(工号：${username})">
-											<entity-find entity-name="com.liou.UserAccountAndCoach">
-												<econdition field-name="roleTypeId" value="10004" />
-											</entity-find>
-										</entity-options>
-									</drop-down>
+									<display  text="${userFullName}(工号：${username})"/>
 								</default-field>
 							</field>
+<!-- 							<field name="party"> -->
+<!-- 								<default-field title="教练" > -->
+<!-- 									<drop-down size="100"  disabled = "true" > -->
+<!-- 										<entity-options key="${partyId}" -->
+<!-- 											text="${userFullName}(工号：${username})"> -->
+<!-- 											<entity-find entity-name="com.liou.UserAccountAndCoach"> -->
+<!-- 												<econdition field-name="roleTypeId" value="10004" /> -->
+<!-- 											</entity-find> -->
+<!-- 										</entity-options> -->
+<!-- 									</drop-down> -->
+<!-- 								</default-field> -->
+<!-- 							</field> -->
 							<field name="specialityEnumId">
 								<default-field title="教练等级">
 									<drop-down>
@@ -60,14 +65,14 @@
 								</default-field>
 							</field>
 
-							<field name="iconUrl">
+							<field name="icon">
 								<default-field title="头像">
-									<filePic />
+									<filePicture url="${iconUrl}" url-type="screen" />
 								</default-field>
 							</field>
-							<field name="photoUrl">
+							<field name="photo">
 								<default-field title="照片">
-									<file ></file>
+									<filePicture url="${photoUrl}" url-type="screen" /> 
 								</default-field>
 							</field>
 							<field name="honor">
@@ -96,8 +101,8 @@
 									<field-ref name="specialityEnumId" />
 								</field-row>
 								<field-row>
-									<field-ref name="iconUrl" />
-									<field-ref name="photoUrl" />
+									<field-ref name="icon" />
+									<field-ref name="photo" />
 								</field-row>
 								<field-row>
 									<field-ref name="honor" />

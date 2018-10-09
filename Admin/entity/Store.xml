@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
-  	<entity entity-name="Store" package="com.liou." use="transactional" short-alias="store">
+  	<entity entity-name="Store" package="com.liou" use="transactional" short-alias="store">
         <field name="storeId" type="id" is-pk="true"/>
         <field name="storeName" type="text-medium" enable-audit-log="true" />
         <field name="storePhone" type="text-medium"/>
@@ -9,7 +9,7 @@
         <field name="totalArea" type="number-decimal"/>
         <field name="workArea" type="number-decimal"/>
        	<field name="address" type="text-medium"></field>
-       	<field name="status" type="text-indicator"/>
+       	<field name="status" type="text-medium"/>
         <field name="appPower" type="text-indicator"/>
         <field name="appPool" type="text-indicator"/>
         <field name="appAir" type="text-indicator"/>
