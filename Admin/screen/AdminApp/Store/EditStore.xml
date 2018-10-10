@@ -57,8 +57,17 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field title="简介"><text-area/> </default-field>
             </field>
             <field name="status">
-                <default-field title="状态"><text-line size="30"/> </default-field>
-            </field>
+				<default-field title="状态">
+								<drop-down>
+									<entity-options text="${description}">
+										<entity-find entity-name="moqui.basic.Enumeration">
+											<econdition field-name="enumTypeId" value="StoreStatus" />
+											<order-by field-name="description" />
+										</entity-find>
+									</entity-options>
+								</drop-down>
+							</default-field>			
+			</field>
              <field name="appPower">
                 <default-field title="" ><checkWithPic url="/ssstatic/images/power.png"  url-type="screen" style="invertible" width="80" height="60" ><option key="Y" text="力量设备"/></checkWithPic> </default-field>
             </field>
