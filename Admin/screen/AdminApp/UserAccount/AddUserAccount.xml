@@ -165,10 +165,10 @@
 							</field>
 							<field name="gender">
 								<default-field title="性别" tooltip="请选择性别" >
-									<drop-down allow-empty="true"  size="20" disabled="_userId != null">
+									<drop-down  size="20" disabled="_userId != null">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
-				                                <econdition field-name="enumTypeId" value="EmployeeGenderEnum"/>
+				                                <econdition field-name="enumTypeId" value="GenderEnum"/>
 				                                <order-by field-name="description"/>
 				                            </entity-find>
 				                        </entity-options>
