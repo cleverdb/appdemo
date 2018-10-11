@@ -25,15 +25,20 @@ along with this software (see the LICENSE.md file). If not, see
         <entity-find-one entity-name="moqui.security.UserGroup" value-field="userGroup"/>
     </actions>
     <widgets>
-        <form-single name="UserGroupForm" map="userGroup" transition="updateUserGroup">
-            <field name="userGroupId"><default-field ><hidden/></default-field></field>
-            <field name="userGroupName"><default-field title="名称" ><text-line size="20"/></default-field></field>
-            <field name="description"><default-field title="描述"><text-area/></default-field></field>
-<!--             <field name="groupTypeEnumId"><default-field title="Group Type"> -->
-<!--                 <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown"> -->
-<!--                     <set field="enumTypeId" value="UserGroupType"/><set field="allowEmpty" value="true"/></widget-template-include> -->
-<!--             </default-field></field> -->
-            <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
-        </form-single>
+    	<container-row>
+    		<row-col lg="7">
+    			<form-single name="UserGroupForm" map="userGroup" transition="updateUserGroup">
+		            <field name="userGroupId"><default-field ><hidden/></default-field></field>
+		            <field name="userGroupName"><default-field title="名称" ><text-line size="20"/></default-field></field>
+		            <field name="description"><default-field title="描述"><text-area/></default-field></field>
+		<!--             <field name="groupTypeEnumId"><default-field title="Group Type"> -->
+		<!--                 <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown"> -->
+		<!--                     <set field="enumTypeId" value="UserGroupType"/><set field="allowEmpty" value="true"/></widget-template-include> -->
+		<!--             </default-field></field> -->
+		            <field name="submitButton"><default-field title="保存"><submit/></default-field></field>
+        		</form-single>
+    		</row-col>
+    	</container-row>
+        
     </widgets>
 </screen>

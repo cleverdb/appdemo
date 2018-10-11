@@ -100,7 +100,6 @@ along with this software (see the LICENSE.md file). If not, see
             </field> 
             	<field name="username">
 						<header-field title="用户工号" show-order-by="true">
-							<text-find size="10" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display/>
@@ -116,7 +115,6 @@ along with this software (see the LICENSE.md file). If not, see
 					</field>
 					<field name="englishName">
 						<header-field title="英文名" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -130,26 +128,31 @@ along with this software (see the LICENSE.md file). If not, see
 					</field>
 					<field name="post">
 						<header-field title="职位">
-							<drop-down allow-empty="true">
-								<dynamic-options  transition="getPostList" delay="300" value-field="enumId" label-field="description">
-		                        </dynamic-options>
-							</drop-down>
 						</header-field>
 						<default-field>
 							<display-entity entity-name="moqui.basic.Enumeration"/>
 						</default-field>
 					</field>
-					 <field name="specialityEnumId">
-			                <default-field  title="教练等级">
+					 <field name="specialityEnumId" >
+					 		<header-field title="教练等级">
+					 			<drop-down allow-empty="true">
+									<entity-options  text="${description}">
+										<entity-find entity-name="moqui.basic.Enumeration">
+											<econdition field-name="enumTypeId" value="CoachSpeciality" />
+										</entity-find>
+									</entity-options>
+								</drop-down>
+					 		</header-field>
+			                <default-field  >
 			                	<display-entity entity-name="moqui.basic.Enumeration"/>
 			                </default-field>
            			 </field>
            			 <field name="disabled">
 						<header-field title="状态" show-order-by="true">
-<!-- 							<drop-down allow-empty="true"> -->
-<!-- 								<option key="Y" text="冻结" /> -->
-<!-- 								<option key="N" text="正常" /> -->
-<!-- 							</drop-down> -->
+							<drop-down allow-empty="true">
+								<option key="Y" text="离职" />
+								<option key="N" text="在职" />
+							</drop-down>
 						</header-field>
 						<default-field>
 							<display

@@ -5,12 +5,12 @@
 	        <field name="englishName" type="text-medium" />
 	        <field name="cellphone" type="text-medium"/>
 	        <field name="wechat" type="text-medium"/>
-	        <field name="gender" type="text-medium"/>
+	        <field name="sex" type="id"/>
 	        <field name="idCardType" type="id" />
 	        <field name="birthDate" type="date"></field>
 	        <field name="idCard" type="text-short" />
-	        <relationship type="one" title="GenderEnum" related="moqui.basic.Enumeration" short-alias="ge">
-				<key-map field-name="gender"/>
+	        <relationship type="one" title="SexEnum" related="moqui.basic.Enumeration" short-alias="se">
+				<key-map field-name="sex"/>
 			</relationship>
 	        <relationship type="one" title="IDCardTypeEnum" related="moqui.basic.Enumeration" short-alias="icte">
 				<key-map field-name="idCardType"/>
@@ -25,12 +25,13 @@
             <moqui.basic.Enumeration description="士官证" enumId="SergeantCard" enumTypeId="IDCardTypeEnum"/>
             <moqui.basic.Enumeration description="其他" enumId="Others" enumTypeId="IDCardTypeEnum"/>
             
-            <moqui.basic.EnumerationType description="Gender" enumTypeId="GenderEnum"/>
-            <moqui.basic.Enumeration description="男" enumId="MEN" enumTypeId="GenderEnum"/>
-            <moqui.basic.Enumeration description="女" enumId="WOMEN" enumTypeId="GenderEnum"/>
+            <moqui.basic.EnumerationType description="Sex" enumTypeId="SexEnum"/>
+            <moqui.basic.Enumeration description="男" enumId="MEN" enumTypeId="SexEnum"/>
+            <moqui.basic.Enumeration description="女" enumId="WOMEN" enumTypeId="SexEnum"/>
 		</seed-data>
 		 <master>
             <detail relationship="icte"/>
+            <detail relationship="se"/>
         </master>
         </extend-entity>   
 </entities>

@@ -230,7 +230,6 @@
 					show-text-button="true" show-pdf-button="true" dynamic="true">
 					<field name="storeId" hide="true">
 						<header-field title="ID" show-order-by="true">
-							<text-find size="10" hide-options="true" />
 						</header-field>
 					</field>
 					<field name="storeName">
@@ -243,7 +242,6 @@
 					</field>
 					<field name="storePhone">
 						<header-field title="电话" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -251,7 +249,6 @@
 					</field>
 					<field name="storeFax">
 						<header-field title="传真" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -259,7 +256,6 @@
 					</field>
 					<field name="totalArea">
 						<header-field title="总面积" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -267,7 +263,6 @@
 					</field>
 					<field name="workArea">
 						<header-field title="私教区面积" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -275,7 +270,6 @@
 					</field>
 					<field name="address">
 						<header-field title="地址" show-order-by="true">
-							<text-find size="15" hide-options="true" />
 						</header-field>
 						<default-field>
 							<display />
@@ -283,13 +277,16 @@
 					</field>
 					<field name="status">
 						<header-field title="状态" show-order-by="true">
-							<text-find size="15" hide-options="true" />
+							<drop-down allow-empty="true">
+									<entity-options  text="${description}">
+										<entity-find entity-name="moqui.basic.Enumeration">
+											<econdition field-name="enumTypeId" value="StoreStatus" />
+										</entity-find>
+									</entity-options>
+								</drop-down>
 						</header-field>
 						<default-field>
-							<image height="25" width="25"
-								url="${status == 'Y' ?'/static/images/sys/Y.png':'/static/images/sys/N.png' }"
-								url-type="screen" style="invertible">
-							</image>
+							<display-entity entity-name="moqui.basic.Enumeration"/>
 						</default-field>
 					</field>
 					<field name="appPower">

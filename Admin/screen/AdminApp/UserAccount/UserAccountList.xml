@@ -8,7 +8,7 @@
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
 	default-menu-include="false" require-authentication="true"
-	default-menu-title="用户" default-menu-index="5">
+	default-menu-title="员工" default-menu-index="5">
 
 	<transition name="editUserAccount">
 		<default-response url="../EditUserAccount" />
@@ -89,6 +89,8 @@
 			<field-map field-name="department" />
 			<field-map field-name="userFullName" />
 			<field-map field-name="roleTypeIds" />
+			<field-map field-name="partyTypeEnumId" value="PtyEmployee" />
+			
 			<field-map field-name="post" />
 			<field-map field-name="orderByField" />
 			<field-map field-name="pageIndex" />
@@ -97,7 +99,7 @@
 	<widgets>
 		<container-box>
 			<box-header>
-				<label text="用户信息" type="h5" />
+				<label text="员工列表" type="h5" />
 			</box-header>
 			<box-toolbar>
 				<link url="addUserAccount" text="新增"></link>
@@ -118,7 +120,7 @@
 						</default-field>
 					</field>
 					<field name="username">
-						<header-field title="用户工号" show-order-by="true">
+						<header-field title="员工工号" show-order-by="true">
 							<text-find size="10" hide-options="true" />
 						</header-field>
 						<default-field>

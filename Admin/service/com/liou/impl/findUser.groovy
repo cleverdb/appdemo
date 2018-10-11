@@ -30,6 +30,7 @@ EntityFind ef = ec.entity.find("com.liou.UserAccountAndPerson").distinct(true)
 // don't do distinct, SQL quandary with distinct, limited select, and order by with upper needing to be selected; seems to get good results in general without: .distinct(true)
 
 if (post) { ef.condition("post", post) }
+if (partyTypeEnumId) { ef.condition("partyTypeEnumId", partyTypeEnumId) }
 if (department) { ef.condition("department", department) }
 if (username) { ef.condition(ec.entity.conditionFactory.makeCondition("username", EntityCondition.LIKE,  (leadingWildcard ? "%" : "") + username + "%").ignoreCase()) }
 if (userFullName) { ef.condition(ec.entity.conditionFactory.makeCondition("userFullName", EntityCondition.LIKE,  (leadingWildcard ? "%" : "") + userFullName + "%").ignoreCase()) }

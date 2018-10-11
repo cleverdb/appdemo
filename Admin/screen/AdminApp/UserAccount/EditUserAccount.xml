@@ -7,20 +7,9 @@
 	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-	default-menu-title="用户信息" default-menu-index="2"  >
+	default-menu-title="员工信息" default-menu-index="2"  >
 
 	<parameter name="userId" required="true" />
-	<transition name="getSexTypeEnumList">
-		<actions>
-			<log level="warn" message="In getSexTypeEnumList transition sex=${sex}" />
-			<entity-find entity-name="moqui.basic.Enumeration" list="sexEnumList">
-				<econdition field-name="enumTypeId" value="EmployeeSex" />
-				<order-by field-name="description" />
-			</entity-find>
-			<script>ec.web.sendJsonResponse(sexEnumList)</script>
-		</actions>
-		<default-response type="none" />
-	</transition>
 	<transition name="updateUserAccount">
 		<service-call name="com.liou.impl.UserServices.update#Account" />
 		<default-response url="." />
@@ -166,12 +155,12 @@
 									<date-time type="date" size="15"/>
 								</default-field>
 							</field>
-							<field name="gender">
+							<field name="sex">
 								<default-field title="性别" tooltip="请选择性别">
 									<drop-down allow-empty="true"  size="20">
 				                        <entity-options text="${description}">
 				                            <entity-find entity-name="moqui.basic.Enumeration">
-				                                <econdition field-name="enumTypeId" value="EmployeeGenderEnum"/>
+				                                <econdition field-name="enumTypeId" value="SexEnum"/>
 				                                <order-by field-name="description"/>
 				                            </entity-find>
 				                        </entity-options>
@@ -188,7 +177,7 @@
 				                <field-row><field-ref name="post"/><field-ref name="emailAddress"/></field-row>
 				                <field-row ><field-ref name="userFullName"/><field-ref name="englishName"/></field-row>
 				                <field-row ><field-ref name="cellphone"/><field-ref name="wechat"/></field-row>
-				                <field-row ><field-ref name="gender"/><field-ref name="salary"/></field-row>
+				                <field-row ><field-ref name="sex"/><field-ref name="salary"/></field-row>
 				                <field-row ><field-ref name="idCardType"/><field-ref name="idCard"/></field-row>
 				                <field-row ><field-ref name="birthDate"/><field-ref name="hiredate"/></field-row>
 				                <field-row ><field-ref name="roleTypeIds"/></field-row>	              	        

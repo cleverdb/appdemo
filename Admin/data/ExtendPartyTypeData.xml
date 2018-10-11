@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="seed">
+      <moqui.basic.Enumeration description="Employee" enumId="PtyEmployee" enumTypeId="PartyType"/>
+      <moqui.basic.Enumeration description="Customer" enumId="PtyCustomer" enumTypeId="PartyType"/>
+</entity-facade-xml>
