@@ -3,8 +3,6 @@
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
                     
 	<extend-entity  entity-name="Person" package="mantle.party">
-        <field name="iconUrl" type="text-medium"/>
-        <field name="photoUrl" type="text-medium"/>
         <field name="roleTypeIds" type="text-medium"/>
         <field name="salary" type="number-decimal"/>
         <field name="hiredate" type="date"/>

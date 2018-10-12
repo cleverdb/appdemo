@@ -44,7 +44,7 @@ along with this software (see the LICENSE.md file). If not, see
 			<form-single name="CreateCoachForm" transition="addCoach" >
             <field name="partyId">
 				<default-field title="教练">
-					<drop-down size="100">
+					<drop-down size="100" >
 						<entity-options key="${partyId}" text="${userFullName}(工号：${username})">
 							<entity-find entity-name="com.liou.UserAccountAndCoach" >
 								<econdition field-name="roleTypeId" value="10004"/>
@@ -65,13 +65,13 @@ along with this software (see the LICENSE.md file). If not, see
                 	</drop-down>
                 </default-field>
             </field>
-           
-             <field name="icon">
-                <default-field  title="头像"><filePicture width="200px"/> </default-field>
-            </field>
-             <field name="photo">
-                <default-field  title="照片"><filePicture/> </default-field>
-            </field>
+<!--             <field name="icon"> -->
+<!--                 <default-field  title="头像">					 -->
+<!--                 <filePicture url ="${iconUrl}"/> </default-field> -->
+<!--             </field> -->
+<!--              <field name="photo"> -->
+<!--                 <default-field  title="照片"><filePicture url ="${iconUrl}"/> </default-field> -->
+<!--             </field> -->
             <field name="honor">
                 <default-field title="教练荣誉"><text-area /></default-field>
             </field>
@@ -84,7 +84,7 @@ along with this software (see the LICENSE.md file). If not, see
 			<field name="submitButton"><default-field title="保存"><submit/></default-field></field>
 			<field-layout>
                 <field-row><field-ref name="partyId"/><field-ref name="specialityEnumId"/></field-row>
-	            <field-row><field-ref name="icon"/><field-ref name="photo"/></field-row>
+<!-- 	            <field-row><field-ref name="icon"/><field-ref name="photo"/></field-row> -->
                 <field-row ><field-ref name="honor"/><field-ref name="description"/></field-row>
                 <field-ref name="remark"/>
                 <field-ref name="submitButton"/>

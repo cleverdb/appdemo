@@ -4,6 +4,8 @@
        <extend-entity entity-name="UserAccount" package="moqui.security">
 	        <field name="englishName" type="text-medium" />
 	        <field name="cellphone" type="text-medium"/>
+	        <field name="iconUrl" type="text-medium"/>
+        	<field name="photoUrl" type="text-medium"/>
 	        <field name="wechat" type="text-medium"/>
 	        <field name="sex" type="id"/>
 	        <field name="idCardType" type="id" />

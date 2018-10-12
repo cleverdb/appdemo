@@ -26,6 +26,10 @@
 		<service-call name="update#moqui.security.UserGroupMember" />
 		<default-response url="." />
 	</transition>
+	<transition name="AddOrUpDatePicture">
+    	<service-call name="com.liou.impl.UserServices.addOrUpdate#PersonPicture"/>
+        <default-response url = "."></default-response>
+    </transition>
 	<actions>
 		<entity-find-one entity-name="com.liou.UserAccountAndPerson"
 			value-field="userAccount" />
@@ -272,6 +276,31 @@
 					<box-toolbar>
 					</box-toolbar>
 					<box-body>
+					<form-single name="UserAccountPicture" transition="AddOrUpDatePicture" map="userAccount"  >
+						<field name="userId" from="userId">
+								<default-field>
+									<hidden />
+								</default-field>
+						</field>
+						<field name="icon">
+	               			 <default-field  title="头像"><filePicture url="${iconUrl}" url-type="screen"/> </default-field>
+			            </field>
+			             <field name="photo">
+			                <default-field  title="照片"><filePicture url="${photoUrl}" url-type="screen"/> </default-field>
+			            </field>
+			            <field name="submitButton">
+								<default-field title="保存">
+									<submit />
+								</default-field>
+						</field>
+						<field-layout>
+							<field-row>
+								<field-ref name="icon"/>
+								<field-ref name="photo"/>
+							</field-row>
+							<field-ref name="submitButton"/>
+						</field-layout>
+		            </form-single>
 					</box-body>
 					<box-body-nopad>
 					</box-body-nopad>

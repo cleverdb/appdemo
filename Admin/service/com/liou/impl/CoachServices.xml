@@ -60,26 +60,29 @@ along with this software (see the LICENSE.md file). If not, see
 	           		</else>
             	</if>
              </if>
-             <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,partyId:partyId]"></service-call>
+             <service-call name="update#moqui.security.UserAccount" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,partyId:partyId]"></service-call>
         </actions>
     </service>
+    
     <service verb="update" noun="Coach" authenticate="true">
         <description>
         </description>
         <in-parameters>
             <auto-parameters entity-name="com.liou.Coach"/>
+            <parameter name="userId" type="String" required="true" />
             <parameter name="icon" type="org.apache.commons.fileupload.FileItem"/>
             <parameter name="photo" type="org.apache.commons.fileupload.FileItem"/>
         </in-parameters>
         <out-parameters>
             <parameter name="coachId"/>
             <parameter name="partyId"/>
+            <parameter name="userId"/>
         </out-parameters>
         <actions>
 			<service-call name="update#com.liou.Coach" in-map="context"/>
              <if condition="icon &amp;&amp; icon.size &gt; 0">
              	<set field="savePath" value="component://Admin/screen/static/images/icon"/>
-             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:icon,savePath:savePath,fileNamePerfix:partyId]" out-map="out" ></service-call>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:icon,savePath:savePath,fileNamePerfix:userId]" out-map="out" ></service-call>
              	<if condition="ec.message.hasError()">
 	            	<then>
 	               		<message error="true">保存图片失败</message>
@@ -91,7 +94,7 @@ along with this software (see the LICENSE.md file). If not, see
              </if>
              <if condition="photo &amp;&amp; photo.size &gt; 0">
              	<set field="savePath" value="component://Admin/screen/static/images/photo"/>
-             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:photo,savePath:savePath,fileNamePerfix:partyId]" out-map="out"></service-call>
+             	<service-call name="com.liou.impl.CoachServices.save#Picture" in-map="[uploadFile:photo,savePath:savePath,fileNamePerfix:userId]" out-map="out"></service-call>
              	<if condition="ec.message.hasError()">
 	            	<then>
 	               		<message error="true">保存图片失败</message>
@@ -103,13 +106,13 @@ along with this software (see the LICENSE.md file). If not, see
              </if>
              <if condition = "iconUrl &amp;&amp; photoUrl ">
              	 <then>
-             		 <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,partyId:partyId]"></service-call>
+             		 <service-call name="update#moqui.security.UserAccount" in-map="[iconUrl:iconUrl,photoUrl:photoUrl,userId:userId]"></service-call>
              	 </then>	
 	             <else-if condition= "iconUrl">
-	             	 <service-call name="update#mantle.party.Person" in-map="[iconUrl:iconUrl,partyId:partyId]"></service-call>
+	             	 <service-call name="update#moqui.security.UserAccount" in-map="[iconUrl:iconUrl,userId:userId]"></service-call>
 	             </else-if>
 	             <else-if condition= "photoUrl">
-	             	 <service-call name="update#mantle.party.Person" in-map="[photoUrl:photoUrl,partyId:partyId]"></service-call>
+	             	 <service-call name="update#moqui.security.UserAccount" in-map="[photoUrl:photoUrl,userId:userId]"></service-call>
 	             </else-if>
              </if>
              

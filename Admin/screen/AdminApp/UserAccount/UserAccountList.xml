@@ -141,7 +141,7 @@
 							<display/>
 						</default-field>
 					</field>
-					<field name="gender">
+					<field name="sex">
 						<header-field title="性別" >
 						</header-field>
 						<default-field>

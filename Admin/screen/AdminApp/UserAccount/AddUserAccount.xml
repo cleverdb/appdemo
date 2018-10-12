@@ -10,7 +10,6 @@
 	default-menu-title="新增员工" require-authentication="true" default-menu-include="false">
 
 	<parameter name="_userId" required="false" from = "userId" />
-	<parameter name="partyId" required="false" from = "partyId"/>
 	<transition name="getSexTypeEnumList">
 		<actions>
 			<log level="warn" message="In getSexTypeEnumList transition gender=${gender}" />
@@ -290,17 +289,17 @@
 					<box-toolbar>
 					</box-toolbar>
 					<box-body>
-					<form-single name="UserAccountPicture" transition="AddOrUpDatePicture" >
-						<field name="partyId" from="partyId">
+					<form-single name="UserAccountPicture" transition="AddOrUpDatePicture" map="userAccount"  >
+						<field name="userId" from="_userId">
 								<default-field>
 									<hidden />
 								</default-field>
 						</field>
 						<field name="icon">
-	               			 <default-field  title="头像"><filePicture width="200px"/> </default-field>
+	               			 <default-field  title="头像"><filePicture url="${iconUrl}" url-type="screen"/> </default-field>
 			            </field>
 			             <field name="photo">
-			                <default-field  title="照片"><filePicture/> </default-field>
+			                <default-field  title="照片"><filePicture url="${photoUrl}" url-type="screen"/> </default-field>
 			            </field>
 			            <field name="submitButton">
 								<default-field title="保存">

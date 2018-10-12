@@ -35,23 +35,16 @@
 									<hidden/>
 								</default-field>
 							</field>
+							<field name="userId">
+								<default-field>
+									<hidden/>
+								</default-field>
+							</field>
 							<field name="partyId">
 								<default-field title="教练">
 									<display  text="${userFullName}(工号：${username})"/>
 								</default-field>
 							</field>
-<!-- 							<field name="party"> -->
-<!-- 								<default-field title="教练" > -->
-<!-- 									<drop-down size="100"  disabled = "true" > -->
-<!-- 										<entity-options key="${partyId}" -->
-<!-- 											text="${userFullName}(工号：${username})"> -->
-<!-- 											<entity-find entity-name="com.liou.UserAccountAndCoach"> -->
-<!-- 												<econdition field-name="roleTypeId" value="10004" /> -->
-<!-- 											</entity-find> -->
-<!-- 										</entity-options> -->
-<!-- 									</drop-down> -->
-<!-- 								</default-field> -->
-<!-- 							</field> -->
 							<field name="specialityEnumId">
 								<default-field title="教练等级">
 									<drop-down>
@@ -64,10 +57,21 @@
 									</drop-down>
 								</default-field>
 							</field>
-
+							<field name="specialityEnumId">
+								<default-field title="教练等级">
+									<drop-down>
+										<entity-options text="${description}">
+											<entity-find entity-name="moqui.basic.Enumeration">
+												<econdition field-name="enumTypeId" value="CoachSpeciality" />
+												<order-by field-name="description" />
+											</entity-find>
+										</entity-options>
+									</drop-down>
+								</default-field>
+							</field>							
 							<field name="icon">
-								<default-field title="头像">
-									<filePicture url="${iconUrl}" url-type="screen" />
+								<default-field title="头像">	
+									<filePicture url="${iconUrl}" url-type="screen"  />
 								</default-field>
 							</field>
 							<field name="photo">
