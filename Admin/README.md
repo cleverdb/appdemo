@@ -5,3 +5,4 @@ INSERT INTO "public"."artifact_group_member" ("artifact_group_id", "artifact_nam
 3. 
 INSERT INTO "public"."artifact_authz" ("artifact_authz_id", "user_group_id", "artifact_group_id", "authz_type_enum_id", "authz_action_enum_id", "authz_service_name", "last_updated_stamp") VALUES ('ADMIN_APP_ADMIN', 'ADMIN', 'ADMIN_APP', 'AUTHZT_ALWAYS', 'AUTHZA_ALL', '', '2018-09-10 07:20:02.279');
 
+INSERT INTO "public"."subscreens_item" VALUES ('component://webroot/screen/webroot/apps.xml', 'Admin', 'ALL_USERS', 'component://Admin/screen/AdminApp.xml', 'Admin', '10', 'Y', ' ', '2018-10-11 07:16:30.95');
