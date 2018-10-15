@@ -16,7 +16,7 @@
             <key-map field-name="specialityEnumId"/></relationship>
 		<seed-data>
 			 <!-- specialityEnumId -->
-            <moqui.basic.EnumerationType description="coach speciality" enumTypeId="CoachSpeciality"/>
+            <moqui.basic.EnumerationType description="coach speciality" enumTypeId="CoachSpeciality" parentEnumTypeId="LIOU_ENUM"/>
             <moqui.basic.Enumeration description="团操教练" enumId="Public" enumTypeId="CoachSpeciality"/>
             <moqui.basic.Enumeration description="私教教练" enumId="Private" enumTypeId="CoachSpeciality"/>
 		

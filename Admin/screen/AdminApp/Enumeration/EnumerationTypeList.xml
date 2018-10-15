@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This software is in the public domain under CC0 1.0 Universal plus a 
+	Grant of Patent License. To the extent possible under law, the author(s) 
+	have dedicated all copyright and related and neighboring rights to this software 
+	to the public domain worldwide. This software is distributed without any 
+	warranty. You should have received a copy of the CC0 Public Domain Dedication 
+	along with this software (see the LICENSE.md file). If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. -->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+	default-menu-include="false" require-authentication="true">
+
+	<transition name="editEnumType">
+		<default-response url="../EditEnumType" />
+	</transition>
+	<transition name="addEnumType">
+		<service-call name="create#moqui.basic.EnumerationType">
+		</service-call>
+		<default-response url="." />
+	</transition>
+	<actions>
+		<entity-find entity-name="moqui.basic.EnumerationType" list="enumTypeList">
+			<search-form-inputs />
+			<econdition field-name="parentEnumTypeId" value="LIOU_ENUM"/>
+		</entity-find>
+	</actions>
+	<widgets>
+		<container-box>
+			<box-header>
+				<label text="字典类型" type="h5" />
+			</box-header>
+			<box-toolbar>
+				<container-dialog id="CreateEnumTypeDialog"
+					button-text="新增">
+					<form-single name="CreateEnumTypeForm" transition="addEnumType">
+						<field name="parentEnumTypeId">
+							<default-field >
+								<hidden default-value="LIOU_ENUM"/>
+							</default-field>
+						</field>
+						<field name="description">
+							<default-field title="名称">
+								<text-line size="30" />
+							</default-field>
+						</field>
+						<field name="remark">
+							<default-field title="描述">
+								<text-area />
+							</default-field>
+						</field>
+						<field name="submitButton">
+							<default-field title="保存">
+								<submit />
+							</default-field>
+						</field>
+					</form-single>
+				</container-dialog>
+			</box-toolbar>
+			<box-body>
+				<form-list name="EnumTypeList" list="enumTypeList" skip-form="true"
+					header-dialog="true" select-columns="true" show-csv-button="true"
+					show-text-button="true" show-pdf-button="true" dynamic="true">
+					<field name="enumTypeId">
+						<header-field title="id">
+						</header-field>
+						<default-field>
+							<hidden/>
+						</default-field>
+					</field>
+					<field name="description">
+						<header-field title="名称" show-order-by="true">
+							<text-find size="20"  hide-options="true"/>
+						</header-field>
+						<default-field>
+							<display></display>
+						</default-field>
+					</field>
+					<field name="remark">
+						<header-field title="描述">
+						</header-field>
+						<default-field>
+							<display></display>
+						</default-field>
+					</field>
+					<field name="find">
+						<header-field title="查找">
+							<submit />
+						</header-field>
+						<default-field>
+							<display text=" " />
+						</default-field>
+					</field>
+					<field name="editEnumTypeButton" align="center">
+						<header-field title=" "></header-field>
+						<default-field>
+							<link url="editEnumType"  text="编辑"> <parameter name="[enumTypeId:enumTypeId]"/></link>
+<!-- 							<dynamic-dialog button-text="编辑" transition="editEnumType" -->
+<!-- 								id="EditEnumType" type="primary"> -->
+<!-- 							</dynamic-dialog> -->
+						</default-field>
+					</field>
+				</form-list>
+			</box-body>
+		</container-box>
+		
+	</widgets>
+</screen>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+                    
+	<extend-entity  entity-name="EnumerationType" package="moqui.basic">
+        <field name="remark" type="text-short"></field>
+        <field name="parentEnumTypeId" type="id"></field>
+        <relationship type="one-nofk" title="Parent" related="moqui.basic.EnumerationType" short-alias="parent">
+            <key-map field-name="parentEnumTypeId"/></relationship>
+        <seed-data>
+        	<moqui.basic.EnumerationType description="力偶健身系统" enumTypeId="LIOU_ENUM"/>
+        </seed-data>
+        <master><detail relationship="parent"></detail></master>
+    </extend-entity>
+    
+    <extend-entity  entity-name="Enumeration" package="moqui.basic">
+        <field name="remark" type="text-short"></field>
+    </extend-entity>
+</entities>

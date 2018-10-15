@@ -16,28 +16,28 @@
 		</relationship>
 		<seed-data>
              <!-- department -->
-            <moqui.basic.EnumerationType description="Department Enum" enumTypeId="DepartmentEnum"/>
+            <moqui.basic.EnumerationType description="Department Enum" enumTypeId="DepartmentEnum" parentEnumTypeId="LIOU_ENUM"/>
             <moqui.basic.Enumeration description="会员服务部" enumId="MemberServices" enumTypeId="DepartmentEnum"/>
             <moqui.basic.Enumeration description="会籍部" enumId="Membership" enumTypeId="DepartmentEnum"/>
             <moqui.basic.Enumeration description="私教部" enumId="Personaltainer" enumTypeId="DepartmentEnum"/>
             <moqui.basic.Enumeration description="团操部" enumId="GroupClass" enumTypeId="DepartmentEnum"/>
             
             <!-- post -->
-            <moqui.basic.EnumerationType description="Post Enum" enumTypeId="PostEnum"/>
+            <moqui.basic.EnumerationType description="Post Enum" enumTypeId="PostEnum" parentEnumTypeId="LIOU_ENUM"/>
             <moqui.basic.Enumeration description="员工" enumId="Employee" enumTypeId="PostEnum"/>
             <moqui.basic.Enumeration description="经理" enumId="Manager" enumTypeId="PostEnum"/>
             <moqui.basic.Enumeration description="主管" enumId="WarehouseManager" enumTypeId="PostEnum"/>
             <moqui.basic.Enumeration description="店长" enumId="StoreManager" enumTypeId="PostEnum"/>
             <moqui.basic.Enumeration description="总经理" enumId="GeneralManager" enumTypeId="PostEnum"/>
             
-             <!-- Employee Type -->
-            <moqui.basic.EnumerationType description="Employe Type Enum" enumTypeId="EmployeeTypeEnum"/>
-            <moqui.basic.Enumeration description="会员服务" enumId="MembershipService" enumTypeId="EmployeeTypeEnum"/>
-            <moqui.basic.Enumeration description="职员" enumId="Staff" enumTypeId="EmployeeTypeEnum"/>
-            <moqui.basic.Enumeration description="会籍顾问" enumId="MembershipConsultant" enumTypeId="EmployeeTypeEnum"/>
-            <moqui.basic.Enumeration description="教练" enumId="Coach" enumTypeId="EmployeeTypeEnum"/>
+<!--              Employee Type -->
+<!--             <moqui.basic.EnumerationType description="Employe Type Enum" enumTypeId="EmployeeTypeEnum" parentEnumTypeId="LIOU_ENUM"/> -->
+<!--             <moqui.basic.Enumeration description="会员服务" enumId="MembershipService" enumTypeId="EmployeeTypeEnum"/> -->
+<!--             <moqui.basic.Enumeration description="职员" enumId="Staff" enumTypeId="EmployeeTypeEnum"/> -->
+<!--             <moqui.basic.Enumeration description="会籍顾问" enumId="MembershipConsultant" enumTypeId="EmployeeTypeEnum"/> -->
+<!--             <moqui.basic.Enumeration description="教练" enumId="Coach" enumTypeId="EmployeeTypeEnum"/> -->
             
-            <mantle.party.RoleType roleTypeId = "1000" parentTypeId = "" description="员工类型"/>
+            <mantle.party.RoleType roleTypeId = "1000" parentTypeId = "" description="员工类型" />
             <mantle.party.RoleType roleTypeId = "10001" parentTypeId = "1000" description="职员"/>
             <mantle.party.RoleType roleTypeId = "10002" parentTypeId = "1000" description="会员服务"/>
             <mantle.party.RoleType roleTypeId = "10003" parentTypeId = "1000" description="会籍顾问"/>
