@@ -25,6 +25,9 @@ import org.moqui.util.StringUtilities
 
 // org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("findParty")
 
+//RestClient rc = ec.service.rest().method(RestClient.GET).uri(enumUri).addHeader("api_key", apiKey)
+//RestClient.RestResponse response = rc.call()
+
 ExecutionContextImpl ec = context.ec
 
 // generate login key
