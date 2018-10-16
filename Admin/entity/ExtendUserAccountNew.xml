@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
+       <extend-entity entity-name="UserAccount" package="moqui.security">
+	        <field name="cellphone" type="text-medium"/>
+	        <field name="apiKey" type="text-short"><description>商户号</description></field>
+	        <field name="secretKey" type="text-short"><description>秘钥</description></field>
+	        <field name="amount" type="number-decimal"><description>账户金额</description></field>
+	        <field name="warnAmount" type="number-decimal"><description>预警金额</description></field>
+	        <field name="thruDate" type="date-time"><description>账户截止日期</description></field>
+        </extend-entity>   
+</entities>
