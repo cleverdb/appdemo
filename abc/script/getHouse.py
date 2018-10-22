@@ -26,6 +26,29 @@ houseSession = requests.session()
 #原始的session.cookies 没有save()方法
 houseSession.cookies = cookiejar.LWPCookieJar(filename=filename)
 
+def index():
+    url = 'https://ztcwx.myscrm.cn/index.php?r=choose-room-activity/login'
+    header = {
+        'Host': 'ztcwx.myscrm.cn',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+        'X-Requested-With': 'XMLHttpRequest',
+        'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.1.2; zh-cn; Chitanda/Akari) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 Micromessage/6.0.0.58_r884092.501 NetType/WIFI',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'Referer': 'https://ztcwx.myscrm.cn/page/login.html?activityId=%s&token=%s&url=https://ztcwx.myscrm.cn/page/activity.html?token=%s&activityId=%s'%(activityId, token, token, activityId),
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Cookie': initCookie
+    }
+    data = '&token=%s&activityId=%s&mobile=%s&idCardNo=%s'%(token, activityId)
+    ssl._create_default_https_context = ssl._create_unverified_context
+    login = houseSession.post(url, data,headers=header,verify=False)
+    jsonData = login.json()
+    isEnableSmsVerify = jsonData["isEnableSmsVerify"]
+    if isEnableSmsVerify == 0 :
+        return True
+    else:
+        return False
 #获取验证码
 def sendVerifyCode():
     url = 'https://ztcwx.myscrm.cn/index.php?r=choose-room-activity/send-verify-code'
@@ -60,6 +83,34 @@ def login(verifyCode):
         'Cookie': initCookie
     }
     data = '&token=%s&activityId=%s&mobile=%s&idCardNo=%s&verifyCode=%s'%(token, activityId, mobile, idCardNo, verifyCode)
+    ssl._create_default_https_context = ssl._create_unverified_context
+    loginResult = houseSession.post(url, data,headers=header,verify=False)
+    jsonData = loginResult.json()
+    retCode = jsonData["retCode"]
+    if retCode != "0001001" :
+        print(jsonData)
+        houseSession.cookies.save()
+        print("账户登陆成功")
+        return True
+    else:
+        print(loginResult.json())
+        return False
+    
+def loginWithoutVerifyCode():
+    url = 'https://ztcwx.myscrm.cn/index.php?r=choose-room-activity/confirm-login'
+    header = {
+        'Host': 'ztcwx.myscrm.cn',
+        'Connection': 'keep-alive',
+        'Accept': '*/*',
+        'X-Requested-With': 'XMLHttpRequest',
+        'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.1.2; zh-cn; Chitanda/Akari) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 Micromessage/6.0.0.58_r884092.501 NetType/WIFI',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'Referer': 'https://ztcwx.myscrm.cn/page/login.html?activityId=%s&token=%s&url=https://ztcwx.myscrm.cn/page/activity.html?token=%s&activityId=%s'%(activityId, token, token, activityId),
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Cookie': initCookie
+    }
+    data = '&token=%s&activityId=%s&mobile=%s&idCardNo=%s'%(token, activityId, mobile, idCardNo)
     ssl._create_default_https_context = ssl._create_unverified_context
     loginResult = houseSession.post(url, data,headers=header,verify=False)
     jsonData = loginResult.json()
@@ -181,10 +232,15 @@ def submitOrder(roomid, randomCode ,question_option_id = 0):
 if  __name__ == "__main__":
     houseSession.cookies.load(ignore_discard=True)
     remaintime = 0
-    sendVerifyCode()
-    code = input("输入验证码:")
-    result = login(code)
-    if result:
+    loginresult = False
+    EnableVerifyCode = index()
+    if EnableVerifyCode:
+        sendVerifyCode()
+        code = input("输入验证码:")
+        loginresult = login(code)
+    else:
+         loginresult = loginWithoutVerifyCode()
+    if loginresult:
         #活动开始时间
         #Fri, 21 Sep 2018 08:29:07 GMT
         #serverTime = time.mktime(time.strptime("Fri, 21 Sep 2018 08:29:07 GMT", '%a, %d %b %Y %H:%M:%S GMT'))
@@ -206,7 +262,8 @@ if  __name__ == "__main__":
         #             print("抢房成功，房号：%s"%(roomid))
         #             break;
         #startBuyHouse()
-
+    else:
+        print("------登陆失败--------------")
 
 
 
