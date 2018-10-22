@@ -8,17 +8,18 @@ from io import StringIO
 from http import cookiejar
 import time
 import datetime
+from builtins import str
 
 
-mobile="13377863363"
-idCardNo="420621199012164568"
-fristTargetId =""
-targetRoomid = [12,12,12,12,12]
+mobile="15600684638"
+idCardNo="421125199309044638"
+fristTargetId ="2555679"
+targetRoomid = [2555679,2555680,2555678]
 filename = 'cookie.txt'
-activityId = '4350'
-token = 'azrkvw1493281329'
-activityVersion ='' ;
-initCookie ='env_orgcode=xlzdadmin; last_env=g2; public_no_token=e744f82cdc7ac4caa3ffee2d035a04bc8168b7c1b3272f433f88b56b7d58d296a%3A2%3A%7Bi%3A0%3Bs%3A15%3A%22public_no_token%22%3Bi%3A1%3Bs%3A16%3A%22azrkvw1493281329%22%3B%7D; yunke_org_id=98b60a297ccf311bd19cd3424bc3b162bc57266afd86271381eb19e0ee128372a%3A2%3A%7Bi%3A0%3Bs%3A12%3A%22yunke_org_id%22%3Bi%3A1%3Bs%3A36%3A%2239debffa-6dec-d05e-8cf7-dbb6483baf0a%22%3B%7D; ztc_org_id=2e4de75b25bba306188fec3cd7b1b2f62beb164f62eb111d33b1cd218bb1d634a%3A2%3A%7Bi%3A0%3Bs%3A10%3A%22ztc_org_id%22%3Bi%3A1%3Bi%3A493%3B%7D; PHPSESSID=ib4cc1sad7h1fupeh22ri7etl7; aliyungf_tc=AQAAAPyvwTZXiAQAGvSUPW7rGhTqwt5W; acw_tc=76b20f6a15372693266994098e151d7d3c4fc5a0a75dd30698da5b75bab07a; SelectCity=0%2C%E5%85%A8%E5%9B%BD; gr_user_id=eebd6b7f-4d72-4188-a431-611f82c4ed01'
+activityId = '4703'
+token = 'gjbkst1514448478'
+_activityVersion =4 ;
+initCookie ='aliyungf_tc=AQAAAA1GBxJXcwIAm5EryklVOKlcdYEj; PHPSESSID=kc8jgt1r7u6k0o1kpp5dacsh34; env_orgcode=hyyhadmin; public_no_token=8306102b7d3ecfd4780037b3f9b6647868890ac62da572101e62752b2d84ce21a%3A2%3A%7Bi%3A0%3Bs%3A15%3A%22public_no_token%22%3Bi%3A1%3Bs%3A16%3A%22gjbkst1514448478%22%3B%7D; yunke_org_id=b095813e04cc880874c75cb6e8836d6dd1410dee679bda34b9f5e72ec8085d59a%3A2%3A%7Bi%3A0%3Bs%3A12%3A%22yunke_org_id%22%3Bi%3A1%3Bs%3A36%3A%2239e3a984-83bb-65c1-1fe9-ae2cf7c01b2c%22%3B%7D; ztc_org_id=c8c82cce6b7a60b5ddf0333c86bc9f3a628e5695360205cec03bc91d05c8e445a%3A2%3A%7Bi%3A0%3Bs%3A10%3A%22ztc_org_id%22%3Bi%3A1%3Bi%3A758%3B%7D; last_env=g2'
 
 
 # session代表某一次连接
@@ -40,15 +41,16 @@ def index():
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cookie': initCookie
     }
-    data = '&token=%s&activityId=%s&mobile=%s&idCardNo=%s'%(token, activityId)
+    data = '&token=%s&activityId=%s'%(token, activityId)
     ssl._create_default_https_context = ssl._create_unverified_context
     login = houseSession.post(url, data,headers=header,verify=False)
     jsonData = login.json()
-    isEnableSmsVerify = jsonData["isEnableSmsVerify"]
+    print(jsonData)
+    isEnableSmsVerify = jsonData["data"]["isEnableSmsVerify"]
     if isEnableSmsVerify == 0 :
-        return True
-    else:
         return False
+    else:
+        return True
 #获取验证码
 def sendVerifyCode():
     url = 'https://ztcwx.myscrm.cn/index.php?r=choose-room-activity/send-verify-code'
@@ -139,6 +141,7 @@ def beforSatartTime(roomid):
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cookie': initCookie
     }
+    ssl._create_default_https_context = ssl._create_unverified_context
     page =houseSession.get(url,headers=header,verify=False)
     jsonData = page.json();
     raw = jsonData['data'];
@@ -162,12 +165,15 @@ def enterRoom(roomid):
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cookie': initCookie
     }
+    ssl._create_default_https_context = ssl._create_unverified_context
     page =houseSession.get(url,headers=header,verify=False)
     jsonData = page.json();
     raw = jsonData['data'];
+    print(raw)
     #获取activityVersion，后续提交表单需要
-    global activityVersion
-    activityVersion = raw['activityVersion']
+    global _activityVersion
+    print("----"+ str(raw["activityVersion"]))
+    _activityVersion = str(raw["activityVersion"])
     # choose_room_status ==0 代表房源可选
     if(raw['choose_room_status'] == 0):
         print("enter room id:%s,"%(roomid))
@@ -177,7 +183,7 @@ def enterRoom(roomid):
 
     #获取randomCode参数，（是否检验）
 def chooseRoom(roomid):
-    url = "https://ztcwx.myscrm.cn/index.php?r=choose-room/get-random-code&token=%s&chooseRoomId=%s&activityVersion=%s"%(token, roomid, activityVersion)
+    url = "https://ztcwx.myscrm.cn/index.php?r=choose-room/get-random-code&token=%s&chooseRoomId=%s&activityVersion=%s"%(token, roomid, _activityVersion)
     header = {
         'Host': 'ztcwx.myscrm.cn',
         'Connection': 'keep-alive',
@@ -190,10 +196,12 @@ def chooseRoom(roomid):
         'Accept-Language': 'zh-CN,zh;q=0.9',
         'Cookie': initCookie
     }
+    ssl._create_default_https_context = ssl._create_unverified_context
     page =houseSession.get(url,headers=header,verify=False)
     jsonData = page.json();
     raw = jsonData['data'];
-    randomCode = raw['randomCode']
+    print(jsonData)
+    randomCode = str(raw['randomCode'])
     #判断是否需要验证码验证 question==null 不需要
     #if(raw['question']):
         #处理验证码
@@ -217,7 +225,7 @@ def submitOrder(roomid, randomCode ,question_option_id = 0):
     'Accept-Language': 'zh-CN,zh;q=0.9',
     'Cookie': initCookie
     }
-    data = 'verify=False&token=%s&chooseRoomId=%s&activityVersion=%s&randomCode=%s&question_option_id=%s'%(token,roomid,activityVersion,randomCode,question_option_id)
+    data = 'verify=False&token=%s&chooseRoomId=%s&activityVersion=%s&randomCode=%s&question_option_id=%s'%(token,roomid,_activityVersion,randomCode,question_option_id)
     ssl._create_default_https_context = ssl._create_unverified_context
     page = houseSession.post(url, data,headers=header,verify=False)
     jsonData = page.json();
@@ -239,29 +247,32 @@ if  __name__ == "__main__":
         code = input("输入验证码:")
         loginresult = login(code)
     else:
-         loginresult = loginWithoutVerifyCode()
+        loginresult = loginWithoutVerifyCode()
     if loginresult:
         #活动开始时间
         #Fri, 21 Sep 2018 08:29:07 GMT
         #serverTime = time.mktime(time.strptime("Fri, 21 Sep 2018 08:29:07 GMT", '%a, %d %b %Y %H:%M:%S GMT'))
-        # activityTime = time.mktime(time.strptime("2018-09-21 16:30:00", '%Y-%m-%d %H:%M:%S'))
-        # #每隔5秒刷新页面
-        # while(activityTime > int(time.time())):
-        #     #刷新页面
-        #     remaintime = beforSatartTime(fristTargetId) #剩余时间
-        #     if(10 > remaintime):
-        #         break
-        #     time.sleep(5)
-        # time.sleep(remaintime-1)
-        # print("进入二次等待")
+        activityTime = time.mktime(time.strptime("2018-10-22 09:00:00", '%Y-%m-%d %H:%M:%S'))
+        #每隔5秒刷新页面
+        while(activityTime > int(time.time())):
+             #刷新页面
+            remaintime = beforSatartTime(fristTargetId) #剩余时间
+            if(10 > remaintime):
+                break
+            time.sleep(5)
+        if (remaintime-1) > 0 :
+        
+            time.sleep(remaintime-1)
+        print("进入二次等待")
         #开始买房
         print(time.strftime("%Y-%m-%d %H:%M:%S:%MS", time.localtime()))
-        # for roomid in targetRoomid:
-        #     if(enterRoom(roomid)):
-        #         if(chooseRoom(roomid)):
-        #             print("抢房成功，房号：%s"%(roomid))
-        #             break;
-        #startBuyHouse()
+        for roomid in targetRoomid:
+            if(enterRoom(roomid)):
+                if(chooseRoom(roomid)):
+                    print("抢房成功，房号：%s"%(roomid))
+                    break;
+                else:
+                    print("抢房失败，房号：%s"%(roomid))
     else:
         print("------登陆失败--------------")
 
